@@ -143,14 +143,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -210,6 +210,39 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2010/01/01/OpenGL/OpenGL 绘制方式：用显示列表绘制三角形/">
+        <h2 class="post-title">
+            OpenGL 绘制方式：用显示列表绘制三角形
+        </h2>
+        <h3 class="post-subtitle">
+             "OpenGL 入门"
+        </h3>
+        <div class="post-content-preview">
+            OpenGL 绘制方式：用显示列表绘制三角形
+
+“OpenGL 入门”
+
+显示列表是一组 OpenGL 命令的集合。当它被创建后，所有的顶点数据和像素数据被传输到服务端的显示列表内存中，这个过程只执行一次。显示列表是比较快的绘制静态数据的方式，因为顶点数据和 OpenGL 命令被缓存在服务端的显示列表中，减少从客户端到服务端的数据传输周期。
+因为缓存在服务端，可以被多个客户端共享。但被编译后......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2010-01-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -279,24 +312,20 @@ sudo apt-get instal......
 
 <div class="post-preview">
 
-    <a href="/2010/01/01/0/OpenCV 手记/">
+    <a href="/2010/01/01/0/OpenGL 绘制方式：用顶点数组绘制三角形/">
         <h2 class="post-title">
-            OpenCV 手记
+            OpenGL 绘制方式：用顶点数组绘制三角形
         </h2>
         <h3 class="post-subtitle">
-             "入门之路"
+             "OpenGL 入门"
         </h3>
         <div class="post-content-preview">
-            OpenCV 手记
+            OpenGL 绘制方式：用顶点数组绘制三角形
 
-“入门之路”
+“OpenGL 入门”
 
-图像基本概念
-
-图像通道 灰度图、三通道图、RGB色彩模式、四通道、alpha通道(透明度)
-Mat 基本图像容器
-
-Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本的矩阵类型，侧重于计算，数学性较高，OpenCV 对 Mat 类型的计算进行了优化（CvArr 用作函数的参数，无论传入的是 CvMat 或 IplIma......
+OpenGL
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include &lt;GL/gl......
         </div>
     </a>
     
@@ -306,7 +335,7 @@ Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本
         </p>
         <div class="tags">
             
-              <a href="/tags/#OpenCV" title="OpenCV">OpenCV</a>
+              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
             
         </div>
     
@@ -366,11 +395,11 @@ Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本
             
         
             
-            <a href="/tags/#OpenCV" title="OpenCV" rel="2">OpenCV</a>
+            <a href="/tags/#OpenGL" title="OpenGL" rel="5">OpenGL</a>
             
         
             
-            <a href="/tags/#OpenGL" title="OpenGL" rel="5">OpenGL</a>
+            <a href="/tags/#OpenCV" title="OpenCV" rel="2">OpenCV</a>
             
         
             
@@ -396,9 +425,9 @@ Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本
             
         
             
-            <a href="/tags/#me" title="me" rel="2">me</a>
-            
         
+            
+            <a href="/tags/#me" title="me" rel="3">me</a>
             
         
             
@@ -459,7 +488,11 @@ Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本
     <ul>
       
         <li>
-          <a href="/2019/05/21/Life/About_me/">转职程序猿[求职]</a>
+          <a href="/2019/05/21/Life/About_me_en/">转职程序猿[求职]</a>
+        </li>
+      
+        <li>
+          <a href="/2019/05/21/Life/About_me/">程序猿[求职]</a>
         </li>
       
         <li>
@@ -472,10 +505,6 @@ Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本
       
         <li>
           <a href="/2019/01/11/Interview/刷_LeetCode/">刷 LeetCode</a>
-        </li>
-      
-        <li>
-          <a href="/2018/05/30/Tools/Ubuntu 用 git-daemon 搭建 git 服务器/">Ubuntu 用 git-daemon 搭建 git 服务器</a>
         </li>
       
     </ul>
@@ -540,7 +569,7 @@ Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; k2archer 2019 
+                    Copyright &copy; k2archer 2021 
                     <br>
                     Theme by <a href="http://huangxuan.me">Hux</a> 
                     <span style="display: inline-block; margin: 0 5px;">
