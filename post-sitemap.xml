@@ -7,8 +7,8 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2019/05/21/Life/About_me/</loc>
-        <lastmod>2021-09-13T14:25:30.957Z</lastmod>
+        <loc>https://k2archer.github.io/2019/05/01/Life/my_works/</loc>
+        <lastmod>2021-10-20T13:05:09.632Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -16,15 +16,23 @@
 
     <url>
         <loc>https://k2archer.github.io/2019/05/21/Life/About_me_en/</loc>
-        <lastmod>2019-12-04T18:15:46.144Z</lastmod>
+        <lastmod>2021-10-20T13:04:48.828Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2019/05/01/Life/my_works/</loc>
-        <lastmod>2019-05-23T12:17:54.387Z</lastmod>
+        <loc>https://k2archer.github.io/2021/10/20/Android/Android%20%E8%80%97%E7%94%B5%E4%BC%98%E5%8C%96/</loc>
+        <lastmod>2021-10-20T13:03:29.336Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2019/05/21/Life/About_me/</loc>
+        <lastmod>2021-09-13T14:25:30.957Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -95,15 +103,7 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2010/01/01/0/template/</loc>
-        <lastmod>2018-06-02T15:17:28.862Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/2010/01/01/0/OpenGL%20%E7%BB%98%E5%88%B6%E6%96%B9%E5%BC%8F%EF%BC%9A%E4%BB%85VAO%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2/</loc>
+        <loc>https://k2archer.github.io/2010/01/01/0/OpenGL%20%E7%BB%98%E5%88%B6%E6%96%B9%E5%BC%8F%EF%BC%9A%E7%94%A8%E9%A1%B6%E7%82%B9%E6%95%B0%E7%BB%84%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2/</loc>
         <lastmod>2018-06-02T15:17:28.862Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -119,6 +119,14 @@
     </url>
 
     <url>
+        <loc>https://k2archer.github.io/2010/01/01/0/template/</loc>
+        <lastmod>2018-06-02T15:17:28.862Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://k2archer.github.io/2010/01/01/0/%E6%88%91%E7%9A%84%E6%96%87%E7%AB%A0/</loc>
         <lastmod>2018-06-02T15:17:28.862Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -127,7 +135,7 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2010/01/01/0/OpenGL%20%E7%BB%98%E5%88%B6%E6%96%B9%E5%BC%8F%EF%BC%9A%E7%94%A8%E9%A1%B6%E7%82%B9%E6%95%B0%E7%BB%84%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2/</loc>
+        <loc>https://k2archer.github.io/2010/01/01/0/OpenGL%20%E7%BB%98%E5%88%B6%E6%96%B9%E5%BC%8F%EF%BC%9A%E4%BB%85VAO%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2/</loc>
         <lastmod>2018-06-02T15:17:28.862Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>

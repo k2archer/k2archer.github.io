@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Ubuntu 使用配置 - k2archer的博客 | k2archer&#39;s Blog
+          Android 耗电优化 - k2archer的博客 | k2archer&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://k2archer.github.io/2010/01/01/0/Ubuntu 使用配置/">
+    <link rel="canonical" href="https://k2archer.github.io/2021/10/20/Android/Android 耗电优化/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,14 +90,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Ubuntu" title="Ubuntu">Ubuntu</a>
+                              <a class="tag" href="/tags/#Android" title="Android">Android</a>
                             
                         </div>
-                        <h1>Ubuntu 使用配置</h1>
+                        <h1>Android 耗电优化</h1>
                         <h2 class="subheading"> &#34;&#34;</h2>
                         <span class="meta">
                             Posted by k2archer on
-                            2010-01-01
+                            2021-10-20
                         </span>
                     </div>
                 
@@ -214,12 +214,72 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p><strong>Ubuntu 使用配置</strong></p>
-<blockquote>
-<p>“”</p>
-</blockquote>
-<p>fcitx 输入法</p>
-<p>sudo apt-get install fcitx-table-wubi</p>
+                <p><strong>Android 耗电优化</strong></p>
+<h2><span id="android-电耗管理历程">Android 电耗管理历程</span></h2><ul>
+<li>Android 5.0 之前<br>系统无限制的开放条件，多进程、1 像素 Activity、广播拉起，SDK互拉等，各种保活手段辉煌的时代.</li>
+<li>Android 5.0 - 8.0<ul>
+<li>Android 5.0<br>开始改善之路，Google 推出 Vitals 计划改善稳定和性能，开始增加各种性能分析统计工具。</li>
+<li>Android 6.0<br>优化后台和广播的耗电，带来省电功能，Doze低功耗模式，AppStandby应用待机模式.</li>
+<li>Android 7.0<br>优化省电功能，Doze加强版，implicit broadcasts限制，混合编译</li>
+<li>Android 8.0<br>更多优化省电功能，后台执行限制，后台位置限制</li>
+</ul>
+</li>
+<li>Android 9.0 之后<br>引入 更严格的电量管理，应用待机分组AppStandbyBueckets，BackgroundRestrictions，省电模式BatterySaver<h2><span id="谁用电量最多">谁用电量最多</span></h2></li>
+<li>硬件：CPU、屏幕、WiFi、数据网络、GPS</li>
+<li>软件：运算、渲染、网络数据、频繁定位</li>
+<li>用户：通话、视频、游戏、拍照、导航</li>
+</ul>
+<h2><span id="耗电优化">耗电优化</span></h2><p>  优化就是节省不需要的耗电，减少必要的耗电。</p>
+<ul>
+<li>减少不需要的耗电动作<br>从业务角度出发，减少各种不必要的获取WakeLock、WiFi使用和蓝牙扫描等后台行为。</li>
+<li>优化高耗电的活动。<br>通过优化算法、优化代码执行性能、减少多余屏幕渲染等等。</li>
+</ul>
+<h2><span id="分析电量的使用">分析电量的使用</span></h2><p>  根据业务场景在进行时，是否合理使用耗电资源。</p>
+<ul>
+<li>工具<ul>
+<li>BatteryHistorian</li>
+</ul>
+</li>
+</ul>
+<h2><span id="改进方法">改进方法</span></h2><ul>
+<li><p>参照 Android Vitals 规则</p>
+<ul>
+<li><p>核心指标</p>
+<p><a href="https://developer.android.com/topic/performance/vitals/anr" target="_blank" rel="noopener">ANR 发生率</a><br><a href="https://developer.android.com/topic/performance/vitals/crash" target="_blank" rel="noopener">崩溃率</a><br><a href="https://developer.android.com/topic/performance/vitals/wakeup" target="_blank" rel="noopener">唤醒次数过多</a><br><a href="https://developer.android.com/topic/performance/vitals/wakelock" target="_blank" rel="noopener">部分唤醒锁定被卡住</a></p>
+</li>
+</ul>
+<ul>
+<li><p>其他指标</p>
+<p><a href="https://developer.android.com/topic/performance/vitals/bg-wifi" target="_blank" rel="noopener">后台 Wi-Fi 扫描次数过多</a><br><a href="https://developer.android.com/topic/performance/vitals/bg-network-usage" target="_blank" rel="noopener">后台网络使用量过高</a><br><a href="https://developer.android.com/topic/performance/vitals/launch-time" target="_blank" rel="noopener">应用启动时间</a><br><a href="https://developer.android.com/topic/performance/vitals/render" target="_blank" rel="noopener">呈现速度缓慢</a><br><a href="https://developer.android.com/topic/performance/vitals/frozen" target="_blank" rel="noopener">冻结的帧</a><br><a href="https://developer.android.com/topic/performance/vitals/permissions" target="_blank" rel="noopener">权限遭拒</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>其他参考优化方案<ul>
+<li>推送:：集成厂家推送通道</li>
+<li>优先后台：加入厂家白名单，引导用户手动加入白名单。</li>
+<li>拆分合并：拆分过量的耗电资源，或者合并小量任务高效利用计算或者网络资源。</li>
+<li>充电状态：可以进行低优先级可中断行为，例如：分析、压缩等高耗电操作。</li>
+</ul>
+</li>
+</ul>
+<h2><span id="耗电检测监控">耗电检测监控</span></h2><ul>
+<li>监控指标 <a href="">参考 Android Vitals </a><ul>
+<li>监测 Wakelock 占用</li>
+<li>后台 CPU 使用、后台网络使用、GPS 使用、Sensor 使用</li>
+<li>电池状态、CPU 信息、前后台时间等等信息</li>
+</ul>
+</li>
+<li>监控手段<ul>
+<li>埋点插桩</li>
+<li>第三方SDK</li>
+</ul>
+</li>
+</ul>
+<h2><span id="参考文章">参考文章</span></h2><ul>
+<li><a href="https://developer.android.com/topic/performance" target="_blank" rel="noopener">Android Developers 性能与功耗</a></li>
+</ul>
 
                 
 
@@ -227,13 +287,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2010/01/01/0/OpenCv 新手章/" data-toggle="tooltip" data-placement="top" title="OpenCV 手记">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2010/01/01/0/OpenGL 绘制方式：用顶点数组绘制三角形/" data-toggle="tooltip" data-placement="top" title="OpenGL 绘制方式：用顶点数组绘制三角形">Next Post &rarr;</a>
+                            <a href="/2019/05/21/Life/About_me_en/" data-toggle="tooltip" data-placement="top" title="转职程序猿[求职]">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -263,7 +319,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Android 电耗管理历程</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">谁用电量最多</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">耗电优化</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">分析电量的使用</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">改进方法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">耗电检测监控</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">参考文章</span></a></li></ol>
         
         </div>
       </aside>
@@ -283,7 +339,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Ubuntu" title="Ubuntu">Ubuntu</a>
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
                         
                     </div>
                 </section>
@@ -320,8 +376,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "https://k2archer.github.io/2010/01/01/0/Ubuntu 使用配置/";
-    var disqus_url = "https://k2archer.github.io/2010/01/01/0/Ubuntu 使用配置/";
+    var disqus_identifier = "https://k2archer.github.io/2021/10/20/Android/Android 耗电优化/";
+    var disqus_url = "https://k2archer.github.io/2021/10/20/Android/Android 耗电优化/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
