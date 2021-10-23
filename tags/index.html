@@ -136,6 +136,13 @@
 
                         
                         <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -144,13 +151,6 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -200,27 +200,27 @@
             <!-- 标签云 -->
             <div id="tag_cloud" class="tags">
                 
-                    <a href="#Android" title="Android" rel="8">Android</a>
+                    <a href="#Android" title="Android" rel="9">Android</a>
                 
                     <a href="#设计模式" title="设计模式" rel="2">设计模式</a>
                 
-                    <a href="#Linux" title="Linux" rel="1">Linux</a>
-                
                     <a href="#Java" title="Java" rel="1">Java</a>
                 
-                    <a href="#LeetCode" title="LeetCode" rel="1">LeetCode</a>
+                    <a href="#Linux" title="Linux" rel="1">Linux</a>
                 
                     <a href="#Ctags" title="Ctags" rel="1">Ctags</a>
                 
+                    <a href="#范例" title="范例" rel="3">范例</a>
+                
+                    <a href="#LeetCode" title="LeetCode" rel="1">LeetCode</a>
+                
                     <a href="#OpenCV" title="OpenCV" rel="2">OpenCV</a>
+                
+                    <a href="#OpenGL" title="OpenGL" rel="5">OpenGL</a>
                 
                     <a href="#Pyton" title="Pyton" rel="1">Pyton</a>
                 
                     <a href="#IDE" title="IDE" rel="1">IDE</a>
-                
-                    <a href="#OpenGL" title="OpenGL" rel="5">OpenGL</a>
-                
-                    <a href="#范例" title="范例" rel="2">范例</a>
                 
                     <a href="#Ubuntu" title="Ubuntu" rel="1">Ubuntu</a>
                 
@@ -228,19 +228,21 @@
                 
                     <a href="#NDK" title="NDK" rel="1">NDK</a>
                 
-                    <a href="#Leetcode" title="Leetcode" rel="1">Leetcode</a>
-                
-                    <a href="#me" title="me" rel="3">me</a>
-                
                     <a href="#cocos2d-x" title="cocos2d-x" rel="2">cocos2d-x</a>
                 
                     <a href="#C++" title="C++" rel="2">C++</a>
+                
+                    <a href="#me" title="me" rel="3">me</a>
+                
+                    <a href="#Leetcode" title="Leetcode" rel="1">Leetcode</a>
                 
                     <a href="#生活" title="生活" rel="1">生活</a>
                 
                     <a href="#Hexo" title="Hexo" rel="1">Hexo</a>
                 
                     <a href="#Git" title="Git" rel="1">Git</a>
+                
+                    <a href="#Android Wear" title="Android Wear" rel="1">Android Wear</a>
                 
             </div>
 
@@ -251,6 +253,25 @@
                 <span class="fa fa-tag listing-seperator" id="Android">
                     <span class="tag-text">Android</span>
                 </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/10/20/我的文章/">
+                        <h2 class="post-title">
+                            我的文章
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                 "文章目录"
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
                 
                   <!-- <li class="listing-item">
                   <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
@@ -452,32 +473,6 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Linux">
-                    <span class="tag-text">Linux</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2017/08/01/install_Linux_Subsystem_on_Windows/">
-                        <h2 class="post-title">
-                            Install the Linux Subsystem on Windows 10
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                 "Linux"
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="Java">
                     <span class="tag-text">Java</span>
                 </span>
@@ -504,8 +499,8 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="LeetCode">
-                    <span class="tag-text">LeetCode</span>
+                <span class="fa fa-tag listing-seperator" id="Linux">
+                    <span class="tag-text">Linux</span>
                 </span>
                 
                   <!-- <li class="listing-item">
@@ -513,13 +508,13 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2017/05/05/invert_binary_tree/">
+                     <a href="/2017/08/01/install_Linux_Subsystem_on_Windows/">
                         <h2 class="post-title">
-                            Invert Binary Tree
+                            Install the Linux Subsystem on Windows 10
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                 "LeetCode"
+                                 "Linux"
                             </h3>
                         
                     </a>
@@ -556,8 +551,8 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="OpenCV">
-                    <span class="tag-text">OpenCV</span>
+                <span class="fa fa-tag listing-seperator" id="范例">
+                    <span class="tag-text">范例</span>
                 </span>
                 
                   <!-- <li class="listing-item">
@@ -565,19 +560,90 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2010/01/01/0/OpenCV 手记/">
+                     <a href="/2021/10/23/Android/Android_Wear_double_click_event/">
                         <h2 class="post-title">
-                            OpenCV 手记
+                            在 Android Wear 表盘中实现双击事件
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                 "入门之路"
+                                 "Wear 表盘开发"
                             </h3>
                         
                     </a>
                     <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
                 </div>
                 <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2010/01/01/0/我的文章/">
+                        <h2 class="post-title">
+                            范例标题
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                 "范例小标题"
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2010/01/01/0/template/">
+                        <h2 class="post-title">
+                            范例标题
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                 "范例小标题"
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="LeetCode">
+                    <span class="tag-text">LeetCode</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2017/05/05/invert_binary_tree/">
+                        <h2 class="post-title">
+                            Invert Binary Tree
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                 "LeetCode"
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="OpenCV">
+                    <span class="tag-text">OpenCV</span>
+                </span>
                 
                   <!-- <li class="listing-item">
                   <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
@@ -598,51 +664,18 @@
                 </div>
                 <hr>
                 
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Pyton">
-                    <span class="tag-text">Pyton</span>
-                </span>
-                
                   <!-- <li class="listing-item">
                   <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2010/01/01/0/PyCharm使用/">
+                     <a href="/2010/01/01/0/OpenCV 手记/">
                         <h2 class="post-title">
-                            PyCharm使用
+                            OpenCV 手记
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                 "Python IDE 入门"
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="IDE">
-                    <span class="tag-text">IDE</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2010/01/01/0/PyCharm使用/">
-                        <h2 class="post-title">
-                            PyCharm使用
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                 "Python IDE 入门"
+                                 "入门之路"
                             </h3>
                         
                     </a>
@@ -665,25 +698,6 @@
                      <a href="/2018/05/30/OpenGL/OpenGL 绘制方式：传统方式绘制三角形/">
                         <h2 class="post-title">
                             OpenGL 绘制方式：传统方式绘制三角形
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                 " "
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2010/01/01/OpenGL/Ubuntu OpenGL 开发环境安装配置/">
-                        <h2 class="post-title">
-                            Ubuntu OpenGL 开发环境安装配置
                         </h2>
                         
                             <h3 class="post-subtitle">
@@ -738,6 +752,25 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
+                     <a href="/2010/01/01/OpenGL/Ubuntu OpenGL 开发环境安装配置/">
+                        <h2 class="post-title">
+                            Ubuntu OpenGL 开发环境安装配置
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                 " "
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
                      <a href="/2010/01/01/0/OpenGL 绘制方式：仅VAO绘制三角形/">
                         <h2 class="post-title">
                             OpenGL 绘制方式：仅VAO绘制三角形
@@ -755,8 +788,8 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="范例">
-                    <span class="tag-text">范例</span>
+                <span class="fa fa-tag listing-seperator" id="Pyton">
+                    <span class="tag-text">Pyton</span>
                 </span>
                 
                   <!-- <li class="listing-item">
@@ -764,13 +797,13 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2010/01/01/0/template/">
+                     <a href="/2010/01/01/0/PyCharm使用/">
                         <h2 class="post-title">
-                            范例标题
+                            PyCharm使用
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                 "范例小标题"
+                                 "Python IDE 入门"
                             </h3>
                         
                     </a>
@@ -778,18 +811,25 @@
                 </div>
                 <hr>
                 
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="IDE">
+                    <span class="tag-text">IDE</span>
+                </span>
+                
                   <!-- <li class="listing-item">
                   <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2010/01/01/0/我的文章/">
+                     <a href="/2010/01/01/0/PyCharm使用/">
                         <h2 class="post-title">
-                            范例标题
+                            PyCharm使用
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                 "范例小标题"
+                                 "Python IDE 入门"
                             </h3>
                         
                     </a>
@@ -868,96 +908,6 @@
                         
                             <h3 class="post-subtitle">
                                  " "
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Leetcode">
-                    <span class="tag-text">Leetcode</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2019/01/11/Interview/刷_LeetCode/">
-                        <h2 class="post-title">
-                            刷 LeetCode
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                 "扎实算法基础"
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="me">
-                    <span class="tag-text">me</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2019/05/21/Life/About_me/">
-                        <h2 class="post-title">
-                            程序猿[求职]
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                 "I need a job."
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2019/05/21/Life/About_me_en/">
-                        <h2 class="post-title">
-                            转职程序猿[求职]
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                 "I need a job."
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/04/21/Interview/判断操作系统32位或64位/">
-                        <h2 class="post-title">
-                            判断操作系统32位或64位
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                 "面试题"
                             </h3>
                         
                     </a>
@@ -1058,6 +1008,96 @@
             </div>
             
             <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="me">
+                    <span class="tag-text">me</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/10/23/Life/About_me/">
+                        <h2 class="post-title">
+                            程序猿[求职]
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                 "I need a job."
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2019/05/21/Life/About_me_en/">
+                        <h2 class="post-title">
+                            转职程序猿[求职]
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                 "I need a job."
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/04/21/Interview/判断操作系统32位或64位/">
+                        <h2 class="post-title">
+                            判断操作系统32位或64位
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                 "面试题"
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Leetcode">
+                    <span class="tag-text">Leetcode</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2019/01/11/Interview/刷_LeetCode/">
+                        <h2 class="post-title">
+                            刷 LeetCode
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                 "扎实算法基础"
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="生活">
                     <span class="tag-text">生活</span>
                 </span>
@@ -1126,6 +1166,32 @@
                         
                             <h3 class="post-subtitle">
                                  "Git 进阶使用"
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Android Wear">
+                    <span class="tag-text">Android Wear</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/10/20/我的文章/">
+                        <h2 class="post-title">
+                            我的文章
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                 "文章目录"
                             </h3>
                         
                     </a>

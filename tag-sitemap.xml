@@ -58,14 +58,14 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/tags/LeetCode/</loc>
+        <loc>https://k2archer.github.io/tags/Ctags/</loc>
         <lastmod>2018-06-02T15:17:09.729Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/tags/Ctags/</loc>
+        <loc>https://k2archer.github.io/tags/LeetCode/</loc>
         <lastmod>2018-06-02T15:17:09.729Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -74,13 +74,6 @@
     <url>
         <loc>https://k2archer.github.io/tags/OpenCV/</loc>
         <lastmod>2018-06-02T15:17:28.846Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/%E8%8C%83%E4%BE%8B/</loc>
-        <lastmod>2018-06-02T15:17:28.862Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -136,14 +129,28 @@
 
     <url>
         <loc>https://k2archer.github.io/tags/me/</loc>
-        <lastmod>2021-10-20T13:04:48.828Z</lastmod>
+        <lastmod>2021-10-23T09:41:50.664Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://k2archer.github.io/tags/Android/</loc>
-        <lastmod>2021-10-20T13:05:09.632Z</lastmod>
+        <lastmod>2021-10-23T09:43:05.346Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/Android-Wear/</loc>
+        <lastmod>2021-10-23T09:43:05.346Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/%E8%8C%83%E4%BE%8B/</loc>
+        <lastmod>2021-10-23T09:43:23.027Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

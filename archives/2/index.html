@@ -136,6 +136,13 @@
 
                         
                         <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -144,13 +151,6 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,96 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2018/05/10/Android/交叉编译_Android_Sqlite3_命令/">
+        <h2 class="post-title">
+            交叉编译 Android Sqlite3 命令
+        </h2>
+        <h3 class="post-subtitle">
+             " "
+        </h3>
+        <div class="post-content-preview">
+            
+“Android 进阶”
+
+在Android 开发过程中，我们会经常查看 Sqlite 数据库文件的数据，直接在 adb shell 下运行 sqlit3 ，但是，很多系统里面是没有的！1/system/bin/sh: sqlite3: not found
+使用 Android ndk-build 编译下载、解压12$ wget http://www.sqlite.org/2018/sql......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2018-05-10
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Android" title="Android">Android</a>
+            
+              <a href="/tags/#Sqlite" title="Sqlite">Sqlite</a>
+            
+              <a href="/tags/#NDK" title="NDK">NDK</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/04/21/Interview/判断操作系统32位或64位/">
+        <h2 class="post-title">
+            判断操作系统32位或64位
+        </h2>
+        <h3 class="post-subtitle">
+             "面试题"
+        </h3>
+        <div class="post-content-preview">
+            
+“嗯。这一个面试题”
+
+方法一 判断指针长度使用范围：C/C++ 语言
+12345// C++ Languageif (sizeof(void*) &lt; 8)	// 32 位else 	// 64 位
+方法二 编译宏指令使用范围：编译器
+
+
+
+gcc macro
+
+
+
+
+
+
+
+platform
+Predefined macro
+
+
+
+
+x86
+__M_IX86_
+__INTEL__
+_......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2018-04-21
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#me" title="me">me</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -469,75 +559,6 @@ Java int 转 boolean在 C语言 中  0 相当于 false, 非 0 相当于 true. �
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/08/01/install_Linux_Subsystem_on_Windows/">
-        <h2 class="post-title">
-            Install the Linux Subsystem on Windows 10
-        </h2>
-        <h3 class="post-subtitle">
-             "Linux"
-        </h3>
-        <div class="post-content-preview">
-            
-“play Linux on Windows”
-
-安装 Windows 10 的 Linux 子系统一、前提条件：
-​    1、启用开发者模式​        2、在 启用和关闭 Windows 功能 中，安装 适用于 Linux 的 Windows 子系统(Beta)
-二、建议：
-​        由于有不可描述的墙存在，可能出现下载困难或者慢，最好自备梯子。     
-三、安装：
-​......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2017-08-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Linux" title="Linux">Linux</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/07/28/Cplusplus/about_cplusplus_new/">
-        <h2 class="post-title">
-            关于 new 的各种特性
-        </h2>
-        <h3 class="post-subtitle">
-             "what is new?"
-        </h3>
-        <div class="post-content-preview">
-            
-“I from C++ .”
-
-关于 new 的各种特性​          在 C 的时代，内存分配都是用 malloc( )、calloc( ) ，在 C++ 都是 new 、 delete、 new [ ]、delete [ ] 成对使用就好。虽然简化很多，但还是有一些细节。例如：
-12int* p_int = new int;*p_int += 2;
-在上述代码中， *p_int ......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2017-07-28
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#C++" title="C++">C++</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -578,7 +599,7 @@ Java int 转 boolean在 C语言 中  0 相当于 false, 非 0 相当于 true. �
     <div class="tags">
         
             
-            <a href="/tags/#Android" title="Android" rel="8">Android</a>
+            <a href="/tags/#Android" title="Android" rel="9">Android</a>
             
         
             
@@ -592,13 +613,13 @@ Java int 转 boolean在 C语言 中  0 相当于 false, 非 0 相当于 true. �
             
         
             
+            <a href="/tags/#范例" title="范例" rel="3">范例</a>
+            
+        
+            
         
             
             <a href="/tags/#OpenCV" title="OpenCV" rel="2">OpenCV</a>
-            
-        
-            
-        
             
         
             
@@ -606,8 +627,6 @@ Java int 转 boolean在 C语言 中  0 相当于 false, 非 0 相当于 true. �
             
         
             
-            <a href="/tags/#范例" title="范例" rel="2">范例</a>
-            
         
             
         
@@ -615,10 +634,6 @@ Java int 转 boolean在 C语言 中  0 相当于 false, 非 0 相当于 true. �
         
             
         
-            
-        
-            
-            <a href="/tags/#me" title="me" rel="3">me</a>
             
         
             
@@ -627,6 +642,14 @@ Java int 转 boolean在 C语言 中  0 相当于 false, 非 0 相当于 true. �
         
             
             <a href="/tags/#C++" title="C++" rel="2">C++</a>
+            
+        
+            
+            <a href="/tags/#me" title="me" rel="3">me</a>
+            
+        
+            
+        
             
         
             
@@ -687,23 +710,23 @@ Java int 转 boolean在 C语言 中  0 相当于 false, 非 0 相当于 true. �
     <ul>
       
         <li>
+          <a href="/2021/10/23/Life/About_me/">程序猿[求职]</a>
+        </li>
+      
+        <li>
+          <a href="/2021/10/23/Android/Android_Wear_double_click_event/">在 Android Wear 表盘中实现双击事件</a>
+        </li>
+      
+        <li>
           <a href="/2021/10/20/Android/Android 耗电优化/">Android 耗电优化</a>
         </li>
       
         <li>
-          <a href="/2019/05/21/Life/About_me/">程序猿[求职]</a>
+          <a href="/2021/10/20/我的文章/">我的文章</a>
         </li>
       
         <li>
           <a href="/2019/05/21/Life/About_me_en/">转职程序猿[求职]</a>
-        </li>
-      
-        <li>
-          <a href="/2019/05/01/Life/my_works/">我的作品</a>
-        </li>
-      
-        <li>
-          <a href="/2019/02/27/Android/Android 优雅处理  App Crash 过程/">Android 优雅处理 App Crash 过程</a>
         </li>
       
     </ul>

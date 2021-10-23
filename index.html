@@ -136,6 +136,13 @@
 
                         
                         <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -144,13 +151,6 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -213,7 +213,50 @@
 
 <div class="post-preview">
 
-    <a href="/2019/05/21/Life/About_me/">
+    <a href="/2021/10/20/我的文章/">
+        <h2 class="post-title">
+            我的文章
+        </h2>
+        <h3 class="post-subtitle">
+             "文章目录"
+        </h3>
+        <div class="post-content-preview">
+            我的文章
+
+“文章目录”
+
+
+置顶
+程序猿[求职]
+Android
+Android 优雅处理 App Crash 过程
+读《Android源码设计模式解析与实战》
+Android 耗电优化
+在 Android Wear 表盘中实现双击事件
+
+...
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2021-10-20
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Android" title="Android">Android</a>
+            
+              <a href="/tags/#Android Wear" title="Android Wear">Android Wear</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2021/10/23/Life/About_me/">
         <h2 class="post-title">
             程序猿[求职]
         </h2>
@@ -224,19 +267,59 @@
             
 “个人简历”
 
-简介3年以上 Andriod 开发经验。具备配合产品原型独立完成应用项目的前后端开发经验能力，求职开发岗位。目标成为职业工程师，追求成为具备完整把控项目的技术工程师。
-相关工作经验Android 工程师  广州**公寓管理有限公司  2019.6 - 2021.6
-负责城中村公寓出租管理平台 Android 端 - 小吒生活|小吒管家MVP 架构，支持PDF合同预览，支持手......
+简介
+3年以上 Andriod 开发经验。具备配合产品原型独立完成应用项目的前后端开发经验能力，求职开发岗位。
+目标成为职业工程师，追求成为具备完整把控项目的技术工程师。
+相关工作经验
+Android 工程师  广州**公寓管理有限公司  2019.6 - 2021.6
+负责城中村公寓出租管理平台 Android 端 - 小吒生活|小吒管家
+MVP 架构，支持PDF合同预览......
         </div>
     </a>
     
         <p class="post-meta" style="margin: 10px 0;">
             Posted by k2archer on
-            2019-05-21
+            2021-10-23
         </p>
         <div class="tags">
             
               <a href="/tags/#me" title="me">me</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2021/10/23/Android/Android_Wear_double_click_event/">
+        <h2 class="post-title">
+            在 Android Wear 表盘中实现双击事件
+        </h2>
+        <h3 class="post-subtitle">
+             "Wear 表盘开发"
+        </h3>
+        <div class="post-content-preview">
+            
+“Wear 表盘开发”
+
+实现思路：
+第一次点击事件，启动一个延时事件，在延时时间内没有第二次点击，则延时事件就是单击事件。
+如果有第二次点击发生，则判断是否延时内，并且在同一个点击区域内，如果是，则取消延时事件，马上发送双击事件。
+如果第二次点击超出延时(单击事件已经发送成功)，或者不在同一个点击区域内(另一个单击动作)，则已经是另一个事件。
+参考代码：
+1234567891011121......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2021-10-23
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#范例" title="范例">范例</a>
             
         </div>
     
@@ -419,37 +502,6 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。通过 HTTP API 
 
 <div class="post-preview">
 
-    <a href="/2018/05/30/OpenGL/OpenGL 绘制方式：传统方式绘制三角形/">
-        <h2 class="post-title">
-            OpenGL 绘制方式：传统方式绘制三角形
-        </h2>
-        <h3 class="post-subtitle">
-             " "
-        </h3>
-        <div class="post-content-preview">
-            OpenGL 绘制方式：传统方式绘制三角形OpenGL 早期的绘制方式就是使用 glBegin() … glEnd() 绘制方式，在这两个函数之间给出绘制的顶点数据。
-但是，这种绘制方式效率比较低，因为需要一个顶点数据调用一次 glVertex() ，从客户端(内存)传输到服务端(GPU)，glVertex() 调用次数过多，数据传输次数过多。
-示例代码：
-12345678910111213......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2018-05-30
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
     <a href="/2018/05/30/Tools/Ubuntu 用 git-daemon 搭建 git 服务器/">
         <h2 class="post-title">
             Ubuntu 用 git-daemon 搭建 git 服务器
@@ -484,87 +536,28 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。通过 HTTP API 
 
 <div class="post-preview">
 
-    <a href="/2018/05/10/Android/交叉编译_Android_Sqlite3_命令/">
+    <a href="/2018/05/30/OpenGL/OpenGL 绘制方式：传统方式绘制三角形/">
         <h2 class="post-title">
-            交叉编译 Android Sqlite3 命令
+            OpenGL 绘制方式：传统方式绘制三角形
         </h2>
         <h3 class="post-subtitle">
              " "
         </h3>
         <div class="post-content-preview">
-            
-“Android 进阶”
-
-在Android 开发过程中，我们会经常查看 Sqlite 数据库文件的数据，直接在 adb shell 下运行 sqlit3 ，但是，很多系统里面是没有的！1/system/bin/sh: sqlite3: not found
-使用 Android ndk-build 编译下载、解压12$ wget http://www.sqlite.org/2018/sql......
+            OpenGL 绘制方式：传统方式绘制三角形OpenGL 早期的绘制方式就是使用 glBegin() … glEnd() 绘制方式，在这两个函数之间给出绘制的顶点数据。
+但是，这种绘制方式效率比较低，因为需要一个顶点数据调用一次 glVertex() ，从客户端(内存)传输到服务端(GPU)，glVertex() 调用次数过多，数据传输次数过多。
+示例代码：
+12345678910111213......
         </div>
     </a>
     
         <p class="post-meta" style="margin: 10px 0;">
             Posted by k2archer on
-            2018-05-10
+            2018-05-30
         </p>
         <div class="tags">
             
-              <a href="/tags/#Android" title="Android">Android</a>
-            
-              <a href="/tags/#Sqlite" title="Sqlite">Sqlite</a>
-            
-              <a href="/tags/#NDK" title="NDK">NDK</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/04/21/Interview/判断操作系统32位或64位/">
-        <h2 class="post-title">
-            判断操作系统32位或64位
-        </h2>
-        <h3 class="post-subtitle">
-             "面试题"
-        </h3>
-        <div class="post-content-preview">
-            
-“嗯。这一个面试题”
-
-方法一 判断指针长度使用范围：C/C++ 语言
-12345// C++ Languageif (sizeof(void*) &lt; 8)	// 32 位else 	// 64 位
-方法二 编译宏指令使用范围：编译器
-
-
-
-gcc macro
-
-
-
-
-
-
-
-platform
-Predefined macro
-
-
-
-
-x86
-__M_IX86_
-__INTEL__
-_......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2018-04-21
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#me" title="me">me</a>
+              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
             
         </div>
     
@@ -608,7 +601,7 @@ _......
     <div class="tags">
         
             
-            <a href="/tags/#Android" title="Android" rel="8">Android</a>
+            <a href="/tags/#Android" title="Android" rel="9">Android</a>
             
         
             
@@ -622,13 +615,13 @@ _......
             
         
             
+            <a href="/tags/#范例" title="范例" rel="3">范例</a>
+            
+        
+            
         
             
             <a href="/tags/#OpenCV" title="OpenCV" rel="2">OpenCV</a>
-            
-        
-            
-        
             
         
             
@@ -636,8 +629,6 @@ _......
             
         
             
-            <a href="/tags/#范例" title="范例" rel="2">范例</a>
-            
         
             
         
@@ -645,10 +636,6 @@ _......
         
             
         
-            
-        
-            
-            <a href="/tags/#me" title="me" rel="3">me</a>
             
         
             
@@ -657,6 +644,14 @@ _......
         
             
             <a href="/tags/#C++" title="C++" rel="2">C++</a>
+            
+        
+            
+            <a href="/tags/#me" title="me" rel="3">me</a>
+            
+        
+            
+        
             
         
             
@@ -717,23 +712,23 @@ _......
     <ul>
       
         <li>
+          <a href="/2021/10/23/Life/About_me/">程序猿[求职]</a>
+        </li>
+      
+        <li>
+          <a href="/2021/10/23/Android/Android_Wear_double_click_event/">在 Android Wear 表盘中实现双击事件</a>
+        </li>
+      
+        <li>
           <a href="/2021/10/20/Android/Android 耗电优化/">Android 耗电优化</a>
         </li>
       
         <li>
-          <a href="/2019/05/21/Life/About_me/">程序猿[求职]</a>
+          <a href="/2021/10/20/我的文章/">我的文章</a>
         </li>
       
         <li>
           <a href="/2019/05/21/Life/About_me_en/">转职程序猿[求职]</a>
-        </li>
-      
-        <li>
-          <a href="/2019/05/01/Life/my_works/">我的作品</a>
-        </li>
-      
-        <li>
-          <a href="/2019/02/27/Android/Android 优雅处理  App Crash 过程/">Android 优雅处理 App Crash 过程</a>
         </li>
       
     </ul>

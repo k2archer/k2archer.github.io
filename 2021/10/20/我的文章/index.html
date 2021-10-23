@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Ubuntu 用 git-daemon 搭建 git 服务器 - k2archer的博客 | k2archer&#39;s Blog
+          我的文章 - k2archer的博客 | k2archer&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://k2archer.github.io/2018/05/30/Tools/Ubuntu 用 git-daemon 搭建 git 服务器/">
+    <link rel="canonical" href="https://k2archer.github.io/2021/10/20/我的文章/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,14 +90,16 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Git" title="Git">Git</a>
+                              <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                            
+                              <a class="tag" href="/tags/#Android Wear" title="Android Wear">Android Wear</a>
                             
                         </div>
-                        <h1>Ubuntu 用 git-daemon 搭建 git 服务器</h1>
-                        <h2 class="subheading"> &#34;Git 进阶使用&#34;</h2>
+                        <h1>我的文章</h1>
+                        <h2 class="subheading"> &#34;文章目录&#34;</h2>
                         <span class="meta">
                             Posted by k2archer on
-                            2018-05-30
+                            2021-10-20
                         </span>
                     </div>
                 
@@ -214,22 +216,19 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p><strong>Ubuntu 用 git-daemon 搭建 git 服务器</strong></p>
+                <p><strong>我的文章</strong></p>
 <blockquote>
-<p>“Git 进阶使用”</p>
+<p>“文章目录”</p>
 </blockquote>
-<h4><span id="安装-git">安装 git</span></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git-all</span><br></pre></td></tr></table></figure>
-<h4><span id="安装启动时运行工具">安装启动时运行工具</span></h4><p>本文使用 git-daemon-sysvinit，亦可使用 git-daemon-run ，但配置方式不同。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git-daemon-sysvinit</span><br></pre></td></tr></table></figure></p>
-<h4><span id="配置-git-daemon-sysvinit">配置 git-daemon-sysvinit</span></h4><p>修改配置文件 /etc/default/git-daemon</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 是否启用 daemon</span></span><br><span class="line">GIT_DAEMON_ENABLE=<span class="literal">true</span></span><br><span class="line"><span class="comment"># 指定运行 daemon 的用户名</span></span><br><span class="line">GIT_DAEMON_USER=gitdaemon</span><br><span class="line"><span class="comment"># daemon 的根目录，即库所在的目录</span></span><br><span class="line"><span class="comment"># 运行 daemon 需要有这个目录读写执行权限</span></span><br><span class="line">GIT_DAEMON_BASE_PATH=/var/lib</span><br><span class="line">GIT_DAEMON_DIRECTORY=/var/lib</span><br><span class="line"><span class="comment"># Additional options that are passed to the Daemon.</span></span><br><span class="line"><span class="comment"># 使用 git push 功能，添加参数 --enable=receive-pack</span></span><br><span class="line">GIT_DAEMON_OPTIONS=<span class="string">"--export-all --enable=receive-pack"</span></span><br></pre></td></tr></table></figure>
-<p>GIT_DAEMON_USER 参数<br>建议只使用独立并只拥有库所在的目录权限的用户</p>
-<p>GIT_DAEMON_OPTIONS 参数</p>
 <ul>
-<li>–enable=receive-pack 表示接受远程的 push 操作</li>
-<li>–disable=receive-pack 表示拒绝接受远程的 push 操作</li>
+<li>置顶<br>
+<a href="/2019/05/21/Life/About_me/">程序猿[求职]</a></li>
+<li>Android<br>
+<a href="/2019/02/27/Android/Android%20%E4%BC%98%E9%9B%85%E5%A4%84%E7%90%86%20%20App%20Crash%20%E8%BF%87%E7%A8%8B/">Android 优雅处理 App Crash 过程</a><br>
+<a href="/2018/03/22/Android_design_pattern/">读《Android源码设计模式解析与实战》</a><br>
+<a href="/2021/10/20/Android/Android%20%E8%80%97%E7%94%B5%E4%BC%98%E5%8C%96/">Android 耗电优化</a><br>
+<a href="/2021/10/23/Android/Android_Wear_double_click_event/">在 Android Wear 表盘中实现双击事件</a></li>
 </ul>
-<h4><span id="启动-git-daemon">启动 git-daemon</span></h4><p>重启一次，之后开机会自动启动 git-daemon。亦手动启动例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo service git-daemon [ start | restart | stop ]</span><br><span class="line">sudo /etc/init.d/git-daemon [ start |restart | stop ]</span><br></pre></td></tr></table></figure></p>
-<h4><span id="使用-git-服务器">使用 git 服务器</span></h4><p>例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git://192.168.0.128:/kTest.git</span><br></pre></td></tr></table></figure></p>
 
                 
 
@@ -238,12 +237,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2019/01/11/Interview/刷_LeetCode/" data-toggle="tooltip" data-placement="top" title="刷 LeetCode">&larr; Previous Post</a>
+                            <a href="/2021/10/23/Android/Android_Wear_double_click_event/" data-toggle="tooltip" data-placement="top" title="在 Android Wear 表盘中实现双击事件">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2018/05/30/OpenGL/OpenGL 绘制方式：传统方式绘制三角形/" data-toggle="tooltip" data-placement="top" title="OpenGL 绘制方式：传统方式绘制三角形">Next Post &rarr;</a>
+                            <a href="/2021/10/20/Android/Android 耗电优化/" data-toggle="tooltip" data-placement="top" title="Android 耗电优化">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -273,7 +272,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">安装 git</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">安装启动时运行工具</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">配置 git-daemon-sysvinit</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">启动 git-daemon</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">使用 git 服务器</span></a></li></ol>
+          <ol class="nav">none</ol>
         
         </div>
       </aside>
@@ -293,7 +292,9 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Git" title="Git">Git</a>
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                          <a class="tag" href="/tags/#Android Wear" title="Android Wear">Android Wear</a>
                         
                     </div>
                 </section>
@@ -330,8 +331,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "https://k2archer.github.io/2018/05/30/Tools/Ubuntu 用 git-daemon 搭建 git 服务器/";
-    var disqus_url = "https://k2archer.github.io/2018/05/30/Tools/Ubuntu 用 git-daemon 搭建 git 服务器/";
+    var disqus_identifier = "https://k2archer.github.io/2021/10/20/我的文章/";
+    var disqus_url = "https://k2archer.github.io/2021/10/20/我的文章/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
