@@ -90,7 +90,7 @@
                     <div class="site-heading">
                         <h1>k2archer&#39;s Blog</h1>
                         <!--<hr class="small">-->
-                        <span class="subheading">That man!</span>
+                        <span class="subheading">喜欢写代码，熟悉 Android 开发，有后端经验</span>
                     </div>
                 
 
@@ -136,6 +136,13 @@
 
                         
                         <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/archives/">Archives</a>
                         </li>
                         
@@ -144,13 +151,6 @@
                         
                         <li>
                             <a href="/about/">About</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -213,6 +213,39 @@
 
 <div class="post-preview">
 
+    <a href="/2021/10/23/Life/About_me/">
+        <h2 class="post-title">
+            程序猿[求职]
+        </h2>
+        <h3 class="post-subtitle">
+             "I need a job."
+        </h3>
+        <div class="post-content-preview">
+            
+“个人简历”
+
+简介3年以上 Andriod 开发经验。具备配合产品原型独立完成应用项目的前后端开发经验能力，求职开发岗位。目标成为职业工程师，追求成为具备完整把控项目的技术工程师。
+相关工作经验Android 工程师  广州**公寓管理有限公司  2019.6 - 2021.6
+负责城中村公寓出租管理平台 Android 端 - 小吒生活|小吒管家MVP 架构，支持PDF合同预览，支持手......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2021-10-23
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#me" title="me">me</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2021/10/20/我的文章/">
         <h2 class="post-title">
             我的文章
@@ -228,11 +261,14 @@
 
 置顶
 程序猿[求职]
+我的作品
+外贸仓库管理系统：货有道
 Android
 Android 优雅处理 App Crash 过程
 读《Android源码设计模式解析与实战》
 Android 耗电优化
 在 Android Wear 表盘中实现双击事件
+RecyclerView 高性能刷新工具 DiffUtil
 
 ...
         </div>
@@ -248,6 +284,8 @@ Android 耗电优化
             
               <a href="/tags/#Android Wear" title="Android Wear">Android Wear</a>
             
+              <a href="/tags/#求职" title="求职">求职</a>
+            
         </div>
     
 
@@ -256,24 +294,54 @@ Android 耗电优化
 
 <div class="post-preview">
 
-    <a href="/2021/10/23/Life/About_me/">
+    <a href="/2021/11/22/Android/RecyclerView_DiffUtil/">
         <h2 class="post-title">
-            程序猿[求职]
+            RecyclerView 高性能刷新工具 DiffUtil
         </h2>
         <h3 class="post-subtitle">
-             "I need a job."
+             ""
         </h3>
         <div class="post-content-preview">
-            
-“个人简历”
+            RecyclerView 局部刷新工具 DiffUtil
 
-简介
-3年以上 Andriod 开发经验。具备配合产品原型独立完成应用项目的前后端开发经验能力，求职开发岗位。
-目标成为职业工程师，追求成为具备完整把控项目的技术工程师。
-相关工作经验
-Android 工程师  广州**公寓管理有限公司  2019.6 - 2021.6
-负责城中村公寓出租管理平台 Android 端 - 小吒生活|小吒管家
-MVP 架构，支持PDF合同预览......
+“”
+
+RecyclyerView 高效刷新是好用户体验的重点。
+最直接的刷新方式
+12Adapter.notifyDataSetChanged();// 直接刷新重绘整个可视区域的 Item，容易造成 onBindViewHolder 卡顿。
+更好的办法是什么？
+局部刷新方式
+1234567Adapter.notifyItemCh......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2021-11-22
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Android" title="Android">Android</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2021/10/23/work/huoyoudao/">
+        <h2 class="post-title">
+            外贸仓库管理系统：货有道
+        </h2>
+        <h3 class="post-subtitle">
+             "某亚马逊童袜商家定制开发仓管系统"
+        </h3>
+        <div class="post-content-preview">
+            简介小包进货，按订单打包成整包，海运发货。库存(小包、整包)统计，发货统计。配合 Android 端 PDA 现场移动管理，包括扫码查验货(信息及图片)，出入库，无线条码标签打印。
+系统架构后台PC端 Python + Vue + Element UI ，移动端 Android PDA ，后端 Python + Bottle，数据库 MySQL 。
+系统界面演示本图为某个开发阶段，交付演示动......
         </div>
     </a>
     
@@ -283,7 +351,17 @@ MVP 架构，支持PDF合同预览......
         </p>
         <div class="tags">
             
-              <a href="/tags/#me" title="me">me</a>
+              <a href="/tags/#全栈" title="全栈">全栈</a>
+            
+              <a href="/tags/#仓库管理系统" title="仓库管理系统">仓库管理系统</a>
+            
+              <a href="/tags/#Web" title="Web">Web</a>
+            
+              <a href="/tags/#Vue" title="Vue">Vue</a>
+            
+              <a href="/tags/#Python" title="Python">Python</a>
+            
+              <a href="/tags/#Element UI" title="Element UI">Element UI</a>
             
         </div>
     
@@ -304,12 +382,8 @@ MVP 架构，支持PDF合同预览......
             
 “Wear 表盘开发”
 
-实现思路：
-第一次点击事件，启动一个延时事件，在延时时间内没有第二次点击，则延时事件就是单击事件。
-如果有第二次点击发生，则判断是否延时内，并且在同一个点击区域内，如果是，则取消延时事件，马上发送双击事件。
-如果第二次点击超出延时(单击事件已经发送成功)，或者不在同一个点击区域内(另一个单击动作)，则已经是另一个事件。
-参考代码：
-1234567891011121......
+实现思路：第一次点击事件，启动一个延时事件，在延时时间内没有第二次点击，则延时事件就是单击事件。如果有第二次点击发生，则判断是否延时内，并且在同一个点击区域内，如果是，则取消延时事件，马上发送双击事件。如果第二次点击超出延时(单击事件已经发送成功)，或者不在同一个点击区域内(另一个单击动作)，则已经是另一个事件。
+参考代码：12345678910111213141......
         </div>
     </a>
     
@@ -500,71 +574,6 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。通过 HTTP API 
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/05/30/Tools/Ubuntu 用 git-daemon 搭建 git 服务器/">
-        <h2 class="post-title">
-            Ubuntu 用 git-daemon 搭建 git 服务器
-        </h2>
-        <h3 class="post-subtitle">
-             "Git 进阶使用"
-        </h3>
-        <div class="post-content-preview">
-            Ubuntu 用 git-daemon 搭建 git 服务器
-
-“Git 进阶使用”
-
-安装 git1sudo apt-get install git-all
-安装启动时运行工具本文使用 git-daemon-sysvinit，亦可使用 git-daemon-run ，但配置方式不同。1sudo apt-get install git-daemon-sysvinit
-配置 git-daemo......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2018-05-30
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Git" title="Git">Git</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/05/30/OpenGL/OpenGL 绘制方式：传统方式绘制三角形/">
-        <h2 class="post-title">
-            OpenGL 绘制方式：传统方式绘制三角形
-        </h2>
-        <h3 class="post-subtitle">
-             " "
-        </h3>
-        <div class="post-content-preview">
-            OpenGL 绘制方式：传统方式绘制三角形OpenGL 早期的绘制方式就是使用 glBegin() … glEnd() 绘制方式，在这两个函数之间给出绘制的顶点数据。
-但是，这种绘制方式效率比较低，因为需要一个顶点数据调用一次 glVertex() ，从客户端(内存)传输到服务端(GPU)，glVertex() 调用次数过多，数据传输次数过多。
-示例代码：
-12345678910111213......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2018-05-30
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -601,7 +610,7 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。通过 HTTP API 
     <div class="tags">
         
             
-            <a href="/tags/#Android" title="Android" rel="9">Android</a>
+            <a href="/tags/#Android" title="Android" rel="10">Android</a>
             
         
             
@@ -615,7 +624,15 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。通过 HTTP API 
             
         
             
-            <a href="/tags/#范例" title="范例" rel="3">范例</a>
+        
+            
+        
+            
+        
+            
+            <a href="/tags/#范例" title="范例" rel="6">范例</a>
+            
+        
             
         
             
@@ -635,11 +652,13 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。通过 HTTP API 
             
         
             
-        
-            
-        
-            
             <a href="/tags/#cocos2d-x" title="cocos2d-x" rel="2">cocos2d-x</a>
+            
+        
+            
+            <a href="/tags/#me" title="me" rel="3">me</a>
+            
+        
             
         
             
@@ -647,7 +666,11 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。通过 HTTP API 
             
         
             
-            <a href="/tags/#me" title="me" rel="3">me</a>
+        
+            
+        
+            
+        
             
         
             
@@ -671,11 +694,9 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。通过 HTTP API 
     <div class="short-about">
 
         
-            <img id="avatar_pic" src="/img/avatar.jpg">
-        
 
         
-            <p>Hi, I am k2archer!</p>
+            <p>对代码有热情，喜欢新技术</p>
         
 
         <!-- SNS Link -->
@@ -712,7 +733,15 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。通过 HTTP API 
     <ul>
       
         <li>
+          <a href="/2021/11/22/Android/RecyclerView_DiffUtil/">RecyclerView 高性能刷新工具 DiffUtil</a>
+        </li>
+      
+        <li>
           <a href="/2021/10/23/Life/About_me/">程序猿[求职]</a>
+        </li>
+      
+        <li>
+          <a href="/2021/10/23/work/huoyoudao/">外贸仓库管理系统：货有道</a>
         </li>
       
         <li>
@@ -721,14 +750,6 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。通过 HTTP API 
       
         <li>
           <a href="/2021/10/20/Android/Android 耗电优化/">Android 耗电优化</a>
-        </li>
-      
-        <li>
-          <a href="/2021/10/20/我的文章/">我的文章</a>
-        </li>
-      
-        <li>
-          <a href="/2019/05/21/Life/About_me_en/">转职程序猿[求职]</a>
         </li>
       
     </ul>
