@@ -136,13 +136,6 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/archives/">Archives</a>
                         </li>
                         
@@ -151,6 +144,13 @@
                         
                         <li>
                             <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -213,21 +213,20 @@
 
 <div class="post-preview">
 
-    <a href="/2010/01/01/Android/how_to_test_MVVM/">
+    <a href="/2010/01/01/OpenGL/Ubuntu OpenGL 开发环境安装配置/">
         <h2 class="post-title">
-            如何测试 MVVM
+            Ubuntu OpenGL 开发环境安装配置
         </h2>
         <h3 class="post-subtitle">
-             ""
+             " "
         </h3>
         <div class="post-content-preview">
-            如何测试 MVVM
-
-“”
-
-MVVM 特性，解耦 UI 逻辑与业务逻辑，降低耦合度。Model 层不含 Android 类，只含数据处理逻辑，支持单元测试。ViewModel 层封装 UI 逻辑，也不含 Android 类，支持单元测试。
-ViewModel 需要绑定 Model， 支持替换 Model 数据源，
-为什么要测试？数据绑定使得 Bug 很难被定位调试。分层测试可以降低调试难度......
+            Ubuntu OpenGL 开发环境安装配置
+LFW 库安装12apt-cache search glfwsudo apt-get install libglfw3 libglfw3-dev
+// 引入GLFW库1#include &lt;GLFW/glfw3.h&gt;
+库链接 -lglfw
+GLEW 库安装apt-cache search glew
+sudo apt-get instal......
         </div>
     </a>
     
@@ -237,7 +236,7 @@ ViewModel 需要绑定 Model， 支持替换 Model 数据源，
         </p>
         <div class="tags">
             
-              <a href="/tags/#范例" title="范例">范例</a>
+              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
             
         </div>
     
@@ -247,7 +246,39 @@ ViewModel 需要绑定 Model， 支持替换 Model 数据源，
 
 <div class="post-preview">
 
-    <a href="/2010/01/01/0/template/">
+    <a href="/2010/01/01/0/OpenGL 绘制方式：仅VAO绘制三角形/">
+        <h2 class="post-title">
+            OpenGL 绘制方式：仅VAO绘制三角形
+        </h2>
+        <h3 class="post-subtitle">
+             "OpenGL 入门"
+        </h3>
+        <div class="post-content-preview">
+            OpenGL 绘制方式：仅VAO绘制三角形
+
+“OpenGL 入门”
+
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869#include &lt;GL/glut.h&gt;void r......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2010-01-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2010/01/01/Android/template/">
         <h2 class="post-title">
             范例标题
         </h2>
@@ -255,12 +286,13 @@ ViewModel 需要绑定 Model， 支持替换 Model 数据源，
              "范例小标题"
         </h3>
         <div class="post-content-preview">
-            范例标题
+            Android 配置自签名证书
 
 “范例小标题”
 
-正文
-...
+Android 网络配置
+注意生成的 CA 证书需要保持 CN(CommonName) 与 subjectAltName:[IP Address:: xxx]  一致，否则会出 javax.net.ssl.SSLPeerUnverifiedException: Hostname *.**.**not verified 异常.
+生成CA证书 ......
         </div>
     </a>
     
@@ -334,15 +366,21 @@ ViewModel 需要绑定 Model， 支持替换 Model 数据源，
             
         
             
-            <a href="/tags/#范例" title="范例" rel="6">范例</a>
-            
-        
-            
-        
-            
-        
-            
             <a href="/tags/#OpenCV" title="OpenCV" rel="2">OpenCV</a>
+            
+        
+            
+            <a href="/tags/#C++" title="C++" rel="2">C++</a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+            <a href="/tags/#范例" title="范例" rel="7">范例</a>
             
         
             
@@ -350,23 +388,17 @@ ViewModel 需要绑定 Model， 支持替换 Model 数据源，
             
         
             
-        
-            
-        
-            
-        
-            
             <a href="/tags/#cocos2d-x" title="cocos2d-x" rel="2">cocos2d-x</a>
+            
+        
+            
+        
             
         
             
             <a href="/tags/#me" title="me" rel="3">me</a>
             
         
-            
-        
-            
-            <a href="/tags/#C++" title="C++" rel="2">C++</a>
             
         
             
@@ -437,6 +469,10 @@ ViewModel 需要绑定 Model， 支持替换 Model 数据源，
     <ul>
       
         <li>
+          <a href="/2021/12/08/Android/A_Android_Router/">一个 Android 路由框架</a>
+        </li>
+      
+        <li>
           <a href="/2021/11/22/Android/RecyclerView_DiffUtil/">RecyclerView 高性能刷新工具 DiffUtil</a>
         </li>
       
@@ -450,10 +486,6 @@ ViewModel 需要绑定 Model， 支持替换 Model 数据源，
       
         <li>
           <a href="/2021/10/23/Android/Android_Wear_double_click_event/">在 Android Wear 表盘中实现双击事件</a>
-        </li>
-      
-        <li>
-          <a href="/2021/10/20/Android/Android 耗电优化/">Android 耗电优化</a>
         </li>
       
     </ul>

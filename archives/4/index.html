@@ -136,13 +136,6 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/archives/">Archives</a>
                         </li>
                         
@@ -151,6 +144,13 @@
                         
                         <li>
                             <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -213,21 +213,125 @@
 
 <div class="post-preview">
 
-    <a href="/2010/01/01/Android/template/">
+    <a href="/2010/01/01/Interview/developer_skills/">
         <h2 class="post-title">
-            范例标题
+            开发者技能
         </h2>
         <h3 class="post-subtitle">
-             "范例小标题"
+             "技能表"
         </h3>
         <div class="post-content-preview">
-            Android 配置自签名证书
+            
+“修炼指南”
 
-“范例小标题”
+基础:    掌握 Java，理解设计模式，良好的编码习惯    熟练 Google Guava | Apache Commons 等常用工具库    熟练单元测试    读过至少一个优秀的开源项目    常见算法原理    网络原理 socket|Http|SSL
+Android:    熟悉自定义控件以及动画    熟悉 okhttp Retrofit RxJava D......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2010-01-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#范例" title="范例">范例</a>
+            
+        </div>
+    
 
-Android 网络配置
-注意生成的 CA 证书需要保持 CN(CommonName) 与 subjectAltName:[IP Address:: xxx]  一致，否则会出 javax.net.ssl.SSLPeerUnverifiedException: Hostname *.**.**not verified 异常.
-生成CA证书 ......
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2010/01/01/0/PyCharm使用/">
+        <h2 class="post-title">
+            PyCharm使用
+        </h2>
+        <h3 class="post-subtitle">
+             "Python IDE 入门"
+        </h3>
+        <div class="post-content-preview">
+            PyCharm使用
+
+“Python IDE 入门”
+
+快捷键Ctrl+B 函数跳转 Declaration
+...
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2010-01-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Pyton" title="Pyton">Pyton</a>
+            
+              <a href="/tags/#IDE" title="IDE">IDE</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2010/01/01/0/OpenCV 手记/">
+        <h2 class="post-title">
+            OpenCV 手记
+        </h2>
+        <h3 class="post-subtitle">
+             "入门之路"
+        </h3>
+        <div class="post-content-preview">
+            OpenCV 手记
+
+“入门之路”
+
+图像基本概念
+
+图像通道 灰度图、三通道图、RGB色彩模式、四通道、alpha通道(透明度)
+Mat 基本图像容器
+
+Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本的矩阵类型，侧重于计算，数学性较高，OpenCV 对 Mat 类型的计算进行了优化（CvArr 用作函数的参数，无论传入的是 CvMat 或 IplIma......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2010-01-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#OpenCV" title="OpenCV">OpenCV</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2010/01/01/Android/how_to_test_MVVM/">
+        <h2 class="post-title">
+            如何测试 MVVM
+        </h2>
+        <h3 class="post-subtitle">
+             ""
+        </h3>
+        <div class="post-content-preview">
+            如何测试 MVVM
+
+“”
+
+MVVM 特性，解耦 UI 逻辑与业务逻辑，降低耦合度。Model 层不含 Android 类，只含数据处理逻辑，支持单元测试。ViewModel 层封装 UI 逻辑，也不含 Android 类，支持单元测试。
+ViewModel 需要绑定 Model， 支持替换 Model 数据源，
+为什么要测试？数据绑定使得 Bug 很难被定位调试。分层测试可以降低调试难度......
         </div>
     </a>
     
@@ -278,24 +382,21 @@ OpenCV 认识OpenCV 是一个视觉库，有着各种的通用工具算法。
 
 <div class="post-preview">
 
-    <a href="/2010/01/01/0/OpenCV 手记/">
+    <a href="/2010/01/01/0/Ubuntu 使用配置/">
         <h2 class="post-title">
-            OpenCV 手记
+            Ubuntu 使用配置
         </h2>
         <h3 class="post-subtitle">
-             "入门之路"
+             ""
         </h3>
         <div class="post-content-preview">
-            OpenCV 手记
+            Ubuntu 使用配置
 
-“入门之路”
+“”
 
-图像基本概念
-
-图像通道 灰度图、三通道图、RGB色彩模式、四通道、alpha通道(透明度)
-Mat 基本图像容器
-
-Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本的矩阵类型，侧重于计算，数学性较高，OpenCV 对 Mat 类型的计算进行了优化（CvArr 用作函数的参数，无论传入的是 CvMat 或 IplIma......
+fcitx 输入法
+sudo apt-get install fcitx-table-wubi
+...
         </div>
     </a>
     
@@ -305,7 +406,7 @@ Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本
         </p>
         <div class="tags">
             
-              <a href="/tags/#OpenCV" title="OpenCV">OpenCV</a>
+              <a href="/tags/#Ubuntu" title="Ubuntu">Ubuntu</a>
             
         </div>
     
@@ -315,19 +416,20 @@ Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本
 
 <div class="post-preview">
 
-    <a href="/2010/01/01/0/OpenGL 绘制方式：仅VAO绘制三角形/">
+    <a href="/2010/01/01/0/我的文章/">
         <h2 class="post-title">
-            OpenGL 绘制方式：仅VAO绘制三角形
+            范例标题
         </h2>
         <h3 class="post-subtitle">
-             "OpenGL 入门"
+             "范例小标题"
         </h3>
         <div class="post-content-preview">
-            OpenGL 绘制方式：仅VAO绘制三角形
+            范例标题
 
-“OpenGL 入门”
+“范例小标题”
 
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869#include &lt;GL/glut.h&gt;void r......
+正文
+...
         </div>
     </a>
     
@@ -337,40 +439,7 @@ Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本
         </p>
         <div class="tags">
             
-              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2010/01/01/OpenGL/OpenGL 绘制方式：用显示列表绘制三角形/">
-        <h2 class="post-title">
-            OpenGL 绘制方式：用显示列表绘制三角形
-        </h2>
-        <h3 class="post-subtitle">
-             "OpenGL 入门"
-        </h3>
-        <div class="post-content-preview">
-            OpenGL 绘制方式：用显示列表绘制三角形
-
-“OpenGL 入门”
-
-显示列表是一组 OpenGL 命令的集合。当它被创建后，所有的顶点数据和像素数据被传输到服务端的显示列表内存中，这个过程只执行一次。显示列表是比较快的绘制静态数据的方式，因为顶点数据和 OpenGL 命令被缓存在服务端的显示列表中，减少从客户端到服务端的数据传输周期。
-因为缓存在服务端，可以被多个客户端共享。但被编译后......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2010-01-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
+              <a href="/tags/#范例" title="范例">范例</a>
             
         </div>
     
@@ -413,109 +482,7 @@ OpenGL
 
 <div class="post-preview">
 
-    <a href="/2010/01/01/0/PyCharm使用/">
-        <h2 class="post-title">
-            PyCharm使用
-        </h2>
-        <h3 class="post-subtitle">
-             "Python IDE 入门"
-        </h3>
-        <div class="post-content-preview">
-            PyCharm使用
-
-“Python IDE 入门”
-
-快捷键Ctrl+B 函数跳转 Declaration
-...
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2010-01-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Pyton" title="Pyton">Pyton</a>
-            
-              <a href="/tags/#IDE" title="IDE">IDE</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2010/01/01/0/Ubuntu 使用配置/">
-        <h2 class="post-title">
-            Ubuntu 使用配置
-        </h2>
-        <h3 class="post-subtitle">
-             ""
-        </h3>
-        <div class="post-content-preview">
-            Ubuntu 使用配置
-
-“”
-
-fcitx 输入法
-sudo apt-get install fcitx-table-wubi
-...
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2010-01-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Ubuntu" title="Ubuntu">Ubuntu</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2010/01/01/OpenGL/Ubuntu OpenGL 开发环境安装配置/">
-        <h2 class="post-title">
-            Ubuntu OpenGL 开发环境安装配置
-        </h2>
-        <h3 class="post-subtitle">
-             " "
-        </h3>
-        <div class="post-content-preview">
-            Ubuntu OpenGL 开发环境安装配置
-LFW 库安装12apt-cache search glfwsudo apt-get install libglfw3 libglfw3-dev
-// 引入GLFW库1#include &lt;GLFW/glfw3.h&gt;
-库链接 -lglfw
-GLEW 库安装apt-cache search glew
-sudo apt-get instal......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2010-01-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2010/01/01/0/我的文章/">
+    <a href="/2010/01/01/0/template/">
         <h2 class="post-title">
             范例标题
         </h2>
@@ -539,6 +506,39 @@ sudo apt-get instal......
         <div class="tags">
             
               <a href="/tags/#范例" title="范例">范例</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2010/01/01/OpenGL/OpenGL 绘制方式：用显示列表绘制三角形/">
+        <h2 class="post-title">
+            OpenGL 绘制方式：用显示列表绘制三角形
+        </h2>
+        <h3 class="post-subtitle">
+             "OpenGL 入门"
+        </h3>
+        <div class="post-content-preview">
+            OpenGL 绘制方式：用显示列表绘制三角形
+
+“OpenGL 入门”
+
+显示列表是一组 OpenGL 命令的集合。当它被创建后，所有的顶点数据和像素数据被传输到服务端的显示列表内存中，这个过程只执行一次。显示列表是比较快的绘制静态数据的方式，因为顶点数据和 OpenGL 命令被缓存在服务端的显示列表中，减少从客户端到服务端的数据传输周期。
+因为缓存在服务端，可以被多个客户端共享。但被编译后......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2010-01-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
             
         </div>
     
@@ -606,15 +606,21 @@ sudo apt-get instal......
             
         
             
-            <a href="/tags/#范例" title="范例" rel="6">范例</a>
-            
-        
-            
-        
-            
-        
-            
             <a href="/tags/#OpenCV" title="OpenCV" rel="2">OpenCV</a>
+            
+        
+            
+            <a href="/tags/#C++" title="C++" rel="2">C++</a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+            <a href="/tags/#范例" title="范例" rel="7">范例</a>
             
         
             
@@ -622,23 +628,17 @@ sudo apt-get instal......
             
         
             
-        
-            
-        
-            
-        
-            
             <a href="/tags/#cocos2d-x" title="cocos2d-x" rel="2">cocos2d-x</a>
+            
+        
+            
+        
             
         
             
             <a href="/tags/#me" title="me" rel="3">me</a>
             
         
-            
-        
-            
-            <a href="/tags/#C++" title="C++" rel="2">C++</a>
             
         
             
@@ -709,6 +709,10 @@ sudo apt-get instal......
     <ul>
       
         <li>
+          <a href="/2021/12/08/Android/A_Android_Router/">一个 Android 路由框架</a>
+        </li>
+      
+        <li>
           <a href="/2021/11/22/Android/RecyclerView_DiffUtil/">RecyclerView 高性能刷新工具 DiffUtil</a>
         </li>
       
@@ -722,10 +726,6 @@ sudo apt-get instal......
       
         <li>
           <a href="/2021/10/23/Android/Android_Wear_double_click_event/">在 Android Wear 表盘中实现双击事件</a>
-        </li>
-      
-        <li>
-          <a href="/2021/10/20/Android/Android 耗电优化/">Android 耗电优化</a>
         </li>
       
     </ul>
