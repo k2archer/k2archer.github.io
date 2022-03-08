@@ -143,14 +143,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -225,17 +225,11 @@
 
 “”
 
-实现单例模式的关键
-延迟加载、线程安全、序列化安全
-各种模式的实现
-懒汉模式
-(预先构建)类加载时构建，线程安全，(可能不被使用)资源效率不高，序列化破坏
-饿汉模式
-（延迟建构)类实例化时构建，(多线程同时构建)非线程安全，序列化破坏
-双重检查模式
-（延迟建构)类实例化时构建，线程安（JDK 1.5不保证禁止指令重排优化），序列化破坏
-静态内部类模式
-（延......
+实现单例模式的关键延迟加载、线程安全、序列化安全
+各种模式的实现懒汉模式(预先构建)类加载时构建，线程安全，(可能不被使用)资源效率不高，序列化破坏
+饿汉模式（延迟建构)类实例化时构建，(多线程同时构建)非线程安全，序列化破坏
+双重检查模式（延迟建构)类实例化时构建，线程安（JDK 1.5不保证禁止指令重排优化），序列化破坏
+静态内部类模式（延迟建构)类实......
         </div>
     </a>
     
@@ -263,12 +257,8 @@
              "Android"
         </h3>
         <div class="post-content-preview">
-            AsyncTask 优缺点和应用
-AsyncTask 是 Android 提供的一个轻量异步任务类。
-通过继承 AsyncTask ，在类中实现异步任务操作，过程中反馈进度、完成后反馈结果给 UI 主线程。
-提供三个泛型参数， Params、Progress、Result
-Params 表示传入参数类型，Progress 表示执行进度的类型、Result 表示返回结果的类型。
-提供 4 个核......
+            AsyncTask 优缺点和应用AsyncTask 是 Android 提供的一个轻量异步任务类。
+通过继承 AsyncTask ，在类中实现异步任务操作，过程中反馈进度、完成后反馈结果给 UI 主线程。提供三个泛型参数， Params、Progress、ResultParams 表示传入参数类型，Progress 表示执行进度的类型、Result 表示返回结果的类型。提供 4 个核心方法，......
         </div>
     </a>
     
@@ -297,12 +287,10 @@ Params 表示传入参数类型，Progress 表示执行进度的类型、Result 
         </h3>
         <div class="post-content-preview">
             Hexo 安装
-
 “…”
 
 正文
-新建项目
-1234hexo initnpm installhexo ghexo s...
+新建项目1234hexo initnpm installhexo ghexo s...
         </div>
     </a>
     
@@ -333,12 +321,9 @@ Params 表示传入参数类型，Progress 表示执行进度的类型、Result 
             
 “Android 进阶”
 
-Android - Service
-Android service 的启动和连接状态
-一、 startService() 方法启动的启动状态，stopService() 停止该状态。
-二、 bindService()  方法绑定状态，unbindService() 停止该状态。
-注意： 可以同时处在两种状态，停止 Service 时需要两个状态都停止。
-从 Co......
+Android - ServiceAndroid service 的启动和连接状态
+一、 startService() 方法启动的启动状态，stopService() 停止该状态。二、 bindService()  方法绑定状态，unbindService() 停止该状态。注意： 可以同时处在两种状态，停止 Service 时需要两个状态都停止。
+从 Conte......
         </div>
     </a>
     
@@ -369,12 +354,7 @@ Android service 的启动和连接状态
             
 “Java 入门”
 
-Java int 转 boolean
-在 C语言 中  0 相当于 false, 非 0 相当于 true. 但是 Java 这是不正确，会编译错误。
-因为：
-boolean只有两个值：true &amp; false
-int是一定范围的值：-2147483648 – 2147483647
-所以，boolean 类型不能转化为 其他类型 ，其他类型 也不能转化为 bo......
+Java int 转 boolean在 C语言 中  0 相当于 false, 非 0 相当于 true. 但是 Java 这是不正确，会编译错误。因为：boolean只有两个值：true &amp; falseint是一定范围的值：-2147483648 – 2147483647所以，boolean 类型不能转化为 其他类型 ，其他类型 也不能转化为 boolean......
         </div>
     </a>
     
@@ -405,14 +385,12 @@ int是一定范围的值：-2147483648 – 2147483647
             
 “play Linux on Windows”
 
-安装 Windows 10 的 Linux 子系统
-一、前提条件：
-​	1、启用开发者模式
-​        2、在 启用和关闭 Windows 功能 中，安装 适用于 Linux 的 Windows 子系统(Beta)
+安装 Windows 10 的 Linux 子系统一、前提条件：
+​    1、启用开发者模式​        2、在 启用和关闭 Windows 功能 中，安装 适用于 Linux 的 Windows 子系统(Beta)
 二、建议：
-​        由于有不可描述的墙存在，可能出现下载困难或者慢，最好自备梯子。
+​        由于有不可描述的墙存在，可能出现下载困难或者慢，最好自备梯子。     
 三、安装：
-​      ......
+​......
         </div>
     </a>
     
@@ -443,11 +421,10 @@ int是一定范围的值：-2147483648 – 2147483647
             
 “I from C++ .”
 
-关于 new 的各种特性
-​          在 C 的时代，内存分配都是用 malloc( )、calloc( ) ，在 C++ 都是 new 、 delete、 new [ ]、delete [ ] 成对使用就好。虽然简化很多，但还是有一些细节。
-例如：
+关于 new 的各种特性​          在 C 的时代，内存分配都是用 malloc( )、calloc( ) ，在 C++ 都是 new 、 delete、 new [ ]、delete [ ] 成对使用就好。虽然简化很多，但还是有一些细节。例如：
 12int* p_int = new int;*p_int += 2;
-在上述代码中， *p_in......
+
+在上述代码中， *p_int......
         </div>
     </a>
     
@@ -478,12 +455,13 @@ int是一定范围的值：-2147483648 – 2147483647
             
 “我们来做面试题。”
 
-一个C++指针的面试题
-在网上看到这么一道C++题目，代码如下，求 n 是多少？
+一个C++指针的面试题在网上看到这么一道C++题目，代码如下，求 n 是多少？
 1int n = (int) ( ( (int )0x0 ) + 4) ;
+
 ​     解题：
 123int p1 = (int) 0x0; // 第一步int p2 = p1 + 4;    // 第二步int n  = (int) p2;  // 第三步
-这里涉及C++类型转换、类......
+
+这里涉及C++类型转换、......
         </div>
     </a>
     
@@ -514,11 +492,9 @@ int是一定范围的值：-2147483648 – 2147483647
             
 “algorithm time.”
 
-翻转二叉树（Invert Binary Tree）
-在刷 LeetCode 遇上它。听说因为 Google 让翻转二叉树成一个梗，也成为 LeetCode 的题目(Invert Binary Tree)。
-参考链接
-一、&quot;Hello World &quot;
-1234567891011121314TreeNode* invertTree(Tr......
+翻转二叉树（Invert Binary Tree）在刷 LeetCode 遇上它。听说因为 Google 让翻转二叉树成一个梗，也成为 LeetCode 的题目(Invert Binary Tree)。参考链接
+一、”Hello World “
+1234567891011121314TreeNode* invertTree(TreeNode* root......
         </div>
     </a>
     
@@ -549,8 +525,7 @@ int是一定范围的值：-2147483648 – 2147483647
             
 “创建第一个项目.”
 
-使用 
-在 cocos2d-x-2.26/tools/project-creator 目录，运行 create-project.py 脚本,进行创建新项目，成功创建的项目保存在 cocos2d-x-2.2.6/project 目录下。
+使用 create-project.py在 cocos2d-x-2.26&#x2F;tools&#x2F;project-creator 目录，运行 create-project.py 脚本,进行创建新项目，成功创建的项目保存在 cocos2d-x-2.2.6&#x2F;project 目录下。
 ...
         </div>
     </a>
@@ -609,12 +584,6 @@ int是一定范围的值：-2147483648 – 2147483647
     <div class="tags">
         
             
-        
-            
-            <a href="/tags/#Java" title="Java" rel="2">Java</a>
-            
-        
-            
             <a href="/tags/#Android" title="Android" rel="12">Android</a>
             
         
@@ -623,7 +592,7 @@ int是一定范围的值：-2147483648 – 2147483647
             
         
             
-        
+            <a href="/tags/#Java" title="Java" rel="2">Java</a>
             
         
             
@@ -631,11 +600,17 @@ int是一定范围的值：-2147483648 – 2147483647
             
         
             
-            <a href="/tags/#OpenCV" title="OpenCV" rel="2">OpenCV</a>
+        
+            
+        
             
         
             
             <a href="/tags/#OpenGL" title="OpenGL" rel="5">OpenGL</a>
+            
+        
+            
+            <a href="/tags/#OpenCV" title="OpenCV" rel="2">OpenCV</a>
             
         
             
@@ -653,11 +628,13 @@ int是一定范围的值：-2147483648 – 2147483647
             
         
             
-            <a href="/tags/#C++" title="C++" rel="2">C++</a>
+            <a href="/tags/#cocos2d-x" title="cocos2d-x" rel="2">cocos2d-x</a>
             
         
             
-            <a href="/tags/#cocos2d-x" title="cocos2d-x" rel="2">cocos2d-x</a>
+            <a href="/tags/#C++" title="C++" rel="2">C++</a>
+            
+        
             
         
             
@@ -672,8 +649,6 @@ int是一定范围的值：-2147483648 – 2147483647
         
             
             <a href="/tags/#全栈" title="全栈" rel="2">全栈</a>
-            
-        
             
         
             

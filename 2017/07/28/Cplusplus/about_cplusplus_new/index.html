@@ -151,14 +151,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -217,29 +217,24 @@
                 <blockquote>
 <p>“I from C++ .”</p>
 </blockquote>
-<h2><span id="关于-new-的各种特性">关于 new 的各种特性</span></h2>
-<p>​          在 C 的时代，内存分配都是用 malloc( )、calloc( ) ，在 C++ 都是 new 、 delete、 new [ ]、delete [ ] 成对使用就好。虽然简化很多，但还是有一些细节。<br>
-例如：</p>
+<h2><span id="关于-new-的各种特性">关于 new 的各种特性</span></h2><p>​          在 C 的时代，内存分配都是用 malloc( )、calloc( ) ，在 C++ 都是 new 、 delete、 new [ ]、delete [ ] 成对使用就好。虽然简化很多，但还是有一些细节。<br>例如：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>* p_int = <span class="keyword">new</span> <span class="keyword">int</span>;</span><br><span class="line">*p_int += <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
-<p>在上述代码中， *p_int 等于 2 ，对吗？ 错！*p_int 是一个不确定值加 2 。因为，只进行分配内存空间，没有对 *p_int 进行初始化，所以 *p_int 的值是 p_int 指向的内存空间上次使用的值，这个值是未定义的。<br>
-正确代码：</p>
+
+<p>在上述代码中， *p_int 等于 2 ，对吗？ 错！*p_int 是一个不确定值加 2 。因为，只进行分配内存空间，没有对 *p_int 进行初始化，所以 *p_int 的值是 p_int 指向的内存空间上次使用的值，这个值是未定义的。<br>正确代码：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>* p_int = <span class="keyword">new</span> <span class="keyword">int</span>( );  <span class="comment">// 分配内存，并初始化为 0. 括号内也可指定初始值。</span></span><br><span class="line">*p_int += <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
-<p>结果， *p_int 等于 2  .所以，关于 new 是否初始化申请的对象？<br>
-代码：</p>
+
+<p>结果， *p_int 等于 2  .所以，关于 new 是否初始化申请的对象？<br>代码：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>* p_int = <span class="keyword">new</span> <span class="keyword">int</span>;  <span class="comment">// 只分配内存，*p_int 不初始化。</span></span><br><span class="line"><span class="keyword">int</span>* p_int = <span class="keyword">new</span> <span class="keyword">int</span>( );  <span class="comment">//  *p_int 初始化为 0 . 括号内也可指定初始值。</span></span><br><span class="line"><span class="built_in">string</span>* p_str = <span class="keyword">new</span> <span class="built_in">string</span>;  <span class="comment">// 申请类型 有 自定义构造函数，调用进行初始化。</span></span><br><span class="line"><span class="built_in">string</span>* p_str = <span class="keyword">new</span> <span class="built_in">string</span>( );  <span class="comment">// 申请类型 有 自定义构造函数，调用进行初始化。</span></span><br><span class="line">classes* p_class = <span class="keyword">new</span> classes;  <span class="comment">// 申请类型 没有 自定义构造函数，只分配内存。</span></span><br><span class="line">classes* p_class = <span class="keyword">new</span> classes( );  <span class="comment">// 申请类型 没有 自定义构造函数，*p_class 成员对象都初始化为 0.</span></span><br></pre></td></tr></table></figure>
-<p><strong>原生的</strong> <strong>new ** ::operator new</strong>( )**<br>
-这个 ::operator new**(<strong>size_t</strong>)** 它只分配内存，来考虑一下面的代码。<br>
-代码：</p>
+
+<p><strong>原生的</strong> <strong>new ** ::operator new</strong>( )**<br>这个 ::operator new**(<strong>size_t</strong>)** 它只分配内存，来考虑一下面的代码。<br>代码：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>* v = <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>*&gt;(::<span class="keyword">operator</span> <span class="keyword">new</span>(<span class="number">5</span> * <span class="keyword">sizeof</span>(*v)));</span><br><span class="line"><span class="keyword">int</span>* v = <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>*&gt;(<span class="built_in">malloc</span>(<span class="number">5</span> * <span class="keyword">sizeof</span>(*v)));</span><br><span class="line"><span class="keyword">int</span>* v = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</span><br></pre></td></tr></table></figure>
-<p>以上三行代码，其实是等价的。对内存管理的需求，仅仅上面这种简单方法，可能会想到重载全局的new  ::operator new**( )**，但这种方法是不可取的，会非常麻烦具体可参考 <a href="http://blog.csdn.net/Solstice/article/details/6198937#" target="_blank" rel="noopener">链接</a> 。<br>
-<strong>特定类的 operator new( )</strong><br>
-有时我需要统计某一个类的内存使用情况，可以重载该类的 operator new( ) .<br>
-代码：</p>
+
+<p>以上三行代码，其实是等价的。对内存管理的需求，仅仅上面这种简单方法，可能会想到重载全局的new  ::operator new**( )**，但这种方法是不可取的，会非常麻烦具体可参考 <a href="http://blog.csdn.net/Solstice/article/details/6198937#" target="_blank" rel="noopener">链接</a> 。<br><strong>特定类的 operator new( )</strong><br>有时我需要统计某一个类的内存使用情况，可以重载该类的 operator new( ) .<br>代码：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">( <span class="keyword">size_t</span> s )</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> ::<span class="keyword">operator</span> <span class="keyword">new</span>(s);  <span class="comment">// 调用全局 new, 否则递归调用自身</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="keyword">void</span>* p)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> ::<span class="keyword">operator</span> <span class="keyword">delete</span>(p);  <span class="comment">// 调用全局 delete, 否则递归调用自身</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>new 定位运算符（Placement new）</strong><br>
-不分配内存，仅仅把指针指向定位到指定的内存空间位置。应用场景有：内存池管理、共享内存等等。<br>
-代码：</p>
+
+<p><strong>new 定位运算符（Placement new）</strong><br>不分配内存，仅仅把指针指向定位到指定的内存空间位置。应用场景有：内存池管理、共享内存等等。<br>代码：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> mem[<span class="keyword">sizeof</span>(<span class="keyword">int</span>)];</span><br><span class="line"><span class="keyword">int</span>* p_int = <span class="keyword">new</span>(mem) <span class="keyword">int</span>;  <span class="comment">// 仅仅定位，不初始化。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span>* raw = ::<span class="keyword">operator</span> <span class="keyword">new</span>(<span class="keyword">int</span>);</span><br><span class="line"><span class="keyword">int</span>* p_int = <span class="keyword">new</span>(raw) <span class="keyword">int</span>(); <span class="comment">// 定位并初始化为 0.</span></span><br></pre></td></tr></table></figure>
+
 
                 
 

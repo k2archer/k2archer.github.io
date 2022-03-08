@@ -151,14 +151,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -217,58 +217,41 @@
                 <blockquote>
 <p>“”</p>
 </blockquote>
-<h3><span id="在-instrument-test-使用-jacoco">在 instrument test 使用 Jacoco</span></h3>
-<p>在新的 Android Studio 版本中，新创建的项目 androidTest 默认配置 Jacoco 支持。</p>
+<h3><span id="在-instrument-test-使用-jacoco">在 instrument test 使用 Jacoco</span></h3><p>在新的 Android Studio 版本中，新创建的项目 androidTest 默认配置 Jacoco 支持。</p>
 <ul>
-<li>
-<p>在 build.gralde (Module:xxx)</p>
+<li><p>在 build.gralde (Module:xxx)</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">   buildTypes &#123;</span><br><span class="line">       debug &#123;</span><br><span class="line">           testCoverageEnabled = true /* 打开覆盖率统计开关 */</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>运行 gradle 脚本</p>
+<li><p>运行 gradle 脚本</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew createDebugCoverageReport</span><br></pre></td></tr></table></figure>
+
 </li>
-<li>
-<p>查看报告<br>
-报告的位置 build/outputs/reports/coverage/debug/index.html</p>
+<li><p>查看报告<br>报告的位置 build&#x2F;outputs&#x2F;reports&#x2F;coverage&#x2F;debug&#x2F;index.html</p>
 </li>
 </ul>
-<h3><span id="在-unit-test-使用-jacoco">在 unit test 使用 Jacoco</span></h3>
-<ul>
-<li>
-<p>在 build.gradle (Project: xxx ) 引入 Jacoco</p>
+<h3><span id="在-unit-test-使用-jacoco">在 unit test 使用 Jacoco</span></h3><ul>
+<li><p>在 build.gradle (Project: xxx ) 引入 Jacoco</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">	...</span><br><span class="line">	dependencies &#123;</span><br><span class="line">		...</span><br><span class="line">		classpath &quot;org.jacoco:org.jacoco.core:0.8.5&quot; // Jacoco</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 </li>
-<li>
-<p>在 build.gradle (Module: xxx) 配置  Jacoco</p>
+<li><p>在 build.gradle (Module: xxx) 配置  Jacoco</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: &apos;jacoco&apos;</span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        debug &#123;</span><br><span class="line">            testCoverageEnabled = true /* 打开覆盖率统计开关 */</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def coverageSourceDirs = [</span><br><span class="line">        &apos;../&apos; + project.getName() + &apos;/src/main/java&apos;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">task jacocoTestReport(type: JacocoReport, dependsOn: &quot;testDebugUnitTest&quot;) &#123;</span><br><span class="line">    group = &quot;Reporting&quot;</span><br><span class="line">    description = &quot;Generate Jacoco coverage reports&quot;</span><br><span class="line">	</span><br><span class="line">	classDirectories = fileTree(</span><br><span class="line">		dir: &quot;&quot;,</span><br><span class="line">		excludes: []</span><br><span class="line">	)</span><br><span class="line">	</span><br><span class="line">	additionalSourceDirs = files(coverageSourceDirs)</span><br><span class="line">	sourceDirectories = files(coverageSourceDirs)</span><br><span class="line">	</span><br><span class="line">    executionData = fileTree(dir: project.buildDir, includes: [</span><br><span class="line">		    // unit test 生成的 *.exec 文件</span><br><span class="line">            &apos;jacoco/testDebugUnitTest.exec&apos;,   </span><br><span class="line">            // instrument test 生成的 *.ec 文件</span><br><span class="line">            &apos;outputs/code_coverage/debugAndroidTest/connected/*coverage.ec&apos;</span><br><span class="line">    ])</span><br><span class="line">    </span><br><span class="line">	reports &#123;</span><br><span class="line">        xml.enabled = true</span><br><span class="line">        html.enabled = true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>生成报告<br>
-运行 ./gradlew clean testDebugUnitTest jacocoTestReport</p>
+<li><p>生成报告<br>运行 .&#x2F;gradlew clean testDebugUnitTest jacocoTestReport</p>
 </li>
-<li>
-<p>查看报告<br>
-报告的位置  build\reports\jacoco\jacocoTestReport\html\index.html</p>
+<li><p>查看报告<br>报告的位置  build\reports\jacoco\jacocoTestReport\html\index.html</p>
 </li>
 </ul>
-<h3><span id="同时运行-instrument-test-和-unit-test-合并报告">同时运行 instrument test 和 unit test ，合并报告</span></h3>
-<ul>
-<li>
-<p>基本思路：<br>
-在 executionData 同时添加 *.exec、*.ec 文件</p>
+<h3><span id="同时运行-instrument-test-和-unit-test-合并报告">同时运行 instrument test 和 unit test ，合并报告</span></h3><ul>
+<li><p>基本思路：<br>在 executionData 同时添加 *.exec、*.ec 文件</p>
 </li>
-<li>
-<p>Jacoco 配置</p>
+<li><p>Jacoco 配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">executionData = fileTree(dir: project.buildDir, includes: [</span><br><span class="line">  // unit test 生成的 *.exec 文件</span><br><span class="line">        &apos;jacoco/testDebugUnitTest.exec&apos;,   </span><br><span class="line">        // instrument test 生成的 *.ec 文件</span><br><span class="line">        &apos;outputs/code_coverage/debugAndroidTest/connected/*coverage.ec&apos;</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>运行 gralde 脚本</p>
+<li><p>运行 gralde 脚本</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew clean connectedDebugAndroidTest testDebugUnitTest createDebugCoverageReport jacocoTestReport</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>查看报告<br>
-报告的位置  build\reports\jacoco\jacocoTestReport\html\index.html</p>
+<li><p>查看报告<br>报告的位置  build\reports\jacoco\jacocoTestReport\html\index.html</p>
 </li>
 </ul>
 

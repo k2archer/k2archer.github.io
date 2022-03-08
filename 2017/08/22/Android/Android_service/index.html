@@ -151,14 +151,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -217,14 +217,9 @@
                 <blockquote>
 <p>“Android 进阶”</p>
 </blockquote>
-<h2><span id="android-service">Android - Service</span></h2>
-<p>Android service 的启动和连接状态</p>
-<p>一、 startService() 方法启动的启动状态，stopService() 停止该状态。<br>
-二、 bindService()  方法绑定状态，unbindService() 停止该状态。<br>
-注意： 可以同时处在两种状态，停止 Service 时需要两个状态都停止。</p>
-<p>从 ContextWrapper 中开始，<br>
-​	return mBase.startService(service);<br>
-mBase 的类型是 ContextImpl ， 在 Activity 被创建时用 attach() 方法引用一个 ContextImpl 对象。在 ContextImpl 中，startService() 继续调用 startServiceCommon() 方法 ，而startServiceCommon() 继续调用 ActivityManagerNative.getDefault() 对象启动一个服务。启动的对象实际是 AMS（ActivityManagerService）。AMS 通过 mService (类型是ActivityService) 对象来完成后续的启动过程。ActivityService 是一个辅助 AMS 进行 Service 管理的类，包括 Service 的启动、绑定和停止等。</p>
+<h2><span id="android-service">Android - Service</span></h2><p>Android service 的启动和连接状态</p>
+<p>一、 startService() 方法启动的启动状态，stopService() 停止该状态。<br>二、 bindService()  方法绑定状态，unbindService() 停止该状态。<br>注意： 可以同时处在两种状态，停止 Service 时需要两个状态都停止。</p>
+<p>从 ContextWrapper 中开始，<br>​    return mBase.startService(service);<br>mBase 的类型是 ContextImpl ， 在 Activity 被创建时用 attach() 方法引用一个 ContextImpl 对象。在 ContextImpl 中，startService() 继续调用 startServiceCommon() 方法 ，而startServiceCommon() 继续调用 ActivityManagerNative.getDefault() 对象启动一个服务。启动的对象实际是 AMS（ActivityManagerService）。AMS 通过 mService (类型是ActivityService) 对象来完成后续的启动过程。ActivityService 是一个辅助 AMS 进行 Service 管理的类，包括 Service 的启动、绑定和停止等。</p>
 
                 
 

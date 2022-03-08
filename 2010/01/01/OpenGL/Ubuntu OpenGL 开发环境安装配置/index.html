@@ -151,14 +151,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -215,17 +215,18 @@
                 post-container">
 
                 <p><strong>Ubuntu OpenGL 开发环境安装配置</strong></p>
-<h4><span id="lfw-库安装">LFW 库安装</span></h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-cache search glfw</span><br><span class="line">sudo apt-get install libglfw3 libglfw3-dev</span><br></pre></td></tr></table></figure>
-<p>// 引入GLFW库</p>
+<h4><span id="lfw-库安装">LFW 库安装</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-cache search glfw</span><br><span class="line">sudo apt-get install libglfw3 libglfw3-dev</span><br></pre></td></tr></table></figure>
+
+<p>&#x2F;&#x2F; 引入GLFW库</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;GLFW/glfw3.h&gt;</span><br></pre></td></tr></table></figure>
+
 <p>库链接 -lglfw</p>
-<h4><span id="glew-库安装">GLEW 库安装</span></h4>
-<pre><code>  apt-cache search glew
+<h4><span id="glew-库安装">GLEW 库安装</span></h4><pre><code>  apt-cache search glew
   sudo apt-get install libglew-dev glew-utils
 </code></pre>
-<p>// 引入GLEW库 定义静态链接</p>
+<p>&#x2F;&#x2F; 引入GLEW库 定义静态链接</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#define GLEW_STATIC</span><br><span class="line">#include &lt;GL/glew.h&gt;</span><br></pre></td></tr></table></figure>
+
 <p>库链接 -lGLEW</p>
 
                 

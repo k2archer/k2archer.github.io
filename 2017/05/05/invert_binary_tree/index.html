@@ -151,14 +151,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -217,11 +217,10 @@
                 <blockquote>
 <p>“algorithm time.”</p>
 </blockquote>
-<h2><span id="翻转二叉树invert-binary-tree">翻转二叉树（Invert Binary Tree）</span></h2>
-<p>在刷 LeetCode 遇上它。听说因为 Google 让翻转二叉树成一个梗，也成为 LeetCode 的题目(<a href="http://link.zhihu.com/?target=https%3A//leetcode.com/problems/invert-binary-tree/" target="_blank" rel="noopener">Invert Binary Tree</a>)。<br>
-<a href="https://zhuanlan.zhihu.com/p/20077125?columnSlug=hello-coding" target="_blank" rel="noopener">参考链接</a></p>
-<p><strong>一、&quot;Hello World &quot;</strong></p>
+<h2><span id="翻转二叉树invert-binary-tree">翻转二叉树（Invert Binary Tree）</span></h2><p>在刷 LeetCode 遇上它。听说因为 Google 让翻转二叉树成一个梗，也成为 LeetCode 的题目(<a href="http://link.zhihu.com/?target=https://leetcode.com/problems/invert-binary-tree/" target="_blank" rel="noopener">Invert Binary Tree</a>)。<br><a href="https://zhuanlan.zhihu.com/p/20077125?columnSlug=hello-coding" target="_blank" rel="noopener">参考链接</a></p>
+<p><strong>一、”Hello World “</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">invertTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( root == <span class="literal">NULL</span>)</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line">  TreeNode* temp = root-&gt;left;</span><br><span class="line">  root-&gt;left = root-&gt;right;</span><br><span class="line">  root-&gt;right = temp;</span><br><span class="line"></span><br><span class="line">  invertTree(root-&gt;left);</span><br><span class="line">  invertTree(root-&gt;right);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><strong>二、 不用递归 (Not recursiono)</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">invertTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">stack</span>&lt;TreeNode*&gt; stacks;</span><br><span class="line">  stacks.push(root);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> ( ! stacks.empty() ) &#123;</span><br><span class="line">    TreeNode* node = stacks.top();</span><br><span class="line">    stacks.pop();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (node == <span class="literal">NULL</span>)</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">std</span>::swap(node-&gt;left, node-&gt;right);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (node-&gt;left != <span class="literal">NULL</span> )</span><br><span class="line">      stacks.push(node-&gt;left);</span><br><span class="line">    <span class="keyword">if</span> (node-&gt;right != <span class="literal">NULL</span> )</span><br><span class="line">      stacks.push(node-&gt;right);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
                 

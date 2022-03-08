@@ -151,14 +151,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -214,23 +214,10 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1><span id="asynctask-优缺点和应用">AsyncTask 优缺点和应用</span></h1>
-<p>AsyncTask 是 Android 提供的一个轻量异步任务类。</p>
-<p>通过继承 AsyncTask ，在类中实现异步任务操作，过程中反馈进度、完成后反馈结果给 UI 主线程。<br>
-提供三个泛型参数， Params、Progress、Result<br>
-Params 表示传入参数类型，Progress 表示执行进度的类型、Result 表示返回结果的类型。<br>
-提供 4 个核心方法，onPreExecute() 方法在主线程中执行，异步任务执行前被调用，一般用于准备工作处理。<br>
-doInBackground(Params… params) 方法在线程池中执行，用于执行异步任务。</p>
-<p>Android 1.6 之前，串行执行任务，1.6 后用线程池并行执行任务，从 3.0 开始，为避免并发错误，又用单线程执行任务。但 3.0 及后续版本，可调用 AsyncTask 的  executeOnExecutor 方法并行执行任务。<br>
-AsyncTask 类必须在主线程中加载。Android 4.1 及以上由系统自动完成加载。<br>
-AsyncTask 对象必须在主线程中创建。<br>
-execute() 方法必须在 UI 线程调用。<br>
-一个 AsyncTask 对象只能调用一次 execute() ，否则会产生异常。</p>
-<p>引用：<br>
-Android中糟糕的AsyncTask<br>
-<a href="https://droidyue.com/blog/2014/11/08/bad-smell-of-asynctask-in-android/" target="_blank" rel="noopener">https://droidyue.com/blog/2014/11/08/bad-smell-of-asynctask-in-android/</a><br>
-详细解读AsyncTask的黑暗面以及一种替代方案<br>
-<a href="https://www.jianshu.com/p/d83fd0e8a062" target="_blank" rel="noopener">https://www.jianshu.com/p/d83fd0e8a062</a></p>
+                <h1><span id="asynctask-优缺点和应用">AsyncTask 优缺点和应用</span></h1><p>AsyncTask 是 Android 提供的一个轻量异步任务类。</p>
+<p>通过继承 AsyncTask ，在类中实现异步任务操作，过程中反馈进度、完成后反馈结果给 UI 主线程。<br>提供三个泛型参数， Params、Progress、Result<br>Params 表示传入参数类型，Progress 表示执行进度的类型、Result 表示返回结果的类型。<br>提供 4 个核心方法，onPreExecute() 方法在主线程中执行，异步任务执行前被调用，一般用于准备工作处理。<br>doInBackground(Params… params) 方法在线程池中执行，用于执行异步任务。</p>
+<p>Android 1.6 之前，串行执行任务，1.6 后用线程池并行执行任务，从 3.0 开始，为避免并发错误，又用单线程执行任务。但 3.0 及后续版本，可调用 AsyncTask 的  executeOnExecutor 方法并行执行任务。<br>AsyncTask 类必须在主线程中加载。Android 4.1 及以上由系统自动完成加载。<br>AsyncTask 对象必须在主线程中创建。<br>execute() 方法必须在 UI 线程调用。<br>一个 AsyncTask 对象只能调用一次 execute() ，否则会产生异常。</p>
+<p>引用：<br>    Android中糟糕的AsyncTask<br>    <a href="https://droidyue.com/blog/2014/11/08/bad-smell-of-asynctask-in-android/" target="_blank" rel="noopener">https://droidyue.com/blog/2014/11/08/bad-smell-of-asynctask-in-android/</a><br>    详细解读AsyncTask的黑暗面以及一种替代方案<br>    <a href="https://www.jianshu.com/p/d83fd0e8a062" target="_blank" rel="noopener">https://www.jianshu.com/p/d83fd0e8a062</a></p>
 
                 
 

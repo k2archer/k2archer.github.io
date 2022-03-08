@@ -143,14 +143,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -228,13 +228,13 @@ Focus
 作品一：酒店订房页面
 熟练编写布局，实现一个简单的地址选择器。
 
+
 作品二、图书商城
-C/S 架构，Android 前端，Java 实现简单 Web 服务端。
-通过 HTTP API 连接前端进行交互.具备基本的完整前后端开发技术认知。
+C&#x2F;S 架构，Android 前端，Java 实现简单 Web 服务端。通过 HTTP API 连接前端进行交互.具备基本的完整前后端开发技术认知。
+
 
 作品三、贴纸扫码广告
-仿实体店贴纸广告投放平台商家端
-实体店铺进驻、激活投放、统计收益的App。
+仿实体店贴纸广告投放平台商家端实体店铺进驻、激活投放、统计收益的App。
 
 ...
         </div>
@@ -268,12 +268,8 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。
 
 “”
 
-前言
-如何优雅地处理在用户使用 App 时发生的 Crash 呢？
-友好地提醒用户 App 崩溃，需要保存发送崩溃信息，并重启 App。
-实现思路
-实现单实例 UncaughtExceptionHandler，重写 uncaughtExecption() 方法。
-在 uncaughtExecption() 方法中，优雅提醒用户程......
+前言如何优雅地处理在用户使用 App 时发生的 Crash 呢？友好地提醒用户 App 崩溃，需要保存发送崩溃信息，并重启 App。
+实现思路实现单实例 UncaughtExceptionHandler，重写 uncaughtExecption() 方法。在 uncaughtExecption() 方法中，优雅提醒用户程序异常。......
         </div>
     </a>
     
@@ -304,14 +300,8 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。
             
 “刷题笔记”
 
-109. 有序链表转换二叉搜索树
-题目描述 链接 ：
-给定一个单链表，其中的元素按升序排序，将其转换为高度平衡的二叉搜索树。
-本题中，一个高度平衡二叉树是指一个二叉树每个节点的左右两个子树的高度差的绝对值不超过 1。
-解题思路：
-第一想法，这是一个平衡二叉树的建树过程。有没有更优的方法？
-由于给出的单链表是 按升序排序，而二叉树的中序遍历也是有序的。
-利用这两个特性，把一个......
+109. 有序链表转换二叉搜索树题目描述 链接 ：给定一个单链表，其中的元素按升序排序，将其转换为高度平衡的二叉搜索树。本题中，一个高度平衡二叉树是指一个二叉树每个节点的左右两个子树的高度差的绝对值不超过 1。
+解题思路：第一想法，这是一个平衡二叉树的建树过程。有没有更优的方法？由于给出的单链表是 按升序排序，而二叉树的中序遍历也是有序的。利用这两个特性，把一个单链表保留中......
         </div>
     </a>
     
@@ -339,11 +329,10 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。
              " "
         </h3>
         <div class="post-content-preview">
-            OpenGL 绘制方式：传统方式绘制三角形
-OpenGL 早期的绘制方式就是使用 glBegin() … glEnd() 绘制方式，在这两个函数之间给出绘制的顶点数据。
+            OpenGL 绘制方式：传统方式绘制三角形OpenGL 早期的绘制方式就是使用 glBegin() … glEnd() 绘制方式，在这两个函数之间给出绘制的顶点数据。
 但是，这种绘制方式效率比较低，因为需要一个顶点数据调用一次 glVertex() ，从客户端(内存)传输到服务端(GPU)，glVertex() 调用次数过多，数据传输次数过多。
 示例代码：
-1234567891011121......
+12345678910111213......
         </div>
     </a>
     
@@ -375,11 +364,11 @@ OpenGL 早期的绘制方式就是使用 glBegin() … glEnd() 绘制方式，�
 
 “Git 进阶使用”
 
-安装 git
-1sudo apt-get install git-all
-安装启动时运行工具
-本文使用 git-daemon-sysvinit，亦可使用 git-daemon-run ，但配置方式不同。
+安装 git1sudo apt-get install git-all
+
+安装启动时运行工具本文使用 git-daemon-sysvinit，亦可使用 git-daemon-run ，但配置方式不同。
 1sudo apt-get install git-daemon-sysvinit
+
 配置 git-da......
         </div>
     </a>
@@ -413,9 +402,8 @@ OpenGL 早期的绘制方式就是使用 glBegin() … glEnd() 绘制方式，�
 
 在Android 开发过程中，我们会经常查看 Sqlite 数据库文件的数据，直接在 adb shell 下运行 sqlit3 ，但是，很多系统里面是没有的！
 1/system/bin/sh: sqlite3: not found
-使用 Android ndk-build 编译
-下载、解压
-12$ wget http://www.sqlite.org/2018/......
+
+使用 Android ndk-build 编译下载、解压12$ wget http://www.sqlite.org/2018/s......
         </div>
     </a>
     
@@ -450,16 +438,14 @@ OpenGL 早期的绘制方式就是使用 glBegin() … glEnd() 绘制方式，�
             
 “嗯。这一个面试题”
 
-方法一 判断指针长度
-使用范围：C/C++ 语言
+方法一 判断指针长度使用范围：C&#x2F;C++ 语言
 12345// C++ Languageif (sizeof(void*) &lt; 8)	// 32 位else 	// 64 位
-方法二 编译宏指令
-使用范围：编译器
+
+方法二 编译宏指令使用范围：编译器
 
 
 
 gcc macro
-
 
 
 
@@ -474,8 +460,7 @@ Predefined macro
 
 x86
 _M_IX86
-__INTEL__
-_......
+__INTEL_......
         </div>
     </a>
     
@@ -504,12 +489,10 @@ _......
         </h3>
         <div class="post-content-preview">
             
-“RecyclerView 添加空数据视图”
+ “RecyclerView 添加空数据视图”
 
-前言
-在 RecyclerView 的列表没有数据的时候显示一片空白，这就像白开水一般的交互体验，我们可以通过展示一个空数据视图，这样会给用户带来更好的交互体验。
-方案思路
-在当没有数据的时候，利用 View  的 Visibility 属性其中 VISIBLE  和 INVISIBLE  两种状态，把 RecyclerView 隐藏起来，让......
+前言在 RecyclerView 的列表没有数据的时候显示一片空白，这就像白开水一般的交互体验，我们可以通过展示一个空数据视图，这样会给用户带来更好的交互体验。
+方案思路在当没有数据的时候，利用 View  的 Visibility 属性其中 VISIBLE  和 INVISIBLE  两种状态，把 RecyclerView 隐藏起来，让空......
         </div>
     </a>
     
@@ -537,14 +520,11 @@ _......
              "Android 开发进阶"
         </h3>
         <div class="post-content-preview">
-            读《Android源码设计模式解析与实战》
+            读《Android源码设计模式解析与实战》 
 
 “Android 开发进阶”
 
-第1章 面向对象 六大原则
-单一职责原则（Single Responsibility Principle, SRP）
-如果把一个功能系统的都写一个类里，相当于把所有的功能都粘在一起，耦合度过高，缺乏可扩展性和灵活性。
-随着功能点的增多，类就会变大越来越大，代码随之越来越复杂。整个功能系统越来越脆弱，原地爆炸的。就需......
+第1章 面向对象 六大原则单一职责原则（Single Responsibility Principle, SRP）如果把一个功能系统的都写一个类里，相当于把所有的功能都粘在一起，耦合度过高，缺乏可扩展性和灵活性。随着功能点的增多，类就会变大越来越大，代码随之越来越复杂。整个功能系统越来越脆弱，原地爆炸的。就需要重......
         </div>
     </a>
     
@@ -574,14 +554,10 @@ _......
              ""
         </h3>
         <div class="post-content-preview">
-            Sublime Text 3 安装 Ctags
-在sublime text中的package control install下安装ctags
+            Sublime Text 3 安装 Ctags在sublime text中的package control install下安装ctags
 快捷键ctrl+shift+p，输入pci，再在命令行中输入ctags安装
-配置ctags路径
-preference
-引用
-sublime插件ctags安装及配置
-http://blog.csdn.net/ikscher/article/details......
+配置ctags路径preference
+引用    sublime插件ctags安装及配置    http://blog.csdn.net/ikscher/article/det......
         </div>
     </a>
     
@@ -639,12 +615,6 @@ http://blog.csdn.net/ikscher/article/details......
     <div class="tags">
         
             
-        
-            
-            <a href="/tags/#Java" title="Java" rel="2">Java</a>
-            
-        
-            
             <a href="/tags/#Android" title="Android" rel="12">Android</a>
             
         
@@ -653,7 +623,7 @@ http://blog.csdn.net/ikscher/article/details......
             
         
             
-        
+            <a href="/tags/#Java" title="Java" rel="2">Java</a>
             
         
             
@@ -661,11 +631,17 @@ http://blog.csdn.net/ikscher/article/details......
             
         
             
-            <a href="/tags/#OpenCV" title="OpenCV" rel="2">OpenCV</a>
+        
+            
+        
             
         
             
             <a href="/tags/#OpenGL" title="OpenGL" rel="5">OpenGL</a>
+            
+        
+            
+            <a href="/tags/#OpenCV" title="OpenCV" rel="2">OpenCV</a>
             
         
             
@@ -683,11 +659,13 @@ http://blog.csdn.net/ikscher/article/details......
             
         
             
-            <a href="/tags/#C++" title="C++" rel="2">C++</a>
+            <a href="/tags/#cocos2d-x" title="cocos2d-x" rel="2">cocos2d-x</a>
             
         
             
-            <a href="/tags/#cocos2d-x" title="cocos2d-x" rel="2">cocos2d-x</a>
+            <a href="/tags/#C++" title="C++" rel="2">C++</a>
+            
+        
             
         
             
@@ -702,8 +680,6 @@ http://blog.csdn.net/ikscher/article/details......
         
             
             <a href="/tags/#全栈" title="全栈" rel="2">全栈</a>
-            
-        
             
         
             

@@ -151,14 +151,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -218,27 +218,26 @@
 <blockquote>
 <p>“Git 进阶使用”</p>
 </blockquote>
-<h4><span id="安装-git">安装 git</span></h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git-all</span><br></pre></td></tr></table></figure>
-<h4><span id="安装启动时运行工具">安装启动时运行工具</span></h4>
-<p>本文使用 git-daemon-sysvinit，亦可使用 git-daemon-run ，但配置方式不同。</p>
+<h4><span id="安装-git">安装 git</span></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git-all</span><br></pre></td></tr></table></figure>
+
+<h4><span id="安装启动时运行工具">安装启动时运行工具</span></h4><p>本文使用 git-daemon-sysvinit，亦可使用 git-daemon-run ，但配置方式不同。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git-daemon-sysvinit</span><br></pre></td></tr></table></figure>
-<h4><span id="配置-git-daemon-sysvinit">配置 git-daemon-sysvinit</span></h4>
-<p>修改配置文件 /etc/default/git-daemon</p>
+
+<h4><span id="配置-git-daemon-sysvinit">配置 git-daemon-sysvinit</span></h4><p>修改配置文件 &#x2F;etc&#x2F;default&#x2F;git-daemon</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 是否启用 daemon</span></span><br><span class="line">GIT_DAEMON_ENABLE=<span class="literal">true</span></span><br><span class="line"><span class="comment"># 指定运行 daemon 的用户名</span></span><br><span class="line">GIT_DAEMON_USER=gitdaemon</span><br><span class="line"><span class="comment"># daemon 的根目录，即库所在的目录</span></span><br><span class="line"><span class="comment"># 运行 daemon 需要有这个目录读写执行权限</span></span><br><span class="line">GIT_DAEMON_BASE_PATH=/var/lib</span><br><span class="line">GIT_DAEMON_DIRECTORY=/var/lib</span><br><span class="line"><span class="comment"># Additional options that are passed to the Daemon.</span></span><br><span class="line"><span class="comment"># 使用 git push 功能，添加参数 --enable=receive-pack</span></span><br><span class="line">GIT_DAEMON_OPTIONS=<span class="string">"--export-all --enable=receive-pack"</span></span><br></pre></td></tr></table></figure>
-<p>GIT_DAEMON_USER 参数<br>
-建议只使用独立并只拥有库所在的目录权限的用户</p>
+
+<p>GIT_DAEMON_USER 参数<br>建议只使用独立并只拥有库所在的目录权限的用户</p>
 <p>GIT_DAEMON_OPTIONS 参数</p>
 <ul>
-<li>–enable=receive-pack 表示接受远程的 push 操作</li>
-<li>–disable=receive-pack 表示拒绝接受远程的 push 操作</li>
+<li>–enable&#x3D;receive-pack 表示接受远程的 push 操作</li>
+<li>–disable&#x3D;receive-pack 表示拒绝接受远程的 push 操作</li>
 </ul>
-<h4><span id="启动-git-daemon">启动 git-daemon</span></h4>
-<p>重启一次，之后开机会自动启动 git-daemon。亦手动启动例如：</p>
+<h4><span id="启动-git-daemon">启动 git-daemon</span></h4><p>重启一次，之后开机会自动启动 git-daemon。亦手动启动例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo service git-daemon [ start | restart | stop ]</span><br><span class="line">sudo /etc/init.d/git-daemon [ start |restart | stop ]</span><br></pre></td></tr></table></figure>
-<h4><span id="使用-git-服务器">使用 git 服务器</span></h4>
-<p>例如：</p>
+
+<h4><span id="使用-git-服务器">使用 git 服务器</span></h4><p>例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git://192.168.0.128:/kTest.git</span><br></pre></td></tr></table></figure>
+
 
                 
 

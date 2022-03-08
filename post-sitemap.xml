@@ -225,14 +225,6 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2010/01/01/0/OpenCV%20%E6%89%8B%E8%AE%B0/</loc>
-        <lastmod>2018-06-02T15:17:28.846Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>https://k2archer.github.io/2010/01/01/0/OpenCv%20%E6%96%B0%E6%89%8B%E7%AB%A0/</loc>
         <lastmod>2018-06-02T15:17:28.846Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -241,8 +233,8 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2017/05/05/invert_binary_tree/</loc>
-        <lastmod>2018-06-02T15:17:09.729Z</lastmod>
+        <loc>https://k2archer.github.io/2010/01/01/0/OpenCV%20%E6%89%8B%E8%AE%B0/</loc>
+        <lastmod>2018-06-02T15:17:28.846Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -258,6 +250,14 @@
 
     <url>
         <loc>https://k2archer.github.io/2018/02/20/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%BC%98%E7%BC%BA%E7%82%B9%E5%8F%8A%E5%8E%9F%E7%90%86/</loc>
+        <lastmod>2018-06-02T15:17:09.729Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2017/05/05/invert_binary_tree/</loc>
         <lastmod>2018-06-02T15:17:09.729Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -297,14 +297,6 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2017/03/25/Game/cocos2d-x-(1)_compilation_and_install/</loc>
-        <lastmod>2018-06-02T15:17:09.379Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>https://k2archer.github.io/2017/03/25/Game/cocos2d-x-(2)_create_project/</loc>
         <lastmod>2018-06-02T15:17:09.379Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -313,8 +305,8 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2017/07/20/Cplusplus/a_question_about_Cplusplus_pointer/</loc>
-        <lastmod>2018-06-02T15:17:09.364Z</lastmod>
+        <loc>https://k2archer.github.io/2017/03/25/Game/cocos2d-x-(1)_compilation_and_install/</loc>
+        <lastmod>2018-06-02T15:17:09.379Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -329,15 +321,15 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2018/03/22/Android_design_pattern/</loc>
-        <lastmod>2018-06-02T15:17:09.348Z</lastmod>
+        <loc>https://k2archer.github.io/2017/07/20/Cplusplus/a_question_about_Cplusplus_pointer/</loc>
+        <lastmod>2018-06-02T15:17:09.364Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2017/08/22/Android/Android_service/</loc>
+        <loc>https://k2archer.github.io/2018/05/10/Android/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91_Android_Sqlite3_%E5%91%BD%E4%BB%A4/</loc>
         <lastmod>2018-06-02T15:17:09.348Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -353,6 +345,14 @@
     </url>
 
     <url>
+        <loc>https://k2archer.github.io/2018/03/22/Android_design_pattern/</loc>
+        <lastmod>2018-06-02T15:17:09.348Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://k2archer.github.io/2018/02/20/Android/AsyncTask_%E4%BC%98%E7%BC%BA%E7%82%B9%E5%92%8C%E5%BA%94%E7%94%A8/</loc>
         <lastmod>2018-06-02T15:17:09.348Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -361,7 +361,7 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2018/05/10/Android/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91_Android_Sqlite3_%E5%91%BD%E4%BB%A4/</loc>
+        <loc>https://k2archer.github.io/2017/08/22/Android/Android_service/</loc>
         <lastmod>2018-06-02T15:17:09.348Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>

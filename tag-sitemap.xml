@@ -17,14 +17,14 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/tags/Android/</loc>
+        <loc>https://k2archer.github.io/tags/Java/</loc>
         <lastmod>2022-03-08T03:34:37.753Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/tags/Java/</loc>
+        <loc>https://k2archer.github.io/tags/Android/</loc>
         <lastmod>2022-03-08T03:34:37.753Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -150,6 +150,13 @@
     </url>
 
     <url>
+        <loc>https://k2archer.github.io/tags/LeetCode/</loc>
+        <lastmod>2018-06-02T15:17:09.729Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://k2archer.github.io/tags/Ctags/</loc>
         <lastmod>2018-06-02T15:17:09.729Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -158,13 +165,6 @@
 
     <url>
         <loc>https://k2archer.github.io/tags/设计模式/</loc>
-        <lastmod>2018-06-02T15:17:09.729Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/LeetCode/</loc>
         <lastmod>2018-06-02T15:17:09.729Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

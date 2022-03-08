@@ -155,14 +155,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -223,16 +223,18 @@
 </blockquote>
 <p>在Android 开发过程中，我们会经常查看 Sqlite 数据库文件的数据，直接在 adb shell 下运行 sqlit3 ，但是，很多系统里面是没有的！</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/system/bin/sh: sqlite3: not found</span><br></pre></td></tr></table></figure>
-<h2><span id="使用-android-ndk-build-编译">使用 Android ndk-build 编译</span></h2>
-<h3><span id="下载-解压">下载、解压</span></h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://www.sqlite.org/2018/sqlite-autoconf-3230100.tar.gz</span><br><span class="line">$ tar zxvf sqlite-autoconf-3230100.tar.gz</span><br></pre></td></tr></table></figure>
-<h3><span id="创建配置文件">创建配置文件</span></h3>
-<p>进入 sqlite-amalgamation 源码目录，并创建 <code>Android.mk</code>、<code>Application.mk</code> 两个配置文件。</p>
+
+<h2><span id="使用-android-ndk-build-编译">使用 Android ndk-build 编译</span></h2><h3><span id="下载-解压">下载、解压</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://www.sqlite.org/2018/sqlite-autoconf-3230100.tar.gz</span><br><span class="line">$ tar zxvf sqlite-autoconf-3230100.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h3><span id="创建配置文件">创建配置文件</span></h3><p>进入 sqlite-amalgamation 源码目录，并创建 <code>Android.mk</code>、<code>Application.mk</code> 两个配置文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd sqlite-autoconf-3230100</span><br></pre></td></tr></table></figure>
+
 <p><strong><code>Android.mk</code></strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := $(call my-dir)</span><br><span class="line">include $(CLEAR_VARS)</span><br><span class="line">LOCAL_SRC_FILES := sqlite3.c shell.c</span><br><span class="line">LOCAL_MODULE := sqlite3</span><br><span class="line">include $(BUILD_EXECUTABLE)</span><br></pre></td></tr></table></figure>
+
 <p>**<code>Application.mk</code> **</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">APP_ABI := armeabi-v7a</span><br><span class="line">APP_PLATFORM := android-27</span><br></pre></td></tr></table></figure>
+
 <p><em>需根据项目配置 <code>APP_ABI</code>, <code>APP_PLATFORM</code> 两个参数</em></p>
 <table>
 <thead>
@@ -244,8 +246,7 @@
 <th></th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>APP_ABI</td>
 <td>armeabi</td>
 <td>armeabi-v7a</td>
@@ -259,16 +260,15 @@
 <td></td>
 <td></td>
 </tr>
-</tbody>
-</table>
-<h3><span id="编译">编译</span></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlite-amalgamation-3230100 $ ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=./Android.mk NDK_APPLICATION_MK=./Application.mk</span><br></pre></td></tr></table></figure>
-<h2><span id="push-sqlite3-到手机">push sqlite3 到手机</span></h2>
-<p>复制 sqlite3 到 /system/bin ，并添加执行权限，注意是 local 下的 sqlite3 。</p>
+</tbody></table>
+<h3><span id="编译">编译</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlite-amalgamation-3230100 $ ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=./Android.mk NDK_APPLICATION_MK=./Application.mk</span><br></pre></td></tr></table></figure>
+
+<h2><span id="push-sqlite3-到手机">push sqlite3 到手机</span></h2><p>复制 sqlite3 到 &#x2F;system&#x2F;bin ，并添加执行权限，注意是 local 下的 sqlite3 。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">adb push obj\local\arm64-v8a\sqlite3 /system/bin</span><br><span class="line">adb shell</span><br><span class="line">su</span><br><span class="line">chmod 777 /system/bin/sqlite3</span><br></pre></td></tr></table></figure>
-<h2><span id="warning-提示">WARNING 提示</span></h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WARNING: linker:   ./Test_NDK: unused DT Entry: type 0x6ffffffe arg 0xd3c</span><br><span class="line">WARNING: linker:   ./Test_NDK: unused DT Entry: type 0x6fffffff arg 0x1</span><br></pre></td></tr></table></figure>
-<p>可能原因：</p>
+
+<h2><span id="warning-提示">WARNING 提示</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WARNING: linker:   ./Test_NDK: unused DT Entry: type 0x6ffffffe arg 0xd3c</span><br><span class="line">WARNING: linker:   ./Test_NDK: unused DT Entry: type 0x6fffffff arg 0x1</span><br></pre></td></tr></table></figure>
+
+<p> 可能原因：</p>
 <ul>
 <li><a href="http://blog.sina.com.cn/s/blog_602f87700102x01t.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_602f87700102x01t.html</a></li>
 </ul>
@@ -277,8 +277,7 @@
 <li><a href="http://www.dllhook.com/post/211.html" target="_blank" rel="noopener">http://www.dllhook.com/post/211.html</a></li>
 <li><a href="https://github.com/kost/android-elf-cleaner" target="_blank" rel="noopener">https://github.com/kost/android-elf-cleaner</a></li>
 </ul>
-<h2><span id="引用">引用</span></h2>
-<ul>
+<h2><span id="引用">引用</span></h2><ul>
 <li><a href="http://zouhualong.oschina.io/pages/blog/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/android/sqlite" target="_blank" rel="noopener">Sqlit交叉编译使用</a></li>
 </ul>
 

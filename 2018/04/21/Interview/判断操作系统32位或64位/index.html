@@ -151,14 +151,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -217,11 +217,10 @@
                 <blockquote>
 <p>“嗯。这一个面试题”</p>
 </blockquote>
-<h2><span id="方法一-判断指针长度">方法一 判断指针长度</span></h2>
-<p>使用范围：C/C++ 语言</p>
+<h2><span id="方法一-判断指针长度">方法一 判断指针长度</span></h2><p>使用范围：C&#x2F;C++ 语言</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ Language</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">sizeof</span>(<span class="keyword">void</span>*) &lt; <span class="number">8</span>)</span><br><span class="line">	<span class="comment">// 32 位</span></span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">	<span class="comment">// 64 位</span></span><br></pre></td></tr></table></figure>
-<h2><span id="方法二-编译宏指令">方法二 编译宏指令</span></h2>
-<p>使用范围：编译器</p>
+
+<h2><span id="方法二-编译宏指令">方法二 编译宏指令</span></h2><p>使用范围：编译器</p>
 <table>
 <thead>
 <tr>
@@ -231,8 +230,7 @@
 <th></th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><strong><em>platform</em></strong></td>
 <td><strong><em>Predefined macro</em></strong></td>
 <td></td>
@@ -256,11 +254,11 @@
 <td></td>
 <td></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// gcc macro</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span>  __i386__ </span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"x86\n"</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span>  __x86_64__ </span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"x86_64\n"</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-<h2><span id="方法三-系统信息">方法三 系统信息</span></h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// Linux platform</span><br><span class="line">uname -m</span><br></pre></td></tr></table></figure>
+
+<h2><span id="方法三-系统信息">方法三 系统信息</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// Linux platform</span><br><span class="line">uname -m</span><br></pre></td></tr></table></figure>
+
 
                 
 

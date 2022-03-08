@@ -151,14 +151,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -217,17 +217,7 @@
                 <blockquote>
 <p>“Java 入门”</p>
 </blockquote>
-<h2><span id="java-int-转-boolean">Java int 转 boolean</span></h2>
-<p>在 C语言 中  0 相当于 false, 非 0 相当于 true. 但是 Java 这是不正确，会编译错误。<br>
-因为：<br>
-boolean只有两个值：true &amp; false<br>
-int是一定范围的值：-2147483648 – 2147483647<br>
-所以，boolean 类型不能转化为 其他类型 ，其他类型 也不能转化为 boolean 类型。<br>
-Java 是强类型语言，像 C++ 这种模糊转换是不能接受的。<br>
-如果一定要实现类似的操作，可以用<br>
-int i = 123;<br>
-​	boolean b = ( i == 0 ) ? false : ture ;<br>
-​	boolean b = ( i == 0 ) ; // 算术表达式强制</p>
+<h2><span id="java-int-转-boolean">Java int 转 boolean</span></h2><p>在 C语言 中  0 相当于 false, 非 0 相当于 true. 但是 Java 这是不正确，会编译错误。<br>因为：<br>boolean只有两个值：true &amp; false<br>int是一定范围的值：-2147483648 – 2147483647<br>所以，boolean 类型不能转化为 其他类型 ，其他类型 也不能转化为 boolean 类型。<br>Java 是强类型语言，像 C++ 这种模糊转换是不能接受的。<br>如果一定要实现类似的操作，可以用<br>     int i &#x3D; 123;<br>​    boolean b &#x3D; ( i &#x3D;&#x3D; 0 ) ? false : ture ;<br>​    boolean b &#x3D; ( i &#x3D;&#x3D; 0 ) ; &#x2F;&#x2F; 算术表达式强制</p>
 
                 
 

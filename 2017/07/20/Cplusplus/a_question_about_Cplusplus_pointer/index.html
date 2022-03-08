@@ -151,14 +151,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -217,19 +217,17 @@
                 <blockquote>
 <p>“我们来做面试题。”</p>
 </blockquote>
-<h2><span id="一个c指针的面试题">一个C++指针的面试题</span></h2>
-<p>在网上看到这么一道C++题目，代码如下，求 n 是多少？</p>
+<h2><span id="一个c指针的面试题">一个C++指针的面试题</span></h2><p>在网上看到这么一道C++题目，代码如下，求 n 是多少？</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n = (<span class="keyword">int</span>) ( ( (<span class="keyword">int</span> )<span class="number">0x0</span> ) + <span class="number">4</span>) ;</span><br></pre></td></tr></table></figure>
+
 <p>​     解题：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> p1 = (<span class="keyword">int</span>) <span class="number">0x0</span>; <span class="comment">// 第一步</span></span><br><span class="line"><span class="keyword">int</span> p2 = p1 + <span class="number">4</span>;    <span class="comment">// 第二步</span></span><br><span class="line"><span class="keyword">int</span> n  = (<span class="keyword">int</span>) p2;  <span class="comment">// 第三步</span></span><br></pre></td></tr></table></figure>
+
 <p>这里涉及C++类型转换、类型大小，同时这道题目缺少一个相关条件，系统平台不明确。如果是一般的32位系统环境，答案是 16 。</p>
-<p>第一步，p1 等于 0x0，即 p1 指向 0x0 这个地址位置。<br>
-第二步，p2 等于 0x0 + sizeof(<em>p1) * 4 ， 即 0x10 = 0x0 + 4 * 4 。</em><br>
-第三步，n 等于 0x10 强制转换成 int ， 即 16 。</p>
-<p>如果是一般的64位系统环境呢，编译错误：从‘ int* ’到‘ int ’的转换损失精度。<br>
-在第三步，因为  int * 的长度是 8 字节， 而 int 只有 4 字节，这样的转换会丢失 4 字节的内容。<br>
-假如在第三步能够作合适精度的转换下，如果 (int *)0x0 中的 int 改为其它数据类型，n 的值又会是多少呢？这里就关于到数据类型的长度范围，其中在标准规范中只限定：</p>
+<p>第一步，p1 等于 0x0，即 p1 指向 0x0 这个地址位置。<br>第二步，p2 等于 0x0 + sizeof(<em>p1) * 4 ， 即 0x10 &#x3D; 0x0 + 4 * 4 。</em><br>第三步，n 等于 0x10 强制转换成 int ， 即 16 。</p>
+<p>如果是一般的64位系统环境呢，编译错误：从‘ int* ’到‘ int ’的转换损失精度。<br>在第三步，因为  int * 的长度是 8 字节， 而 int 只有 4 字节，这样的转换会丢失 4 字节的内容。<br>假如在第三步能够作合适精度的转换下，如果 (int *)0x0 中的 int 改为其它数据类型，n 的值又会是多少呢？这里就关于到数据类型的长度范围，其中在标准规范中只限定：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> &lt;= <span class="keyword">short</span> &lt;= <span class="keyword">int</span> &lt;= <span class="keyword">long</span> &lt;= <span class="keyword">long</span> <span class="keyword">long</span></span><br><span class="line">    <span class="keyword">char</span>      &gt;= <span class="number">8</span> bits</span><br><span class="line">    <span class="keyword">short</span>     &gt;= <span class="number">16</span> bits</span><br><span class="line">    <span class="keyword">int</span>       &gt;= <span class="number">16</span> bits</span><br><span class="line">    <span class="keyword">long</span>      &gt;= <span class="number">32</span> bits</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> &gt;= <span class="number">64</span> bits</span><br></pre></td></tr></table></figure>
+
 <p>因为可移植性的原因，在各种硬件平台的内存使用限制要求各不相同，所以只限定保证下限，同时不高于更大于自己的类型。</p>
 
                 

@@ -151,14 +151,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -215,12 +215,11 @@
                 post-container">
 
                 <p><strong>OpenCV 新手章</strong></p>
-<h4><span id="opencv-认识">OpenCV 认识</span></h4>
-<p>OpenCV 是一个视觉库，有着各种的通用工具算法。</p>
-<p>安装 OpenCV 开发库<br>
-sudo apt-get install libopencv-dev</p>
+<h4><span id="opencv-认识">OpenCV 认识</span></h4><p>OpenCV 是一个视觉库，有着各种的通用工具算法。</p>
+<p>安装 OpenCV 开发库<br>sudo apt-get install libopencv-dev</p>
 <p>实例(显示图片):</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/core/core.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/highgui/highgui.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">( <span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span>  </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ( argc != <span class="number">2</span>) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">" Usage: display_image ImageToLoadAndDisplay"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	Mat image = imread(argv[<span class="number">1</span>], CV_LOAD_IMAGE_COLOR);   <span class="comment">// Read the file</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Check for invalid input</span></span><br><span class="line">	<span class="keyword">if</span> (! image.data ) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">" Could not open or find the image"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Create a window for display.</span></span><br><span class="line">	namedWindow(<span class="string">"Display window"</span>, CV_WINDOW_AUTOSIZE);</span><br><span class="line">	imshow(<span class="string">"Display window"</span>, image);  <span class="comment">// Show our image inside it.</span></span><br><span class="line"></span><br><span class="line">	waitKey(<span class="number">0</span>);  <span class="comment">// Wait for a keystroke in the window</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>编译</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xx.c：gcc -o img_1 img_1.c `pkg-config --cflags --libs opencv` </span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line"> xx.cpp：g++ -o imgshow imgshow.cpp `pkg-config --cflags --libs opencv`</span><br></pre></td></tr></table></figure>
                 
@@ -230,12 +229,12 @@ sudo apt-get install libopencv-dev</p>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2010/01/01/0/template/" data-toggle="tooltip" data-placement="top" title="范例标题">&larr; Previous Post</a>
+                            <a href="/2010/01/01/0/OpenGL 绘制方式：用顶点数组绘制三角形/" data-toggle="tooltip" data-placement="top" title="OpenGL 绘制方式：用顶点数组绘制三角形">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2010/01/01/0/我的文章/" data-toggle="tooltip" data-placement="top" title="范例标题">Next Post &rarr;</a>
+                            <a href="/2010/01/01/0/OpenCV 手记/" data-toggle="tooltip" data-placement="top" title="OpenCV 手记">Next Post &rarr;</a>
                         </li>
                     
                 </ul>

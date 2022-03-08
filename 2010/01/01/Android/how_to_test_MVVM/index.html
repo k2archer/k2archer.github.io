@@ -151,14 +151,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -218,33 +218,22 @@
 <blockquote>
 <p>“”</p>
 </blockquote>
-<p>MVVM 特性，解耦 UI 逻辑与业务逻辑，降低耦合度。<br>
-Model 层不含 Android 类，只含数据处理逻辑，支持单元测试。<br>
-ViewModel 层封装 UI 逻辑，也不含 Android 类，支持单元测试。</p>
+<p>MVVM 特性，解耦 UI 逻辑与业务逻辑，降低耦合度。<br>Model 层不含 Android 类，只含数据处理逻辑，支持单元测试。<br>ViewModel 层封装 UI 逻辑，也不含 Android 类，支持单元测试。</p>
 <p>ViewModel 需要绑定 Model， 支持替换 Model 数据源，</p>
-<p>为什么要测试？<br>
-数据绑定使得 Bug 很难被定位调试。分层测试可以降低调试难度。</p>
+<p>为什么要测试？<br>数据绑定使得 Bug 很难被定位调试。分层测试可以降低调试难度。</p>
 <p>如何测试？</p>
 <ul>
-<li>
-<p>哪里需要测试？</p>
+<li><p>哪里需要测试？</p>
 <ul>
-<li>
-<p><strong>Presenter(ViewModel) 层</strong><br>
-每个接口方法，以及其中的多个逻辑路径，主要验证是否正确覆盖V层和M层的逻辑。</p>
+<li><p><strong>Presenter(ViewModel) 层</strong><br>每个接口方法，以及其中的多个逻辑路径，主要验证是否正确覆盖V层和M层的逻辑。</p>
 </li>
-<li>
-<p><strong>Model 层</strong><br>
-这层是数据相关，只需要测试数据的处理逻辑即可。</p>
+<li><p><strong>Model 层</strong><br>这层是数据相关，只需要测试数据的处理逻辑即可。</p>
 </li>
-<li>
-<p><strong>View 层</strong><br>
-这层主要是业务层面的 UI 测试验证。</p>
+<li><p><strong>View 层</strong><br>这层主要是业务层面的 UI 测试验证。</p>
 </li>
 </ul>
 </li>
-<li>
-<p>哪里不需要测试？</p>
+<li><p>哪里不需要测试？</p>
 <ul>
 <li>工具类，设计时应完成测试，使用时不应再测试。</li>
 <li>简单的方法（get、set 之类的方法）</li>
@@ -260,7 +249,7 @@ ViewModel 层封装 UI 逻辑，也不含 Android 类，支持单元测试。</p
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2010/01/01/0/PyCharm使用/" data-toggle="tooltip" data-placement="top" title="PyCharm使用">&larr; Previous Post</a>
+                            <a href="/2010/01/01/0/Ubuntu 使用配置/" data-toggle="tooltip" data-placement="top" title="Ubuntu 使用配置">&larr; Previous Post</a>
                         </li>
                     
                     
