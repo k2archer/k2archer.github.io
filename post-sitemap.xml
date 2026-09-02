@@ -9,8 +9,24 @@
 
 
     <url>
+        <loc>https://k2archer.github.io/2026/05/01/Agent/sqlite-fts5-vec-technical-decision/</loc>
+        <lastmod>2026-09-02T02:27:38.067Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2021/10/20/Android/Android%20%E8%80%97%E7%94%B5%E4%BC%98%E5%8C%96/</loc>
+        <lastmod>2022-03-14T18:08:13.496Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://k2archer.github.io/2022/03/06/work/project_foucs/</loc>
-        <lastmod>2022-03-11T12:21:24.106Z</lastmod>
+        <lastmod>2022-03-11T12:25:01.837Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -105,14 +121,6 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2021/10/20/Android/Android%20%E8%80%97%E7%94%B5%E4%BC%98%E5%8C%96/</loc>
-        <lastmod>2021-10-20T19:44:28.631Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>https://k2archer.github.io/2019/05/21/Life/About_me_en/</loc>
         <lastmod>2021-10-20T13:04:48.828Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -185,15 +193,7 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2010/01/01/0/OpenGL%20%E7%BB%98%E5%88%B6%E6%96%B9%E5%BC%8F%EF%BC%9A%E7%94%A8%E9%A1%B6%E7%82%B9%E6%95%B0%E7%BB%84%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2/</loc>
-        <lastmod>2018-06-02T15:17:28.862Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/2010/01/01/0/%E6%88%91%E7%9A%84%E6%96%87%E7%AB%A0/</loc>
+        <loc>https://k2archer.github.io/2010/01/01/template/</loc>
         <lastmod>2018-06-02T15:17:28.862Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -209,7 +209,15 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2010/01/01/0/template/</loc>
+        <loc>https://k2archer.github.io/2010/01/01/0/OpenGL%20%E7%BB%98%E5%88%B6%E6%96%B9%E5%BC%8F%EF%BC%9A%E7%94%A8%E9%A1%B6%E7%82%B9%E6%95%B0%E7%BB%84%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2/</loc>
+        <lastmod>2018-06-02T15:17:28.862Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2010/01/01/0/%E6%88%91%E7%9A%84%E6%96%87%E7%AB%A0/</loc>
         <lastmod>2018-06-02T15:17:28.862Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -241,7 +249,7 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2017/05/05/invert_binary_tree/</loc>
+        <loc>https://k2archer.github.io/2018/02/20/sublime_text_install_ctags/</loc>
         <lastmod>2018-06-02T15:17:09.729Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -257,7 +265,7 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2018/02/20/sublime_text_install_ctags/</loc>
+        <loc>https://k2archer.github.io/2017/05/05/invert_binary_tree/</loc>
         <lastmod>2018-06-02T15:17:09.729Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -329,23 +337,7 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2018/03/22/Android_design_pattern/</loc>
-        <lastmod>2018-06-02T15:17:09.348Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/2017/08/22/Android/Android_service/</loc>
-        <lastmod>2018-06-02T15:17:09.348Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/2018/02/20/Android/AsyncTask_%E4%BC%98%E7%BC%BA%E7%82%B9%E5%92%8C%E5%BA%94%E7%94%A8/</loc>
+        <loc>https://k2archer.github.io/2018/05/10/Android/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91_Android_Sqlite3_%E5%91%BD%E4%BB%A4/</loc>
         <lastmod>2018-06-02T15:17:09.348Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -361,7 +353,23 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2018/05/10/Android/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91_Android_Sqlite3_%E5%91%BD%E4%BB%A4/</loc>
+        <loc>https://k2archer.github.io/2018/03/22/Android_design_pattern/</loc>
+        <lastmod>2018-06-02T15:17:09.348Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2018/02/20/Android/AsyncTask_%E4%BC%98%E7%BC%BA%E7%82%B9%E5%92%8C%E5%BA%94%E7%94%A8/</loc>
+        <lastmod>2018-06-02T15:17:09.348Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2017/08/22/Android/Android_service/</loc>
         <lastmod>2018-06-02T15:17:09.348Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
