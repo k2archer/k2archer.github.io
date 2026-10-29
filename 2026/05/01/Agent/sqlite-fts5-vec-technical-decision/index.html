@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          为什么我用 SQLite 替代向量数据库 - k2archer的博客 | k2archer&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://k2archer.github.io/2026/05/01/Agent/sqlite-fts5-vec-technical-decision/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/home-bg-o.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Agent" title="Agent">Agent</a>
+                            
+                        </div>
+                        <h1>为什么我用 SQLite 替代向量数据库</h1>
+                        <h2 class="subheading"> &#34;一个自主助手项目的记忆与工具检索&#34;</h2>
+                        <span class="meta">
+                            Posted by k2archer on
+                            2026-05-01
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">k2archer&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2><span id="一-引言一个真实的选型困境">一、引言：一个真实的选型困境</span></h2><p>我参与的一个项目，是一个基于 LangGraph 的多代理自主助手。它有两个绕不开的检索需求：</p>
+<ol>
+<li><strong>长期记忆</strong>——把和用户聊过的事实、偏好、决策存下来，之后按语义召回；</li>
+<li><strong>工具&#x2F;技能检索</strong>——几百个工具和技能挂在系统里，用户一句话过来，得在几十毫秒内找到最相关的那几个。</li>
+</ol>
+<p>一开始，记忆模块用的是 ChromaDB。这几乎是当时的”标准答案”：你有个向量，你把它存起来，你按相似度查它，完事。问题出在它和这个项目的”其余部分”并不生活在同一个世界里。</p>
+<p>项目本身跑在 Windows 单机上，技术栈是 Python + asyncio + SQLite，主数据全在一个 <code>.sqlite</code> 文件里。而 ChromaDB 意味着：多一个独立依赖、多一份向量数据的生命周期管理、和主库之间天然割裂——一份记忆既要写业务表、又要写向量库，两边的一致性还得自己操心。更别提它在某些 Windows 环境下的安装和启动，本身就是一滩事。</p>
+<p>项目的 <code>factory.py</code> 里，至今保留着那次迁移的痕迹——原本基于 ChromaDB 的分支逻辑被整段注释掉，只留一行说明：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 已迁移到 SQLite + FTS5 + Vec 全栈方案，ChromaDB 已废弃</span></span><br><span class="line"><span class="comment"># backend = str(os.getenv("MEMORY_STORAGE", "db")).strip().lower()</span></span><br><span class="line"><span class="comment"># if backend in ("chroma", "vector"):</span></span><br><span class="line"><span class="comment">#     ... (ChromaDB 相关代码已移除)</span></span><br></pre></td></tr></table></figure>
+
+<p>这行注释，就是我写下这篇文章的起点。</p>
+<p>真正让我停下来重新思考的，是这样一个反问：<strong>向量检索，真的需要一个”专门的向量数据库”吗？</strong> 如果我的数据量只有几万到几十万条，如果我只跑在一台机器上，如果我还同时需要”关键词精确命中”——那么，一个已经躺在项目里、零额外服务、和业务数据同库同事务的 SQLite，能不能把这件事一起办了？</p>
+<p>答案是能。而它的钥匙，是 SQLite 的<strong>扩展机制</strong>：FTS5 补上全文检索，<code>simple</code> 扩展补上中文分词，sqlite-vec 补上向量检索。这篇文章想讲清楚的，不是”怎么写代码”，而是<strong>为什么这个组合在单机轻量场景下是比独立向量库更务实的决策</strong>，以及它真实的代价在哪里。</p>
+<h2><span id="二-决策约束清单先立标尺再比方案">二、决策约束清单：先立标尺，再比方案</span></h2><p>技术选型最常犯的错，是先爱上某个技术，再回头给它找理由。正确顺序应该反过来：<strong>先写清楚”我的约束是什么”，然后让方案来对号入座。</strong></p>
+<p>所以在这一步，我不谈任何具体数据库，只列约束。每一个约束都不是拍脑袋，而是直接来自项目的现实：</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>约束</th>
+<th>为什么它成立</th>
+<th>它反过来排除了什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>单机 Windows 部署</strong></td>
+<td>目标用户就是本地跑，没有 K8s、没有运维团队</td>
+<td>所有”必须起独立服务”的方案成本陡增</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>中小规模数据</strong></td>
+<td>记忆 + 工具 + 技能加起来，量级在万到十万级</td>
+<td>分布式 ANN、十亿级召回这些能力用不上</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>关键词 + 语义双检索</strong></td>
+<td>用户说”帮我查明天会议”，关键词和语义是互补的，不是二选一</td>
+<td>只有向量检索、没有全文检索的方案不够用</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>中文场景</strong></td>
+<td>系统交互语言是中文，而中文分词是全文检索的隐藏前提</td>
+<td>FTS5 默认 tokenizer 对中文几乎失效</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>与现有栈无缝融合</strong></td>
+<td>项目是 asyncio + LangGraph，主数据在 SQLite</td>
+<td>引入另一套连接、序列化、事务语义，是负资产</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>低运维、易迁移备份</strong></td>
+<td>实验性质项目，快速迭代</td>
+<td>备份&#x2F;迁移要复制整个服务而不是一个文件的方案，都算额外成本</td>
+</tr>
+</tbody></table>
+<p>这张表本身就是文章最重要的”标尺”。后面所有方案的对比，都是拿方案去撞这六条约束，而不是拿方案互相 PK 性能。</p>
+<p>这里有两处需要提前点破，因为它们决定了整套决策的走向：</p>
+<p><strong>第一，中文是条硬约束。</strong> FTS5 自带的 tokenizer（<code>unicode61</code>、<code>ascii</code> 等）是为英文这类空格分词语言设计的，面对”我爱吃苹果”这种无空格文本，分词效果很差，全文检索基本失效。这意味着：如果用 SQLite 的 FTS5，就必须额外加载一个中文分词扩展。项目里用的是 <code>simple</code>（wangfenjin&#x2F;simple）扩展，编译产物就放在 <code>plugins/libsimple-windows-x64/</code>，在连接初始化时加载：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加载 simple 中文分词器</span></span><br><span class="line">simple_path = os.path.join(<span class="string">'plugins'</span>, <span class="string">'libsimple-windows-x64'</span>, <span class="string">'simple'</span>)</span><br><span class="line"><span class="keyword">await</span> self._conn.load_extension(simple_path)</span><br></pre></td></tr></table></figure>
+
+<p>换句话说，**”SQLite 支持中文全文检索”这件事不是免费的**，它建立在”你能加载这个原生扩展”之上——这也是后面第 6 章要诚实交代的代价之一。</p>
+<p><strong>第二，”中小规模”是最容易被忽略的约束。</strong> 很多人一谈检索就默认要上分布式、要横向扩展，却忘了先问一句”我的数据到底有多大”。如果你的量级根本到不了专用向量库的舒适区，那么专用向量库带来的不是性能红利，而是纯纯的运维负担。这条约束，是整套决策能够成立的地基。</p>
+<p>标尺立好了，接下来就是把候选方案逐个放上去量。那才是真正的对决。</p>
+<h2><span id="三-备选方案横向对比把方案放上标尺">三、备选方案横向对比：把方案放上标尺</span></h2><p>结论先说：<strong>SQLite 组合的胜出，是”约束贴合度”的胜利，不是”性能最强”的胜利。</strong> 换个规模、换个团队，结论可能完全不同。</p>
+<p>把上一章的六条约束当成标尺，候选方案逐个量一遍：</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>部署形态</th>
+<th>关键词检索</th>
+<th>向量检索</th>
+<th>中文友好</th>
+<th>与现有栈融合</th>
+<th>运维成本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ChromaDB</td>
+<td>独立 Python 包</td>
+<td>✗ 需另配</td>
+<td>✓</td>
+<td>✓</td>
+<td>弱（数据分离）</td>
+<td>中</td>
+</tr>
+<tr>
+<td>Milvus</td>
+<td>独立服务（容器）</td>
+<td>✗ 需另配 ES</td>
+<td>✓</td>
+<td>✓</td>
+<td>弱</td>
+<td>高</td>
+</tr>
+<tr>
+<td>FAISS</td>
+<td>纯库、无服务</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+<td>中</td>
+<td>中</td>
+</tr>
+<tr>
+<td>pgvector</td>
+<td>依赖 PostgreSQL</td>
+<td>✓ <code>tsvector</code></td>
+<td>✓</td>
+<td>需另配分词</td>
+<td>中</td>
+<td>中高</td>
+</tr>
+<tr>
+<td><strong>SQLite + FTS5 + sqlite-vec</strong></td>
+<td><strong>单文件、无服务</strong></td>
+<td><strong>✓</strong></td>
+<td><strong>✓</strong></td>
+<td><strong>✓ <code>simple</code> 扩展</strong></td>
+<td><strong>强（同库同事务）</strong></td>
+<td><strong>低</strong></td>
+</tr>
+</tbody></table>
+<p>逐一看这张表里”被淘汰”的方案，你会发现它们几乎都不是输在”不够强”，而是输在”不匹配”：</p>
+<ul>
+<li><strong>Milvus &#x2F; 独立向量服务</strong>：性能天花板最高，但代价是”起一个服务 + 维护一个服务”。对一个跑在用户 Windows 单机上、没有运维团队的项目，这是纯负担（约束 #1、#6 直接否决）。</li>
+<li><strong>FAISS</strong>：很好的库，但它只管向量，<strong>全文&#x2F;关键词检索要自己另起一套</strong>。而我的场景里关键词命中（比如用户说的确切日期、人名）和语义召回同样重要，缺一个就不完整（约束 #3 否决）。</li>
+<li><strong>pgvector</strong>：其实是 SQLite 组合的”同门师兄”——同样是”在关系库里做向量”。但它要求先有一个 PostgreSQL，这恰好和”项目主数据已经在 SQLite 里”的现实冲突，等于为了检索去换掉整个存储底座（约束 #5 否决）。</li>
+<li><strong>ChromaDB</strong>：就是项目最初的选择，也最接近需求，但它的数据生命周期独立于主库，记忆&#x2F;工具既要写业务表又要写向量库，一致性要靠自己兜（约束 #5 否决）。</li>
+</ul>
+<p>最后看胜出的那行：<strong>SQLite + FTS5 + sqlite-vec</strong>。它之所以成立，是因为它几乎是为约束 #1、#5、#6 量身定做的——<strong>不引入任何新服务，向量和全文索引就住在你已有的那个 <code>.sqlite</code> 文件里，和业务数据同库、同事务</strong>。备份迁移是复制一个文件，删除依赖是删一个文件。</p>
+<p>但这里必须立刻补一句诚实的话：这张表的成立，完全建立在约束 #2「中小规模」之上。SQLite 的单文件模型注定了它不适合高并发写入和十亿级向量。<strong>它不是更强的方案，它是”够用且最省心”的方案。</strong> 这句话，请读者务必记住，它是第 6 章代价讨论的前提。</p>
+<h2><span id="四-为什么这个组合能成立技术可行性论证">四、为什么这个组合能成立：技术可行性论证</span></h2><p>结论先给：<strong>SQLite 本身既不懂”全文检索”，也不懂”向量相似度”，但它的扩展机制允许你把这两块能力”装”进去。</strong> 装完之后，你得到的是三张表——主表、FTS 表、向量表——住在同一个文件里，用同一套事务。</p>
+<h3><span id="41-fts5补上关键词检索中文靠扩展">4.1 FTS5：补上关键词检索（中文靠扩展）</span></h3><p>SQLite 自带 FTS5 虚拟表，负责全文检索。建一张 FTS 表，只需要一条 SQL：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIRTUAL</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> memories_fts <span class="keyword">USING</span> fts5(</span><br><span class="line">    <span class="keyword">content</span>,</span><br><span class="line">    content_rowid=<span class="keyword">id</span>,      <span class="comment">-- 用主表 id 作为外联键</span></span><br><span class="line">    tokenize=<span class="string">'simple'</span>      <span class="comment">-- 指定分词器</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>注意最后那个 <code>tokenize=&#39;simple&#39;</code>。它指的不是 SQLite 内置的分词器，而是<strong>额外加载的中文分词扩展</strong>（第 2 章讲过，内置 tokenizer 对中文基本失效）。所以这套方案能跑中文，前提是连接初始化时成功加载了这个扩展：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">simple_path = os.path.join(<span class="string">'plugins'</span>, <span class="string">'libsimple-windows-x64'</span>, <span class="string">'simple'</span>)</span><br><span class="line"><span class="keyword">await</span> self._conn.load_extension(simple_path)   <span class="comment"># 加载 simple 中文分词器</span></span><br></pre></td></tr></table></figure>
+
+<p>这一步，是”SQLite 做中文全文检索”这个结论背后的隐藏条件，也是整套方案最脆的地方——加载失败，FTS5 就成了摆设。这点留到第 6 章细说。</p>
+<h3><span id="42-sqlite-vec补上语义检索768-维向量住进同一个文件">4.2 sqlite-vec：补上语义检索（768 维向量住进同一个文件）</span></h3><p>关键词检索只能命中”字面相同”，语义检索则靠向量相似度。项目用的是 <code>sqlite-vec</code> 扩展，它的 <code>vec0</code> 虚拟表直接支持存储和计算向量距离：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIRTUAL</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> memories_vec <span class="keyword">USING</span> vec0(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">    embedding <span class="built_in">float</span>[<span class="number">768</span>]     <span class="comment">-- text2vec-base-chinese 模型输出 768 维</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>向量从哪来？一个本地 <code>SentenceTransformer</code> 模型（<code>text2vec-base-chinese</code>），把文本编码成 768 维向量，再序列化成 BLOB 存进数据库：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每个 float 占 4 字节，struct.pack 打包成二进制</span></span><br><span class="line"><span class="keyword">return</span> struct.pack(<span class="string">f'<span class="subst">&#123;len(vector)&#125;</span>f'</span>, *vector)</span><br></pre></td></tr></table></figure>
+
+<p>关键点在于：<strong>这个 768 维向量，和业务数据住在同一个 <code>.sqlite</code> 文件里</strong>。没有第二个存储，没有同步问题。</p>
+<h3><span id="43-三张表如何联动触发器做自动索引">4.3 三张表如何联动：触发器做”自动索引”</span></h3><p>这是整套设计里我最喜欢的一处。业务代码只需要往主表写一次，FTS 索引由<strong>触发器</strong>自动维护，而不是手写”写主表 + 写索引表”两段逻辑：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 插入主表后，自动同步到 FTS 表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> memories_ai <span class="keyword">AFTER</span> <span class="keyword">INSERT</span> <span class="keyword">ON</span> memories <span class="keyword">BEGIN</span></span><br><span class="line">    <span class="keyword">INSERT</span> <span class="keyword">INTO</span> memories_fts(<span class="keyword">rowid</span>, <span class="keyword">content</span>) <span class="keyword">VALUES</span> (new.id, new.content);</span><br><span class="line"><span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
+
+<p>更新、删除同理，各有一个触发器负责同步和清理。这样，<code>memories</code>（主表）、<code>memories_fts</code>（关键词索引）、<code>memories_vec</code>（向量索引）三张表，就在<strong>同一事务</strong>里保持了一致性——这正是独立向量库给不了的东西。</p>
+<p>论证到这儿，结论已经立住：<strong>技术上，”SQLite + FTS5 + sqlite-vec”是一个自洽的、单文件的检索栈</strong>，它用扩展补齐了能力，用触发器抹平了索引维护的复杂度。下一章，进入真正决定它好不好用的部分——落地实现的关键设计。</p>
+<h2><span id="五-落地实现的关键设计一次查询完成混合检索">五、落地实现的关键设计：一次查询完成混合检索</span></h2><p>前面讲的是”为什么能成立”，这一章讲”实际跑起来长什么样”。实现的核心，可以收敛成三个设计决策：<strong>融合公式、单 SQL 融合、多级降级</strong>。</p>
+<h3><span id="51-融合公式关键词分数-语义分数加权相加">5.1 融合公式：关键词分数 × 语义分数，加权相加</span></h3><p>检索时，系统会同时跑两条路——FTS5 关键词匹配和向量语义匹配——然后把两者的分数加权融合：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">final_score = vec_score × 0.7 + fts_score × 0.3</span><br></pre></td></tr></table></figure>
+
+<p>其中两个子分数分别这样计算：</p>
+<ul>
+<li><strong>语义分数</strong>：<code>vec_score = 1 / (1 + distance)</code>。<code>distance</code> 是余弦距离，<code>vec_distance_cosine</code> 直接给出；距离越小，<code>vec_score</code> 越接近 1。</li>
+<li><strong>关键词分数</strong>：<code>fts_score = -rank / 100</code>。FTS5 的 <code>rank</code>（BM25）是负数且越小越相关，取负后变成”越大越相关”，再除以 100 缩放到可比的量级。</li>
+</ul>
+<p>权重 0.7 &#x2F; 0.3 意味着<strong>语义匹配占主导</strong>，关键词作为辅助信号。这个比例是调出来的经验值，不是铁律，后面第 6 章会指出它其实有个”量纲不可比”的隐患。</p>
+<h3><span id="52-用一条-sql-把两条路合起来">5.2 用一条 SQL 把两条路合起来</span></h3><p>最精妙的地方在于：融合不是用 Python 在内存里算的，而是<strong>一条 SQL 里用 LEFT JOIN 同时挂上 FTS 和向量两个子查询</strong>，数据库直接返回排好序的结果：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    m.*,</span><br><span class="line">    <span class="keyword">COALESCE</span>(fts.rank, <span class="number">0</span>)                         <span class="keyword">AS</span> fts_score,</span><br><span class="line">    <span class="keyword">COALESCE</span>(<span class="number">1.0</span> / (<span class="number">1.0</span> + v.distance), <span class="number">0</span>)         <span class="keyword">AS</span> vec_score,</span><br><span class="line">    ( <span class="keyword">COALESCE</span>(<span class="number">1.0</span> / (<span class="number">1.0</span> + v.distance), <span class="number">0</span>) * <span class="number">0.7</span></span><br><span class="line">      + <span class="keyword">COALESCE</span>(-fts.rank / <span class="number">100.0</span>, <span class="number">0</span>) * <span class="number">0.3</span> )    <span class="keyword">AS</span> final_score</span><br><span class="line"><span class="keyword">FROM</span> memories m</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> memories_fts fts</span><br><span class="line">       <span class="keyword">ON</span> m.id = fts.rowid <span class="keyword">AND</span> fts.content <span class="keyword">MATCH</span> ?      <span class="comment">-- 关键词路</span></span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="keyword">id</span>, vec_distance_cosine(embedding, ?) <span class="keyword">AS</span> distance</span><br><span class="line">    <span class="keyword">FROM</span> memories_vec</span><br><span class="line">    <span class="keyword">ORDER</span> <span class="keyword">BY</span> distance</span><br><span class="line">    <span class="keyword">LIMIT</span> ?</span><br><span class="line">) v <span class="keyword">ON</span> m.id = v.id                                     <span class="comment">-- 向量路</span></span><br><span class="line"><span class="keyword">WHERE</span> m.user_id = ?</span><br><span class="line">  <span class="keyword">AND</span> (fts.rank <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">OR</span> v.distance <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>)  <span class="comment">-- 两条路至少命中一条</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> final_score <span class="keyword">DESC</span></span><br><span class="line"><span class="keyword">LIMIT</span> ?</span><br></pre></td></tr></table></figure>
+
+<p>几个细节值得展开：</p>
+<ul>
+<li>**<code>LEFT JOIN</code> 而非 <code>INNER JOIN</code>**：保证”只命中关键词”或”只命中语义”的记录都不会被漏掉，靠 <code>COALESCE</code> 给缺失的那一路填 0。</li>
+<li><strong><code>MATCH</code> 放进了 JOIN 的 ON 条件</strong>：这样 FTS 的匹配和向量匹配可以并行展开，而不是先硬性过滤。</li>
+<li>**向量子查询先 <code>ORDER BY distance LIMIT ?</code>**：这是为了限制候选集大小，但这里埋了个坑——先截断再回联，可能丢掉”向量不太像但关键词非常像”的结果。第 6 章会专门说。</li>
+</ul>
+<h3><span id="53-多级降级宁可用-like也不返回空">5.3 多级降级：宁可用 LIKE，也不返回空</span></h3><p>这套方案最打动我的是它的<strong>健壮性兜底</strong>。因为 FTS5 和 sqlite-vec 都依赖运行时加载的原生扩展，任何一个加载失败，检索能力就退化。所以检索入口设计成了三级降级：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">混合检索（FTS5 + Vec）</span><br><span class="line">   │ 失败</span><br><span class="line">   ▼</span><br><span class="line">仅 FTS5 全文检索</span><br><span class="line">   │ 失败</span><br><span class="line">   ▼</span><br><span class="line">仅 LIKE 模糊匹配</span><br></pre></td></tr></table></figure>
+
+<p>对应的逻辑：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    results = hybrid_search(...)      <span class="comment"># FTS5 + Vec</span></span><br><span class="line"><span class="keyword">except</span> Exception:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        results = fts_search(...)     <span class="comment"># 仅 FTS5</span></span><br><span class="line">    <span class="keyword">except</span> Exception:</span><br><span class="line">        results = like_search(...)    <span class="comment"># 仅 LIKE</span></span><br></pre></td></tr></table></figure>
+
+<p>最坏情况下，系统仍然能用 <code>LIKE &#39;%关键词%&#39;</code> 兜底，<strong>保证检索功能永远可用，只是效果递减</strong>。对于一个自主助手来说，”返回次优结果”远比”抛异常”重要得多。</p>
+<h2><span id="六-诚实的代价这套方案的三个真实软肋">六、诚实的代价：这套方案的三个真实软肋</span></h2><p>前面一直在说它有多好，现在该说它哪里不好。<strong>决策型文章的价值，恰恰在于把代价说透</strong>——否则读者照着选型，会在你闭口不谈的地方踩坑。</p>
+<h3><span id="61-扩展加载的跨平台脆弱性">6.1 扩展加载的跨平台脆弱性</span></h3><p>这是最大的软肋。<code>simple</code> 分词器和 <code>sqlite-vec</code> 都是<strong>原生扩展</strong>，意味着它们和操作系统、CPU 架构、Python 版本强绑定。Windows 上是 <code>.dll</code>，Linux 上是 <code>.so</code>，路径还不一样。项目里干脆写死了一串候选路径逐个尝试：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vec_paths = [</span><br><span class="line">    <span class="string">'vec0'</span>,</span><br><span class="line">    os.path.join(<span class="string">'plugins'</span>, <span class="string">'sqlite_vec'</span>, <span class="string">'vec0.so'</span>),</span><br><span class="line">    os.path.join(<span class="string">'plugins'</span>, <span class="string">'sqlite_vec'</span>, <span class="string">'vec0.dll'</span>),</span><br><span class="line">    os.path.join(<span class="string">'.venv'</span>, <span class="string">'Lib'</span>, <span class="string">'site-packages'</span>, <span class="string">'sqlite_vec'</span>, <span class="string">'vec0.dll'</span>),</span><br><span class="line">    os.path.join(<span class="string">'.venv'</span>, <span class="string">'lib'</span>, <span class="string">'python3.13'</span>, <span class="string">'site-packages'</span>, <span class="string">'sqlite_vec'</span>, <span class="string">'vec0.so'</span>),</span><br><span class="line">]</span><br><span class="line">loaded = <span class="keyword">False</span></span><br><span class="line"><span class="keyword">for</span> vec_path <span class="keyword">in</span> vec_paths:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">await</span> self._conn.load_extension(vec_path)</span><br><span class="line">        loaded = <span class="keyword">True</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">except</span> Exception:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> loaded:</span><br><span class="line">    <span class="keyword">raise</span> Exception(<span class="string">"所有路径尝试失败"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这种”猜路径”的做法，在固定部署环境下能跑，但换一台机器、换一个平台，就可能静默失败。更糟的是，项目里对加载失败的处理是<strong>降级而不是报错</strong>——向量加载失败时只是打一条 warning 日志，系统继续用 FTS5 跑。好处是健壮，坏处是<strong>你可能根本不知道向量检索已经悄悄失效了</strong>。</p>
+<h3><span id="62-融合分数量纲不可比">6.2 融合分数”量纲不可比”</span></h3><p>回头看 5.1 的公式：<code>vec_score</code> 落在 <code>(0, 1]</code>，而 <code>fts_score = -rank/100</code> 的量纲完全由 BM25 的分数分布决定，两者直接线性相加，严格来说<strong>不是数学上等价的融合</strong>，而是一个工程近似。</p>
+<p>它的问题在于：当某条记录关键词高度命中时，<code>-rank/100</code> 可能远大于 1，瞬间盖过语义分数，导致”字面匹配但语义一般”的记录排到前面。这个 <code>/100</code> 是拍脑袋定的缩放系数，换一批数据、换一个分词器，最优值就变了。</p>
+<p>公平地说，这不算 bug，而是<strong>这类轻量融合的通病</strong>。真要严谨，应该像项目里 IoT 工具检索那套实现一样——两条路分开查，各自做 min-max 归一化到 <code>[0,1]</code>，再加权合并。但那就不是”一条 SQL 搞定”了，多了一次查询往返。**”一条 SQL”的简洁，和”分数严谨”的正确，在这里是取舍关系。**</p>
+<h3><span id="63-向量预过滤的召回风险">6.3 向量预过滤的召回风险</span></h3><p>5.2 的 SQL 里，向量子查询先 <code>ORDER BY distance LIMIT ?</code> 再回联主查询。这意味着<strong>在融合之前，向量路已经把候选集截断成了 Top-N</strong>。</p>
+<p>隐患在于：假设有一条记忆，关键词和查询几乎完全匹配（FTS 分数极高），但向量相似度排在 Top-N 之外——它在向量子查询里就被过滤掉了，根本进不了最终融合，于是被漏掉。</p>
+<p>正确的做法本该是”先融合、再排序、最后截断”，但受限于单条 SQL 的表达能力，这里用了”先截断、再融合”的近似。<strong>数据量越大、Top-N 越小，这个误差越明显。</strong> 这是从”单 SQL 方案”换来的隐性代价。</p>
+<h2><span id="七-什么时候你也该这么选一个判断清单">七、什么时候你也该这么选：一个判断清单</span></h2><p>讲完代价，给一个可复用的结论。这套方案不是”银弹”，它只在特定边界内是最优解。判断方法很简单，对照下面两个清单：</p>
+<p><strong>✅ 该选「SQLite + FTS5 + sqlite-vec」的场景：</strong></p>
+<ul>
+<li>单机部署，没有（也不想要）独立检索服务；</li>
+<li>向量量级在<strong>百万级以下</strong>，不需要分布式 ANN；</li>
+<li><strong>关键词 + 语义</strong>两种检索都要，尤其重视中文关键词命中；</li>
+<li>主数据已经在 SQLite 里，想要”检索和业务同库同事务”；</li>
+<li>极度重视低运维、易备份——一个文件就是全部状态。</li>
+</ul>
+<p><strong>❌ 不该选它的场景：</strong></p>
+<ul>
+<li>高并发写入（SQLite 单写者模型是天花板，WAL 只能缓解）；</li>
+<li>十亿级向量或需要水平扩展；</li>
+<li>需要精细的权限控制、多租户隔离；</li>
+<li>团队能承受（且确实需要）Milvus&#x2F;ES 这类专用服务的运维成本。</li>
+</ul>
+<p>一句话概括边界：**”单机 + 中小规模 + 双检索 + 想省心”，选它；一旦规模或并发突破单机上限，就该认真考虑专用向量数据库了。** 判断的锚点永远是第 2 章那六条约束，而不是”哪个技术更火”。</p>
+<h2><span id="八-总结">八、总结</span></h2><p>这篇文章想说的，其实不是”SQLite 比向量数据库强”，而是一句关于选型的老实话：</p>
+<blockquote>
+<p><strong>技术选型的关键，是”贴合约束”，而不是”技术最强”。</strong></p>
+</blockquote>
+<p>回到开头的问题——“向量检索一定要专门的向量数据库吗？”——答案是：<strong>在你的约束允许的范围内，不必。</strong> 一个 <code>.sqlite</code> 文件，加上两个原生扩展，就足以支撑单机轻量场景下的记忆与工具检索：FTS5 负责关键词、sqlite-vec 负责语义、触发器负责索引一致性、混合检索负责把它们揉成一个排序。</p>
+<p>它不完美——扩展加载脆弱、融合分数是近似、向量预过滤有召回风险——但这些代价，在你”中小规模 + 单机 + 想省心”的前提下，是<strong>可以接受、且明码标价</strong>的。而真正让它在同类方案里胜出的，是它没有为了”更强”而引入”更重”：没有新服务、没有新存储、没有跨库一致性难题。</p>
+<p>下次当你准备为一个万级数据量的检索需求去起一个 Milvus 集群时，不妨先停下来问一句：</p>
+<p><strong>这个 <code>.sqlite</code> 文件，是不是已经够了？</strong></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2026/09/10/TTS/Breeze-TTS-2-本地部署实战/" data-toggle="tooltip" data-placement="top" title="Breeze TTS 2 本地部署实战：3× Tesla V100 跑通实时中英双语 TTS">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2022/03/06/work/project_foucs/" data-toggle="tooltip" data-placement="top" title="Focus 番茄工作法">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、引言：一个真实的选型困境</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、决策约束清单：先立标尺，再比方案</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、备选方案横向对比：把方案放上标尺</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、为什么这个组合能成立：技术可行性论证</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">4.1 FTS5：补上关键词检索（中文靠扩展）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">4.2 sqlite-vec：补上语义检索（768 维向量住进同一个文件）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">4.3 三张表如何联动：触发器做”自动索引”</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">五、落地实现的关键设计：一次查询完成混合检索</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.1.</span> <span class="toc-nav-text">5.1 融合公式：关键词分数 × 语义分数，加权相加</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.2.</span> <span class="toc-nav-text">5.2 用一条 SQL 把两条路合起来</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.3.</span> <span class="toc-nav-text">5.3 多级降级：宁可用 LIKE，也不返回空</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">六、诚实的代价：这套方案的三个真实软肋</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.1.</span> <span class="toc-nav-text">6.1 扩展加载的跨平台脆弱性</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.2.</span> <span class="toc-nav-text">6.2 融合分数”量纲不可比”</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.3.</span> <span class="toc-nav-text">6.3 向量预过滤的召回风险</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">七、什么时候你也该这么选：一个判断清单</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">八、总结</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Agent" title="Agent">Agent</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://k2archer.github.io" target="_blank">k2archer&#39;s Blog</a></li>
+                    
+                        <li><a href="https://github.com/k2archer" target="_blank">k2archer&#39;s GitHub</a></li>
+                    
+                        <li><a href="https://leetcode.com/k2archer" target="_blank">k2archer&#39;s Leetcode</a></li>
+                    
+                        <li><a href="https://segmentfault.com/u/k2archer" target="_blank">SegmentFault</a></li>
+                    
+                        <li><a href="https://hexo.io/zh-cn" target="_blank">Hexo</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://k2archer.github.io/2026/05/01/Agent/sqlite-fts5-vec-technical-decision/";
+    var disqus_url = "https://k2archer.github.io/2026/05/01/Agent/sqlite-fts5-vec-technical-decision/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/k2archer">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; k2archer 2026 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://k2archer.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://k2archer.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

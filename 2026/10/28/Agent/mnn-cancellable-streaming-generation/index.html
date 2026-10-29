@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          移动端本地 LLM 流式生成：如何做到「可取消」，且中文不截断半个字 - k2archer的博客 | k2archer&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://k2archer.github.io/2026/10/28/Agent/mnn-cancellable-streaming-generation/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                            
+                              <a class="tag" href="/tags/#MNN" title="MNN">MNN</a>
+                            
+                              <a class="tag" href="/tags/#本地 LLM" title="本地 LLM">本地 LLM</a>
+                            
+                              <a class="tag" href="/tags/#端侧推理" title="端侧推理">端侧推理</a>
+                            
+                              <a class="tag" href="/tags/#流式输出" title="流式输出">流式输出</a>
+                            
+                              <a class="tag" href="/tags/#JNI" title="JNI">JNI</a>
+                            
+                              <a class="tag" href="/tags/#Kotlin" title="Kotlin">Kotlin</a>
+                            
+                              <a class="tag" href="/tags/#协程" title="协程">协程</a>
+                            
+                              <a class="tag" href="/tags/#UTF-8" title="UTF-8">UTF-8</a>
+                            
+                              <a class="tag" href="/tags/#可取消" title="可取消">可取消</a>
+                            
+                        </div>
+                        <h1>移动端本地 LLM 流式生成：如何做到「可取消」，且中文不截断半个字</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by k2archer on
+                            2026-10-28
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">k2archer&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p><strong>状态</strong>：v2 独立版（2026-10-28）· 与具体项目解耦<br><strong>目标读者</strong>：在 Android &#x2F; iOS 上通过 JNI 接本地 LLM 的人；尤其是同时被「用户说停停不下来」和「中文乱码」折磨过的人<br><strong>代码</strong>：正文为最小骨架，可独立复现；文末附完整骨架代码<br><strong>环境</strong>：MNN LLM（C++ &#x2F; JNI）、NDK、Kotlin 协程；示例模型为 0.5B 级小参数 LLM</p>
+</blockquote>
+<hr>
+<h2><span id="tldr">TL;DR</span></h2><p>本地 LLM 的流式生成有两个坑，<strong>根因是同一个</strong>：你跨过了一次语言边界。</p>
+<ol>
+<li><strong>取消失效</strong>：<code>llm-&gt;response()</code> 在 C++ 里阻塞跑完，Kotlin 侧的协程 <code>cancel()</code> 根本碰不到那个循环。用户说「停」，得等整段说完。</li>
+<li><strong>中文乱码</strong>：ostream 回调的 chunk 边界是<strong>缓冲区边界</strong>，不是<strong>字符边界</strong>。一个汉字 3 字节，很容易被切在两个 chunk 之间。</li>
+</ol>
+<p>我的解法是两个改动：</p>
+<ul>
+<li><strong>把生成循环的控制权拿回自己手里</strong>：<code>response(..., max_new_tokens=0)</code> 只做 prefill，然后自己用 <code>generate(1)</code> 一个 token 一步地推进——循环在我的 C++ 帧里，每步都能检查停止标志。</li>
+<li><strong>加一层 UTF-8 流处理器</strong>：攒字节、只吐完整字符、剩下半个留在 buffer 里。</li>
+</ul>
+<p>最省事的一点：<strong>取消信号不用额外机制</strong>——它搭在「送出一个 token」这个已有动作的返回值上。</p>
+<hr>
+<h2><span id="1-问题为什么这俩坑总是一起出现">1. 问题：为什么这俩坑总是一起出现</span></h2><p>在一个语音助手（或任何要「说到一半能打断」的交互）里，本地 LLM 的要求比「能跑起来」苛刻得多：</p>
+<table>
+<thead>
+<tr>
+<th>要求</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>流式</td>
+<td>等整段生成完再播报 &#x3D; 首字延迟十几秒，交互直接不可用</td>
+</tr>
+<tr>
+<td>可取消</td>
+<td>用户随时会说「停」&#x2F;「不用了」，至少要做到<strong>下一句话就停</strong></td>
+</tr>
+<tr>
+<td>中文正确</td>
+<td>中文是 3 字节 UTF-8，而流式输出的切分点是字节级的</td>
+</tr>
+</tbody></table>
+<p>前两个和第三个看起来是两类问题，但它们的根因是同一个：</p>
+<blockquote>
+<p><strong>你在 JNI 边界上搬运的是一个「字节流」，而宿主侧需要的是「字符流 + 可取消的执行单元」。</strong></p>
+</blockquote>
+<p>而 JNI 两侧的世界观在这里是不对齐的：</p>
+<ul>
+<li>宿主的协程取消是<strong>协作式</strong>的——它只能打断「主动检查取消状态」的地方。</li>
+<li>C++ 里那个 <code>response()</code> 是<strong>黑盒阻塞调用</strong>，它不检查任何东西。</li>
+</ul>
+<p>所以 <code>flow.cancel()</code> 对 native 调用<strong>完全无效</strong>。这是接本地 LLM 时最容易踩的第一个坑，而且它不报错——你会以为取消生效了，因为它不再往你这里送 token 了；但实际上 C++ 还在满负荷跑，用户下一次提问时才发现同一个模型实例卡着。</p>
+<hr>
+<h2><span id="2-最初的做法照抄官方-demo">2. 最初的做法：照抄官方 demo</span></h2><p>MNN 的 demo 是这样的（大意）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一次调用，阻塞到底，边生成边通过 ostream 回调吐字</span></span><br><span class="line">llm-&gt;response(history, &amp;output_ostream, eos_str.c_str(), max_new_tokens);</span><br></pre></td></tr></table></figure>
+
+<p>它能跑通，输出也正确。接上之后第一版就「能用」了。问题在接进真实交互之后才暴露。</p>
+<hr>
+<h2><span id="3-为什么它不行">3. 为什么它不行</span></h2><h3><span id="坑一取消完全没有生效">坑一：取消完全没有生效</span></h3><p>一次回答 100+ token，在手机 CPU 上要跑十几秒。用户说「停」，实际要等十几秒。</p>
+<p>我试过三种「看起来应该行」的办法：</p>
+<table>
+<thead>
+<tr>
+<th>尝试</th>
+<th>为什么不行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在宿主侧 <code>flow.cancel()</code></td>
+<td>协作式取消，打不到 C++ 的阻塞循环</td>
+</tr>
+<tr>
+<td>把 <code>max_new_tokens</code> 调小</td>
+<td>那只是<strong>上限</strong>，不能中途打断；调小了回答就说不完</td>
+</tr>
+<tr>
+<td>在另一个线程调 <code>llm-&gt;reset()</code></td>
+<td><code>response()</code> 正持有内部状态，并发调用是未定义行为</td>
+</tr>
+</tbody></table>
+<p><strong>根本问题</strong>：一次 <code>response()</code> 从头到尾占着那个线程，中间没有任何「我可以让出」的时刻。</p>
+<h3><span id="坑二中文被切成半个字">坑二：中文被切成半个字</span></h3><p>ostream 的 <code>xsputn</code> 回调给的是 <code>(const char* s, size_t n)</code>——<strong>一个字节缓冲区</strong>，<code>n</code> 由 C++ 侧的 flush 时机决定，跟字符边界毫无关系。</p>
+<p>所以「你好」这三个字节一对的字符，可能被切成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chunk 1: E4 BD          ← &quot;你&quot; 的前 2 个字节（不完整！）</span><br><span class="line">chunk 2: A0 E5 A5 BD    ← &quot;你&quot; 的最后 1 字节 + &quot;好&quot;</span><br></pre></td></tr></table></figure>
+
+<p>你如果在宿主侧对每个 chunk 直接 <code>String(bytes, UTF_8)</code>：</p>
+<ul>
+<li>chunk 1 → <code>�</code>（替换字符）</li>
+<li>chunk 2 → <code>�好</code></li>
+</ul>
+<p>用户看到的就是满屏问号，或者更糟——<strong>TTS 把 <code>�</code> 念出来</strong>。</p>
+<p>而且这个问题在英文上<strong>完全不会出现</strong>（ASCII 是单字节），所以你在英文 prompt 下测试时一切正常，上线到中文才发现。</p>
+<hr>
+<h2><span id="4-方案一把生成循环的控制权拿回自己手里">4. 方案一：把生成循环的控制权拿回自己手里</span></h2><p>关键洞察：<code>response()</code> 的 <code>max_new_tokens</code> 参数传 <strong>0</strong>，它就<strong>只做 prefill、不生成</strong>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// max_new_tokens=0 → 只做 prefill（把 prompt 吃掉、建好 KV cache）</span></span><br><span class="line"><span class="comment">// 生成由后续 generate(1) 逐步完成</span></span><br><span class="line">llm-&gt;response(history, &amp;output_ostream, eos_str.c_str(), <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> gen_count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (!stop_requested &amp;&amp; !llm-&gt;stoped() &amp;&amp; gen_count &lt; <span class="number">512</span>) &#123;</span><br><span class="line">    llm-&gt;generate(<span class="number">1</span>);</span><br><span class="line">    gen_count++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这一步之后，<strong>循环的控制权回到了我的函数帧里</strong>。每一轮 <code>generate(1)</code> 之后我都能检查一次 <code>stop_requested</code>。</p>
+<p>这就是全部秘诀，但它改变了三件事：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>一次 <code>response()</code></th>
+<th><code>generate(1)</code> 步进</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>取消粒度</td>
+<td>整段（不可取消）</td>
+<td><strong>一个 token</strong></td>
+</tr>
+<tr>
+<td>能否中途换采样参数</td>
+<td>不能</td>
+<td>能（每步之间）</td>
+</tr>
+<tr>
+<td>能否加 token 预算</td>
+<td>只能靠 max_new_tokens 上限</td>
+<td>能（<code>gen_count &lt; 512</code>）</td>
+</tr>
+</tbody></table>
+<p>三个退出条件各有分工：</p>
+<ul>
+<li><code>stop_requested</code> —— 用户取消 或 命中 EOS</li>
+<li><code>llm-&gt;stoped()</code> —— MNN 内部状态机说结束了（<strong>双保险</strong>：万一文本层 EOS 检测漏了）</li>
+<li><code>gen_count &lt; 512</code> —— 硬预算，防止模型不吐 EOS 时无限生成</li>
+</ul>
+<blockquote>
+<p>这三条同时存在不是冗余，是三个不同的失败模式：<strong>取消 &#x2F; 正常结束 &#x2F; 异常不收敛</strong>。</p>
+</blockquote>
+<hr>
+<h2><span id="5-取消是怎么搭车实现的我认为最巧的一处">5. 取消是怎么「搭车」实现的（我认为最巧的一处）</span></h2><p>把控制权拿回来之后，还需要一个东西：<strong>宿主侧的取消意图，怎么传到 C++ 的循环里？</strong></p>
+<p>常见做法是 JNI 里存一个 <code>std::atomic&lt;bool&gt;</code>，再加一个 <code>nativeCancel()</code> 方法。能 work，但要额外一个接口、额外一次跨语言调用、还要处理它和主循环的可见性。</p>
+<p>我用的是另一种办法：<strong>让回调的返回值承载取消信号。</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ 侧：每次吐一个字符，就顺路问宿主「还要不要继续」</span></span><br><span class="line">jboolean user_stop_requested = env-&gt;CallBooleanMethod(</span><br><span class="line">    progressCallback, onProgressMethod, javaString);</span><br><span class="line"></span><br><span class="line">stop_requested = is_eop || user_stop_requested;</span><br></pre></td></tr></table></figure>
+
+<p>宿主侧的回调长这样：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onProgress</span><span class="params">(token: <span class="type">String</span>?)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (token == <span class="literal">null</span>) &#123;          <span class="comment">// null = EOS</span></span><br><span class="line">        close()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">val</span> result = trySend(token)</span><br><span class="line">    <span class="keyword">return</span> result.isClosed        <span class="comment">// ← 关键：Flow 被取消 → 返回 true → C++ 停下</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>trySend()</code> 返回的 <code>ChannelResult.isClosed</code> 为真，意味着<strong>下游已经不收东西了</strong>——也就是 Flow 被取消 &#x2F; 收集者退出了。</p>
+<p>于是整条链变成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    participant U as 上层（用户 / UI）</span><br><span class="line">    participant K as Kotlin Flow（callbackFlow）</span><br><span class="line">    participant J as JNI 回调 onProgress</span><br><span class="line">    participant C as C++ while(generate(1))</span><br><span class="line"></span><br><span class="line">    C-&gt;&gt;J: 吐出一个完整字符</span><br><span class="line">    J-&gt;&gt;K: trySend(token)</span><br><span class="line">    K--&gt;&gt;U: emit(token)</span><br><span class="line">    U-&gt;&gt;K: 取消 collect（用户说「停」）</span><br><span class="line">    Note over K: channel 关闭</span><br><span class="line">    C-&gt;&gt;J: 吐出下一个字符</span><br><span class="line">    J-&gt;&gt;K: trySend → isClosed = true</span><br><span class="line">    J--&gt;&gt;C: 返回 true</span><br><span class="line">    C-&gt;&gt;C: stop_requested = true → 下一轮退出循环</span><br></pre></td></tr></table></figure>
+
+<p><strong>这套设计的三个好处：</strong></p>
+<ol>
+<li><strong>零额外接口</strong>。取消不需要 <code>nativeCancel()</code>，搭在已有的数据通道上。</li>
+<li><strong>不需要原子变量</strong>。<code>stop_requested</code> 只被同一个线程读写（都在 <code>generate</code> 循环所在线程），没有跨线程可见性问题。</li>
+<li><strong>天然幂等</strong>。取消一百次和取消一次效果一样——因为它是「读一个已经关闭的 channel 的状态」，不是「发一封信」。</li>
+</ol>
+<p><strong>代价也要说清楚：取消粒度 &#x3D; 一个 token 的解码时间。</strong> 因为检查点在 <code>generate(1)</code> 之后。在 0.5B 小模型的 CPU 推理下这大概是几十毫秒量级——对「停」这个交互足够，但它不是「立即」。</p>
+<p><strong>这套取舍在别的引擎里也成立</strong>（见 §10 的横向对比）：token 之间的取消是通用下限，想更细就得引入「计算中轮询」的额外回调。</p>
+<hr>
+<h2><span id="6-方案二utf-8-流式处理器">6. 方案二：UTF-8 流式处理器</span></h2><p>这个问题的正确解法不是「在宿主侧拼字节」（那样你得在两处都处理残留），而是<strong>在字节出口处就保证只吐完整字符</strong>。</p>
+<h3><span id="61-先认识一个字符占几个字节">6.1 先认识一个字符占几个字节</span></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">utf8CharLength</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span> byte)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((byte &amp; <span class="number">0x80</span>) == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;   <span class="comment">// 0xxxxxxx        ASCII</span></span><br><span class="line">    <span class="keyword">if</span> ((byte &amp; <span class="number">0xE0</span>) == <span class="number">0xC0</span>) <span class="keyword">return</span> <span class="number">2</span>; <span class="comment">// 110xxxxx        2 字节</span></span><br><span class="line">    <span class="keyword">if</span> ((byte &amp; <span class="number">0xF0</span>) == <span class="number">0xE0</span>) <span class="keyword">return</span> <span class="number">3</span>; <span class="comment">// 1110xxxx        3 字节（中文在这里）</span></span><br><span class="line">    <span class="keyword">if</span> ((byte &amp; <span class="number">0xF8</span>) == <span class="number">0xF0</span>) <span class="keyword">return</span> <span class="number">4</span>; <span class="comment">// 11110xxx        4 字节（emoji）</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;                            <span class="comment">// 非法起始字节</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看首字节的高位就知道「这个字符一共几个字节」。这是 UTF-8 设计上最方便的一点——<strong>给一个字节就能判断字符边界，不用往回看</strong>。</p>
+<h3><span id="62-攒字节只吐完整的">6.2 攒字节，只吐完整的</span></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Utf8StreamProcessor</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    explicit Utf8StreamProcessor(std::function&lt;void(const std::string&amp;)&gt; callback)</span><br><span class="line">            : callback(<span class="built_in">std</span>::move(callback)) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">processStream</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* str, <span class="keyword">size_t</span> len)</span> </span>&#123;</span><br><span class="line">        utf8Buffer.append(str, len);     <span class="comment">// 先把新字节接上</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">size_t</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> completeChars;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; utf8Buffer.size()) &#123;</span><br><span class="line">            <span class="keyword">int</span> length = utf8CharLength(<span class="keyword">static_cast</span>&lt;<span class="keyword">unsigned</span> <span class="keyword">char</span>&gt;(utf8Buffer[i]));</span><br><span class="line">            <span class="keyword">if</span> (length == <span class="number">0</span> || i + length &gt; utf8Buffer.size()) &#123;</span><br><span class="line">                <span class="keyword">break</span>;                   <span class="comment">// ← 不完整：停在这里，不消费</span></span><br><span class="line">            &#125;</span><br><span class="line">            completeChars.append(utf8Buffer, i, length);</span><br><span class="line">            i += length;</span><br><span class="line">        &#125;</span><br><span class="line">        utf8Buffer = utf8Buffer.substr(i);   <span class="comment">// 剩下的就是半个字符，留到下次</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!completeChars.empty()) &#123;</span><br><span class="line">            callback(completeChars);         <span class="comment">// 只往宿主侧吐完整字符</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> utf8Buffer;</span><br><span class="line">    <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp;)&gt; callback;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这段的核心是那个 <code>break</code> 的语义：</p>
+<blockquote>
+<p><strong><code>i + length &gt; size</code> 时不是「丢弃这个残缺字符」，而是「不消费它」。</strong></p>
+</blockquote>
+<p><code>utf8Buffer</code> 会一直保留这半个字符，等下一个 chunk 的字节到了接上、凑成完整的，再一起吐出去。</p>
+<p>这个区别很关键。如果你「不完整的就丢掉」，那每个汉字被切断的位置都会永久丢失字节——乱码会累积。而「留着不消费」，最终所有字节都会被消费恰好一次。</p>
+<h3><span id="63-接进-ostream">6.3 接进 ostream</span></h3><p>MNN 的接口是 <code>std::ostream</code>，所以需要一层 <code>streambuf</code> 把 <code>xsputn</code> 桥到回调：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LlmStreamBuffer</span> :</span> <span class="keyword">public</span> <span class="built_in">std</span>::streambuf &#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">std</span>::<span class="function">streamsize <span class="title">xsputn</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* s, <span class="built_in">std</span>::streamsize n)</span> override </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (callback_) callback_(s, n);   <span class="comment">// 原样把字节交出去</span></span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    CallBack callback_ = <span class="literal">nullptr</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 串起来：ostream → LlmStreamBuffer → Utf8StreamProcessor → JNI 回调</span></span><br><span class="line">LlmStreamBuffer stream_buffer&#123;</span><br><span class="line">    [&amp;processor](<span class="keyword">const</span> <span class="keyword">char</span>* str, <span class="keyword">size_t</span> len) &#123; processor.processStream(str, len); &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">std</span>::<span class="function">ostream <span class="title">output_ostream</span><span class="params">(&amp;stream_buffer)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>三层的职责很清楚：</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ostream</code> &#x2F; <code>streambuf</code></td>
+<td>接收 MNN 的字节流（<strong>不管字符</strong>）</td>
+</tr>
+<tr>
+<td><code>Utf8StreamProcessor</code></td>
+<td>把字节流重新切分到<strong>字符边界</strong></td>
+</tr>
+<tr>
+<td>JNI 回调</td>
+<td>一次交一个<strong>完整字符</strong>给宿主</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>细节：<code>streambuf</code> 还有单字节路径 <code>overflow()</code>（<code>sputc</code> 走这里）。示例里 MNN 的写入都走 <code>xsputn</code>，所以我没重写它；但如果你的引擎会逐字符 <code>&lt;&lt;</code>，记得把 <code>overflow()</code> 也桥一遍，否则会丢单字符。</p>
+</blockquote>
+<hr>
+<h2><span id="7-eos-与流怎么结束">7. EOS 与「流怎么结束」</span></h2><p>流式生成最容易出的边角问题不是生成，是<strong>收尾</strong>。我这里有三种结束方式，处理得不一样：</p>
+<table>
+<thead>
+<tr>
+<th>结束方式</th>
+<th>C++ 侧</th>
+<th>宿主侧</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>文本命中 EOS</strong></td>
+<td>检测到 <code>eos_str</code> → 不写入 response、保存历史、<code>stop_requested = true</code></td>
+<td>收到 <code>token == null</code> → <code>close()</code></td>
+</tr>
+<tr>
+<td><strong><code>llm-&gt;stoped()</code> 触发</strong></td>
+<td>循环退出，但文本 EOS 没走到</td>
+<td>兜底：循环结束后补发一次 <code>onProgress(null)</code></td>
+</tr>
+<tr>
+<td><strong>用户取消</strong></td>
+<td><code>stop_requested = true</code></td>
+<td>Flow 已关闭，不需要再通知</td>
+</tr>
+</tbody></table>
+<p>EOS 检测依赖 MNN 的一个约定：<strong>命中 EOS 或 max_tokens 时，它会把 <code>eos_str</code> 作为独立 chunk 写进 ostream</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> is_eop = (utf8Char.find(eos_str) != <span class="built_in">std</span>::<span class="built_in">string</span>::npos);</span><br></pre></td></tr></table></figure>
+
+<p>这个做法能 work，但它有两个前提，都值得写死在注释里：</p>
+<ol>
+<li><strong><code>eos_str</code> 不会出现在正常的生成内容里。</strong> 用 <code>&lt;eop&gt;</code>、<code>&lt;|endoftext|&gt;</code> 这类 token 是安全的；如果你把 <code>eos_str</code> 配成 <code>&quot;。&quot;</code> 这种正文里会出现的字符，就会在第一个句号处截断。这是个很容易配错、又很难查的坑。</li>
+<li><strong>EOS 一定作为独立 chunk 到来。</strong> 上面的 <code>find</code> 是对「这一批完整字符」做子串匹配；如果引擎把 EOS 和正文混在同一个 batch 里吐出来，这批正文会被整批丢掉。用「独立 chunk」是 MNN 的保证，<strong>换成别的引擎时这条要重新验证</strong>。</li>
+</ol>
+<h3><span id="71-这里有个我自己写反了的坑重点">7.1 这里有个我自己写反了的坑（重点）</span></h3><p>那个「兜底补发 <code>onProgress(null)</code>」是必须的：没有它，宿主的 <code>callbackFlow</code> 就永远不会 <code>close()</code>，<code>awaitClose</code> 永远不会被调用——<strong>Flow 挂在那里不收尾，上层等一个永不到来的完成信号</strong>。</p>
+<p>但我在复盘时发现，<strong>兜底的判据很容易写反</strong>。我最初写的是：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">size_t</span> history_before = history.size();</span><br><span class="line"><span class="keyword">if</span> (response_string_for_debug.empty() &amp;&amp; !response_result.empty()) &#123;</span><br><span class="line">    history.emplace_back(<span class="string">"assistant"</span>, response_result);   <span class="comment">// ← 会 push</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 意图：文本 EOS 没发过 null 时，补发一次</span></span><br><span class="line"><span class="keyword">if</span> (history.size() == history_before &amp;&amp; ...) &#123;            <span class="comment">// ← 判据写反了</span></span><br><span class="line">    env-&gt;CallBooleanMethod(progressCallback, onProgressMethod, <span class="literal">nullptr</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>推演两条路径就会发现问题：</p>
+<ul>
+<li><strong>文本 EOS 命中</strong>：回调里已经发过一次 <code>null</code>；fallback 不 push → <code>size == before</code> 为真 → <strong>又发一次 null</strong>（重复，但因为 <code>close()</code> 幂等所以无害）。</li>
+<li><strong><code>stoped()</code> 触发、文本 EOS 没命中</strong>：fallback 会 push assistant → <code>size == before</code> 为假 → <strong>不发 null</strong> → Flow 永不 <code>close()</code>。</li>
+</ul>
+<p>也就是说：<strong>这段兜底恰好漏在了它本该兜底的那条路径上。</strong> 正确写法应该让判据直接跟着「是否已结束」走，而不是绕一圈用 <code>history.size()</code> 去推断：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (!stop &amp;&amp; !llm-&gt;stoped() &amp;&amp; n &lt; <span class="number">512</span>) &#123; llm-&gt;generate(<span class="number">1</span>); ++n; &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 只要不是「用户取消」（Flow 已关）且「EOS 已发过 null」（stop 已置位），就补一次</span></span><br><span class="line"><span class="keyword">if</span> (!stop) &#123;</span><br><span class="line">    env-&gt;CallBooleanMethod(progressCallback, onProgressMethod, <span class="literal">nullptr</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>stop</code> 为 <code>true</code> 只有两种情况：EOS（已发过 <code>null</code>）或用户取消（Flow 已关）——两种都不需要再发。<code>stop</code> 为 <code>false</code> 说明是 <code>stoped()</code> &#x2F; 预算退出，这时才补发。<strong>一个布尔量就够了，不要用 history 的长度去间接推断状态。</strong></p>
+<blockquote>
+<p>教训：收尾逻辑一旦用「副作用（push）之后的间接状态」当判据，就极易写反，而且<strong>症状是「挂住」而不是「报错」</strong>，最难查。判据要直接指向「是否已经结束」。</p>
+</blockquote>
+<hr>
+<h2><span id="8-怎么证明取消真的取消了">8. 怎么证明「取消真的取消了」</span></h2><p>这一点值得单独说，因为它是本机 LLM 最容易自欺欺人的地方：<strong>取消之后 token 确实不再到达宿主了</strong>，但那可能是因为上游不转发，而 C++ 还在满负荷跑。</p>
+<p>我的验证思路是三条独立的证据，缺一不可：</p>
+<table>
+<thead>
+<tr>
+<th>证据</th>
+<th>怎么拿</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>① C++ 循环真的退出了</strong></td>
+<td>循环退出后打日志 <code>generation finished: %d tokens, stop=%d, stopped=%d</code>——<code>stop=1</code> 且 <code>gen_count</code> 明显小于 512，说明是<strong>主动停</strong>而不是跑完</td>
+</tr>
+<tr>
+<td><strong>② 宿主侧 Flow 真的关了</strong></td>
+<td><code>callbackFlow</code> 的 <code>awaitClose { log(&quot;Flow closed&quot;) }</code> 必须被调用</td>
+</tr>
+<tr>
+<td><strong>③ 取消后还能继续用</strong></td>
+<td>再发一次 <code>submit()</code> 能正常流式输出。如果 C++ 没退出，下一次调用会卡在 mutex 上或返回垃圾</td>
+</tr>
+</tbody></table>
+<p>第 ③ 条最容易被忽略但最重要。<strong>「取消了」的正确含义不是「不再有输出」，是「实例回到了可再次使用的状态」。</strong></p>
+<h3><span id="81-怎么量化取消时延">8.1 怎么量化「取消时延」</span></h3><p>「取消粒度 &#x3D; 一个 token」这句话，最好是给数而不是给形容词。可以这样测：</p>
+<ol>
+<li>打开 MNN context 自带的计时（见附录），拿到 <code>decode_us</code>（单步解码耗时）；</li>
+<li>在「发出取消」到「循环退出」之间打两个时间戳，差值即<strong>取消时延</strong>；</li>
+<li>重复 20 次取 P50 &#x2F; P95。</li>
+</ol>
+<p>预期结论是：<strong>取消时延 ≈ 一个 <code>decode_us</code> 的量级</strong>。如果测出来远大于它，那大概率是取消信号没有真的搭上车（比如 <code>trySend</code> 的返回值没被回传，或 C++ 没读那个返回值）。</p>
+<blockquote>
+<p>待办：本文样本的实测数据待补（设备 + 模型 + P50&#x2F;P95）。方法先放这里，方便复现。</p>
+</blockquote>
+<hr>
+<h2><span id="9-这个实现目前的五个缺口">9. 这个实现目前的五个缺口</span></h2><p>我不想只讲「我做成了什么」。这套骨架有五个明确的问题，都还没修——<strong>真正的工程是「知道它哪里会塌」</strong>：</p>
+<h3><span id="91-阻塞调用没有切线程">9.1 阻塞调用没有切线程</span></h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">submit</span><span class="params">(prompt: <span class="type">String</span>)</span></span>: Flow&lt;String&gt; = callbackFlow &#123;</span><br><span class="line">    <span class="comment">// ... 没有 flowOn(Dispatchers.IO) / withContext(IO)</span></span><br><span class="line">    submitNative(nativePtr, prompt, callback, eosToken)  <span class="comment">// ← 阻塞几十秒</span></span><br><span class="line">    awaitClose &#123; ... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>callbackFlow</code> 里如果<strong>没有</strong> <code>flowOn(Dispatchers.IO)</code> &#x2F; <code>withContext(IO)</code>，这几十秒的阻塞就跑在<strong>收集者的 dispatcher</strong> 上——上游天真地在 Main 上 <code>collect</code>，就是主线程阻塞几十秒。</p>
+<p>目前没炸是因为调用方恰好都在后台线程。<strong>这是个靠「用的时候小心」维持的正确性，应该修但还没修。</strong>（最小骨架里已经帮你加上 <code>withContext(IO)</code>。）</p>
+<h3><span id="92-executor-硬编码-cpu-1-线程配置项是空的">9.2 Executor 硬编码 CPU + 1 线程，配置项是空的</span></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注意：Executor 后端硬编码为 CPU，不读取配置里的 backend_type。</span></span><br><span class="line"><span class="comment">// 原因是 OpenCL 后端库当前未随包加载，切换会 crash。</span></span><br><span class="line"><span class="keyword">auto</span> executor = MNN::Express::Executor::newExecutor(MNN_FORWARD_CPU, backendConfig, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>所以配置对象的 <code>backendType</code> <strong>传了也一定不生效</strong>——代码自己声明了不读它，你设成 <code>&quot;opencl&quot;</code> 只会得到一个仍在 CPU 上跑的实例。</p>
+<p><code>threadNum</code> 则<strong>需要实测才能确定</strong>：它会经 <code>llm-&gt;set_config()</code> 传给 MNN，但 Executor 在 <code>set_config</code> <strong>之前</strong>就已经用 1 线程创建好了。到底以哪个为准，取决于 MNN 内部是否会用 config 重建 Executor——<strong>这一点我没有验证，所以不能断言它生效</strong>。</p>
+<p>对 0.5B 小模型来说单线程能跑；如果将来要上更大的模型，这里是第一个要查的瓶颈。麻烦的是<strong>它不会报错，只是慢</strong>——这类「配置静默失效」是最难查的一类问题。</p>
+<h3><span id="93-停止标志是文件级静态变量">9.3 停止标志是文件级静态变量</span></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;PromptItem&gt; history&#123;&#125;;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">bool</span> stop_requested = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+
+<p>原因和限制：</p>
+<blockquote>
+<p>这些是模块级全局变量（<code>.so</code> 加载后唯一）。MNN Llm 接口要求 ostream 回调中设置停止标志，无法通过 Llm 实例传参。当前单例会话保证单会话，无并发风险。若未来需要多实例，需改为以 nativePtr 为 key 的 map。</p>
+</blockquote>
+<p><strong>换句话说：这套实现只能有一个模型实例。</strong> 想同时加载两个模型（比如小模型做快问快答、大模型做复杂任务），需要重构这一层。</p>
+<h3><span id="94-整个-cpp-文件-0-处-env-gtexceptioncheck">9.4 整个 <code>.cpp</code> 文件 0 处 <code>env-&gt;ExceptionCheck()</code></span></h3><p>JNI 层最容易致命的错误是 Java 侧抛了异常、C++ 没检查继续往下走。这个文件里：</p>
+<ul>
+<li><code>GetMethodID</code> 的结果<strong>从不校验</strong>——如果回调方法名被 R8 改名 &#x2F; 混淆，方法 ID 变成 <code>nullptr</code>，下一行 <code>CallBooleanMethod(nullptr, ...)</code> 直接 SIGSEGV；</li>
+<li><code>GetStringUTFChars</code> 的返回值<strong>从不判空</strong>——OOM 时会构造 <code>std::string(nullptr)</code>，是 UB。</li>
+</ul>
+<p><strong>这两条是 JNI 代码的必修课。</strong> 如果你的回调方法名会变（混淆、反射、动态代理），第一个坑几乎必然踩到。</p>
+<h3><span id="95-生成期间修改-history-有重分配风险">9.5 生成期间修改 <code>history</code> 有重分配风险</span></h3><p><code>llm-&gt;response(history, &amp;output_ostream, ...)</code> 按引用拿着 <code>history</code>，而 ostream 回调里会：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">history.emplace_back(<span class="string">"assistant"</span>, response_result);   <span class="comment">// 在 response() 的调用栈内！</span></span><br></pre></td></tr></table></figure>
+
+<p><code>std::vector</code> 扩容会让持有它的引用 &#x2F; 迭代器失效。这段代码在「命中文本 EOS」时触发，而那时 MNN 已经停止写入——<strong>目前没观察到问题</strong>，但它依赖了引擎内部的一个时序假设，属于「能跑但脆」的代码。</p>
+<hr>
+<h2><span id="10-横向对比别的引擎怎么做取消">10. 横向对比：别的引擎怎么做「取消」</span></h2><p>「token 间取消」是通用下限，「计算中取消」是普遍加分项。本文的「回调返回值搭车」只是其中一种取舍：</p>
+<table>
+<thead>
+<tr>
+<th>引擎</th>
+<th>取消机制</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>MNN（本文）</strong></td>
+<td>JNI 回调返回值搭车</td>
+<td>零额外接口、无原子变量；粒度 &#x3D; 1 token</td>
+</tr>
+<tr>
+<td><strong>llama.cpp</strong></td>
+<td><code>llama_set_abort_callback(ctx, cb, data)</code>，计算过程中被<strong>周期性轮询</strong>，返回 <code>true</code> 即中止</td>
+<td>能中断「还在处理超长 prompt」的阶段，粒度细于 token 间；需额外的回调注册</td>
+</tr>
+<tr>
+<td><strong>ONNX Runtime</strong></td>
+<td><code>Ort::RunOptions::SetTerminate()</code></td>
+<td>可从<strong>另一个线程</strong>调用，终止使用该 <code>RunOptions</code> 的 <code>Run</code>；需把 <code>RunOptions</code> 一路传下去</td>
+</tr>
+<tr>
+<td>llama.cpp 的 token callback</td>
+<td>每个 token 后回调</td>
+<td>与本文粒度相同：<strong>只能停在 token 之间，停不进一次长 prompt 的计算里</strong></td>
+</tr>
+</tbody></table>
+<p>有意思的是：llama.cpp 官方也承认「token 回调只能停在 token 之间，停不进长 prompt 的计算里」——<strong>这和本文「取消粒度 &#x3D; 1 token」的取舍是同一个下限</strong>。要突破它，就得像 <code>abort_callback</code> &#x2F; <code>SetTerminate</code> 那样引入「另一个线程能看到的终止标志 + 计算内轮询」。本文选搭车，是因为语音助手里 1 token 的粒度已经够用，且能省掉一整套跨线程可见性。</p>
+<hr>
+<h2><span id="11-一句话总结">11. 一句话总结</span></h2><p>本地 LLM 的流式 + 取消 + 中文，看起来是三个功能，实际上是<strong>一件事</strong>：</p>
+<blockquote>
+<p><strong>在跨语言边界上，你要保证搬运的东西是「对端的语义单位」——对 C++ 是控制点，对宿主是完整字符。</strong></p>
+</blockquote>
+<p>具体到两行代码：</p>
+<ul>
+<li><code>response(..., max_new_tokens=0)</code> 把生成循环拿回来 → 于是有了控制点</li>
+<li><code>i + length &gt; size → break</code>（而不是丢弃）→ 于是有了字符边界</li>
+</ul>
+<p>剩下的都是在这两个基础上补时序：EOS 兜底、退出条件、取消后可用。</p>
+<hr>
+<h2><span id="附录-a最小可复现骨架">附录 A：最小可复现骨架</span></h2><blockquote>
+<p>已把 §9.1（切线程）与 §7.1（兜底判据）两个坑修掉；为聚焦主线，省略了错误检查与 JNI 引用管理，生产代码请按 §9.4 补齐。</p>
+</blockquote>
+<p><strong>C++（<code>llm_stream_jni.cpp</code>）</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;jni.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"llm/llm.hpp"</span>          <span class="comment">// MNN LLM</span></span></span><br><span class="line"><span class="keyword">using</span> MNN::Transformer::Llm;</span><br><span class="line"><span class="keyword">using</span> PromptItem = <span class="built_in">std</span>::pair&lt;<span class="built_in">std</span>::<span class="built_in">string</span>, <span class="built_in">std</span>::<span class="built_in">string</span>&gt;;   <span class="comment">// &#123;role, content&#125;</span></span><br><span class="line"><span class="keyword">using</span> ChatMessages = <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;PromptItem&gt;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ── 1) UTF-8 流处理器：只吐完整字符 ──</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">utf8CharLength</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((b &amp; <span class="number">0x80</span>) == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> ((b &amp; <span class="number">0xE0</span>) == <span class="number">0xC0</span>) <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> ((b &amp; <span class="number">0xF0</span>) == <span class="number">0xE0</span>) <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">if</span> ((b &amp; <span class="number">0xF8</span>) == <span class="number">0xF0</span>) <span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Utf8StreamProcessor</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> Sink = <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp;)&gt;;</span><br><span class="line">    explicit Utf8StreamProcessor(Sink sink) : sink_(std::move(sink)) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">feed</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* s, <span class="keyword">size_t</span> n)</span> </span>&#123;</span><br><span class="line">        buf_.append(s, n);</span><br><span class="line">        <span class="keyword">size_t</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> done;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; buf_.size()) &#123;</span><br><span class="line">            <span class="keyword">int</span> len = utf8CharLength(<span class="keyword">static_cast</span>&lt;<span class="keyword">unsigned</span> <span class="keyword">char</span>&gt;(buf_[i]));</span><br><span class="line">            <span class="keyword">if</span> (len == <span class="number">0</span> || i + len &gt; buf_.size()) <span class="keyword">break</span>;   <span class="comment">// 不完整：留着，不消费</span></span><br><span class="line">            done.append(buf_, i, len);</span><br><span class="line">            i += len;</span><br><span class="line">        &#125;</span><br><span class="line">        buf_.erase(<span class="number">0</span>, i);                                   <span class="comment">// 未消费部分留到下次</span></span><br><span class="line">        <span class="keyword">if</span> (!done.empty()) sink_(done);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> buf_;</span><br><span class="line">    Sink sink_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ── 2) ostream → 回调 ──</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StreamBuf</span> :</span> <span class="keyword">public</span> <span class="built_in">std</span>::streambuf &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> Sink = <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">const</span> <span class="keyword">char</span>*, <span class="keyword">size_t</span>)&gt;;</span><br><span class="line">    explicit StreamBuf(Sink sink) : sink_(std::move(sink)) &#123;&#125;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">std</span>::<span class="function">streamsize <span class="title">xsputn</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* s, <span class="built_in">std</span>::streamsize n)</span> override </span>&#123;</span><br><span class="line">        sink_(s, <span class="keyword">static_cast</span>&lt;<span class="keyword">size_t</span>&gt;(n));</span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Sink sink_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">toStd</span><span class="params">(JNIEnv* env, jstring s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!s) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* c = env-&gt;GetStringUTFChars(s, <span class="literal">nullptr</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">out</span><span class="params">(c ? c : <span class="string">""</span>)</span></span>;</span><br><span class="line">    <span class="keyword">if</span> (c) env-&gt;ReleaseStringUTFChars(s, c);</span><br><span class="line">    <span class="keyword">return</span> out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> JNIEXPORT <span class="keyword">void</span> JNICALL</span><br><span class="line">Java_com_example_mnn_MnnSession_submitNative(</span><br><span class="line">        JNIEnv* env, jobject <span class="comment">/*thiz*/</span>,</span><br><span class="line">        jlong nativePtr, jstring input, jobject callback, jstring eosToken) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span>* llm = <span class="keyword">reinterpret_cast</span>&lt;Llm*&gt;(nativePtr);</span><br><span class="line">    <span class="keyword">if</span> (!llm) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    jmethodID onProgress = env-&gt;GetMethodID(</span><br><span class="line">        env-&gt;GetObjectClass(callback), <span class="string">"onProgress"</span>, <span class="string">"(Ljava/lang/String;)Z"</span>);</span><br><span class="line">    <span class="keyword">if</span> (env-&gt;ExceptionCheck() || !onProgress) <span class="keyword">return</span>;   <span class="comment">// 见 §9.4</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> eos = toStd(env, eosToken);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">bool</span> stop = <span class="literal">false</span>;          <span class="comment">// 取消 或 命中 EOS</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> answer;         <span class="comment">// 已确认的完整回答</span></span><br><span class="line"></span><br><span class="line">    <span class="function">Utf8StreamProcessor <span class="title">utf8</span><span class="params">([&amp;](<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; chunk)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">bool</span> isEos = chunk.find(eos) != <span class="built_in">std</span>::<span class="built_in">string</span>::npos;   <span class="comment">// 约定：EOS 为独立 chunk</span></span><br><span class="line">        <span class="keyword">if</span> (!isEos) answer += chunk;</span><br><span class="line"></span><br><span class="line">        jstring js = isEos ? <span class="literal">nullptr</span> : env-&gt;NewStringUTF(chunk.c_str());</span><br><span class="line">        jboolean userStop = env-&gt;CallBooleanMethod(callback, onProgress, js);</span><br><span class="line">        <span class="keyword">if</span> (js) env-&gt;DeleteLocalRef(js);</span><br><span class="line"></span><br><span class="line">        stop = isEos || userStop;   <span class="comment">// ← 取消「搭车」在回调返回值上</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="function">StreamBuf <span class="title">sb</span><span class="params">([&amp;](<span class="keyword">const</span> <span class="keyword">char</span>* s, <span class="keyword">size_t</span> n)</span> </span>&#123; utf8.feed(s, n); &#125;);</span><br><span class="line">    <span class="built_in">std</span>::<span class="function">ostream <span class="title">os</span><span class="params">(&amp;sb)</span></span>;</span><br><span class="line"></span><br><span class="line">    ChatMessages history&#123;</span><br><span class="line">        &#123;<span class="string">"system"</span>, <span class="string">"You are a helpful assistant."</span>&#125;,</span><br><span class="line">        &#123;<span class="string">"user"</span>,   toStd(env, input)&#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    llm-&gt;response(history, &amp;os, eos.c_str(), <span class="number">0</span>);   <span class="comment">// 只 prefill</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!stop &amp;&amp; !llm-&gt;stoped() &amp;&amp; n &lt; <span class="number">512</span>) &#123;   <span class="comment">// 取消 / 正常结束 / 硬预算</span></span><br><span class="line">        llm-&gt;generate(<span class="number">1</span>);</span><br><span class="line">        ++n;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 收尾：stop==true 时已发过 null（EOS）或 Flow 已关（取消）；否则补发</span></span><br><span class="line">    <span class="keyword">if</span> (!stop) &#123;</span><br><span class="line">        env-&gt;CallBooleanMethod(callback, onProgress, <span class="literal">nullptr</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Kotlin（<code>MnnSession.kt</code>）</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.mnn</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> kotlinx.coroutines.Dispatchers</span><br><span class="line"><span class="keyword">import</span> kotlinx.coroutines.channels.awaitClose</span><br><span class="line"><span class="keyword">import</span> kotlinx.coroutines.flow.Flow</span><br><span class="line"><span class="keyword">import</span> kotlinx.coroutines.flow.callbackFlow</span><br><span class="line"><span class="keyword">import</span> kotlinx.coroutines.withContext</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MnnSession</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> nativePtr: <span class="built_in">Long</span> = <span class="number">0</span>L</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> eosToken: String = <span class="string">"&lt;eop&gt;"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">interface</span> <span class="title">ProgressCallback</span> </span>&#123;</span><br><span class="line">        <span class="comment">/** 返回 true = 请求停止（EOS 或下游已取消）。 */</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">onProgress</span><span class="params">(token: <span class="type">String</span>?)</span></span>: <span class="built_in">Boolean</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> external <span class="function"><span class="keyword">fun</span> <span class="title">submitNative</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        nativePtr: <span class="type">Long</span>, input: <span class="type">String</span>, callback: <span class="type">ProgressCallback</span>, eosToken: <span class="type">String</span></span></span></span><br><span class="line"><span class="function"><span class="params">    )</span></span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">submit</span><span class="params">(input: <span class="type">String</span>)</span></span>: Flow&lt;String&gt; = callbackFlow &#123;</span><br><span class="line">        <span class="keyword">val</span> cb = <span class="keyword">object</span> : ProgressCallback &#123;</span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onProgress</span><span class="params">(token: <span class="type">String</span>?)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (token == <span class="literal">null</span>) &#123;          <span class="comment">// EOS</span></span><br><span class="line">                    close()</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> trySend(token).isClosed  <span class="comment">// 下游取消 → true → C++ 停</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 阻塞几十秒：必须切到 IO，绝不能跑在收集者的 dispatcher 上（§9.1）</span></span><br><span class="line">        withContext(Dispatchers.IO) &#123;</span><br><span class="line">            submitNative(nativePtr, input, cb, eosToken)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        awaitClose &#123; <span class="comment">/* Flow 结束（EOS / 取消 / 出错） */</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>要点回顾</strong>：<code>response(..., 0)</code> 只 prefill → <code>generate(1)</code> 步进拿回控制权 → 回调返回值 <code>trySend(...).isClosed</code> 搭车取消 → <code>Utf8StreamProcessor</code> 保证只在字符边界吐 → 循环后按 <code>!stop</code> 补一次 <code>null</code> 收尾。</p>
+<hr>
+<h2><span id="附录-b关键接口与预算">附录 B：关键接口与预算</span></h2><p><strong>JNI 接口</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>initNative(modelDir, chatHistory, extraConfig, systemPrompt): Long</code></td>
+<td>创建实例 + 加载权重（<strong>10–60s，必须在后台线程</strong>），返回 native 指针</td>
+</tr>
+<tr>
+<td><code>submitNative(nativePtr, input, keepHistory, callback, eosToken): Map&lt;String, Long&gt;</code></td>
+<td>流式生成，返回性能指标</td>
+</tr>
+<tr>
+<td><code>resetNative(nativePtr)</code></td>
+<td>清空历史，保留 system prompt</td>
+</tr>
+<tr>
+<td><code>releaseNative(nativePtr)</code></td>
+<td>销毁 LLM 实例</td>
+</tr>
+</tbody></table>
+<p><strong>免费拿到的性能指标</strong>（MNN context 直接给，不用自己埋点）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">context-&gt;prompt_len;   context-&gt;gen_seq_len;    <span class="comment">// token 数</span></span><br><span class="line">context-&gt;prefill_us;   context-&gt;decode_us;      <span class="comment">// 预填充 / 单步解码耗时</span></span><br><span class="line">context-&gt;ttfa_us;      context-&gt;sample_us;      <span class="comment">// 首字时延 / 采样耗时（视版本）</span></span><br></pre></td></tr></table></figure>
+
+<p>这几个数直接可以用来算 TTFT 和解码速度（tokens&#x2F;s）——<strong>在调端侧延迟时，这是一开始就该接的数据源</strong>，而不是等出了问题再回头加埋点。其中 <code>ttfa_us</code>（首字时延）比用 <code>prefill_us</code> 估 TTFT 更直接。</p>
+<p><strong>常量</strong></p>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>prefill max_new_tokens</td>
+<td><code>0</code></td>
+<td>只 prefill</td>
+</tr>
+<tr>
+<td>每步生成</td>
+<td><code>generate(1)</code></td>
+<td>一次一个 token</td>
+</tr>
+<tr>
+<td>硬预算</td>
+<td><code>512</code> tokens</td>
+<td>防不吐 EOS</td>
+</tr>
+<tr>
+<td>Executor</td>
+<td><code>MNN_FORWARD_CPU</code> + 1 线程</td>
+<td>硬编码（见 §9.2）</td>
+</tr>
+<tr>
+<td>默认 EOS</td>
+<td><code>&lt;eop&gt;</code></td>
+<td>必须选正文不会出现的串</td>
+</tr>
+</tbody></table>
+<hr>
+<h2><span id="参考">参考</span></h2><ul>
+<li><a href="https://rdrr.io/cran/llamaR/man/llama_set_abort_callback.html" target="_blank" rel="noopener">llama_set_abort_callback：在生成过程中周期调用，返回 TRUE 则中止 decode</a></li>
+<li><a href="https://pkg.go.dev/github.com/AshkanYarmoradi/go-llama.cpp" target="_blank" rel="noopener">go-llama.cpp：token 回调只能停在 token 之间，<code>SetAbortCallback</code> 可中断计算中的工作</a></li>
+<li><a href="https://onnxruntime.ai/docs/api/c/struct_ort_1_1_run_options.html" target="_blank" rel="noopener">Ort::RunOptions::SetTerminate：可从另一线程终止正在执行的 Session::Run</a></li>
+</ul>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2026/09/10/TTS/Breeze-TTS-2-本地部署实战/" data-toggle="tooltip" data-placement="top" title="Breeze TTS 2 本地部署实战：3× Tesla V100 跑通实时中英双语 TTS">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                          <a class="tag" href="/tags/#MNN" title="MNN">MNN</a>
+                        
+                          <a class="tag" href="/tags/#本地 LLM" title="本地 LLM">本地 LLM</a>
+                        
+                          <a class="tag" href="/tags/#端侧推理" title="端侧推理">端侧推理</a>
+                        
+                          <a class="tag" href="/tags/#流式输出" title="流式输出">流式输出</a>
+                        
+                          <a class="tag" href="/tags/#JNI" title="JNI">JNI</a>
+                        
+                          <a class="tag" href="/tags/#Kotlin" title="Kotlin">Kotlin</a>
+                        
+                          <a class="tag" href="/tags/#协程" title="协程">协程</a>
+                        
+                          <a class="tag" href="/tags/#UTF-8" title="UTF-8">UTF-8</a>
+                        
+                          <a class="tag" href="/tags/#可取消" title="可取消">可取消</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://k2archer.github.io" target="_blank">k2archer&#39;s Blog</a></li>
+                    
+                        <li><a href="https://github.com/k2archer" target="_blank">k2archer&#39;s GitHub</a></li>
+                    
+                        <li><a href="https://leetcode.com/k2archer" target="_blank">k2archer&#39;s Leetcode</a></li>
+                    
+                        <li><a href="https://segmentfault.com/u/k2archer" target="_blank">SegmentFault</a></li>
+                    
+                        <li><a href="https://hexo.io/zh-cn" target="_blank">Hexo</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://k2archer.github.io/2026/10/28/Agent/mnn-cancellable-streaming-generation/";
+    var disqus_url = "https://k2archer.github.io/2026/10/28/Agent/mnn-cancellable-streaming-generation/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/k2archer">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; k2archer 2026 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://k2archer.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://k2archer.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
