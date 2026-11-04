@@ -136,13 +136,6 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/archives/">Archives</a>
                         </li>
                         
@@ -151,6 +144,13 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -213,21 +213,20 @@
 
 <div class="post-preview">
 
-    <a href="/2010/01/01/0/OpenCv 新手章/">
+    <a href="/2010/01/01/0/OpenGL 绘制方式：用顶点数组绘制三角形/">
         <h2 class="post-title">
-            OpenCV 手记
+            OpenGL 绘制方式：用顶点数组绘制三角形
         </h2>
         <h3 class="post-subtitle">
-             "入门之路"
+             "OpenGL 入门"
         </h3>
         <div class="post-content-preview">
-            OpenCV 新手章
-OpenCV 认识
-OpenCV 是一个视觉库，有着各种的通用工具算法。
-安装 OpenCV 开发库
-sudo apt-get install libopencv-dev
-实例(显示图片):
-12345678910111213141516171819202122232425262728#include &lt;opencv2/core/core.hpp&gt;#incl......
+            OpenGL 绘制方式：用顶点数组绘制三角形
+
+“OpenGL 入门”
+
+OpenGL
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include &lt;GL/gl......
         </div>
     </a>
     
@@ -237,7 +236,7 @@ sudo apt-get install libopencv-dev
         </p>
         <div class="tags">
             
-              <a href="/tags/#OpenCV" title="OpenCV">OpenCV</a>
+              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
             
         </div>
     
@@ -259,8 +258,7 @@ sudo apt-get install libopencv-dev
 
 “Python IDE 入门”
 
-快捷键
-Ctrl+B 函数跳转 Declaration
+快捷键Ctrl+B 函数跳转 Declaration
 ...
         </div>
     </a>
@@ -317,39 +315,6 @@ sudo apt-get install fcitx-table-wubi
 
 <div class="post-preview">
 
-    <a href="/2010/01/01/0/OpenGL 绘制方式：用顶点数组绘制三角形/">
-        <h2 class="post-title">
-            OpenGL 绘制方式：用顶点数组绘制三角形
-        </h2>
-        <h3 class="post-subtitle">
-             "OpenGL 入门"
-        </h3>
-        <div class="post-content-preview">
-            OpenGL 绘制方式：用顶点数组绘制三角形
-
-“OpenGL 入门”
-
-OpenGL
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include &lt;GL/gl......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2010-01-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
     <a href="/2010/01/01/0/我的文章/">
         <h2 class="post-title">
             范例标题
@@ -383,6 +348,74 @@ OpenGL
 
 <div class="post-preview">
 
+    <a href="/2010/01/01/Android/how_to_test_MVVM/">
+        <h2 class="post-title">
+            如何测试 MVVM
+        </h2>
+        <h3 class="post-subtitle">
+             ""
+        </h3>
+        <div class="post-content-preview">
+            如何测试 MVVM
+
+“”
+
+MVVM 特性，解耦 UI 逻辑与业务逻辑，降低耦合度。Model 层不含 Android 类，只含数据处理逻辑，支持单元测试。ViewModel 层封装 UI 逻辑，也不含 Android 类，支持单元测试。
+ViewModel 需要绑定 Model， 支持替换 Model 数据源，
+为什么要测试？数据绑定使得 Bug 很难被定位调试。分层测试可以降低调试难度......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2010-01-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#范例" title="范例">范例</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2010/01/01/Android/template/">
+        <h2 class="post-title">
+            范例标题
+        </h2>
+        <h3 class="post-subtitle">
+             "范例小标题"
+        </h3>
+        <div class="post-content-preview">
+            Android 配置自签名证书
+
+“范例小标题”
+
+Android 网络配置
+注意生成的 CA 证书需要保持 CN(CommonName) 与 subjectAltName:[IP Address:: xxx]  一致，否则会出 javax.net.ssl.SSLPeerUnverifiedException: Hostname .*.**not verified 异常.
+生成CA证书   ......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2010-01-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#范例" title="范例">范例</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2010/01/01/Interview/developer_skills/">
         <h2 class="post-title">
             开发者技能
@@ -394,17 +427,8 @@ OpenGL
             
 “修炼指南”
 
-基础:
-掌握 Java，理解设计模式，良好的编码习惯
-熟练 Google Guava | Apache Commons 等常用工具库
-熟练单元测试
-读过至少一个优秀的开源项目
-常见算法原理
-网络原理 socket|Http|SSL
-Android:
-熟悉自定义控件以及动画
-熟悉 okhttp Retrofit RxJava Dagger2 等常用第三方库
-熟悉常用的支付、推......
+基础:    掌握 Java，理解设计模式，良好的编码习惯    熟练 Google Guava | Apache Commons 等常用工具库    熟练单元测试    读过至少一个优秀的开源项目    常见算法原理    网络原理 socket|Http|SSL
+Android:    熟悉自定义控件以及动画    熟悉 okhttp Retrofit RxJava D......
         </div>
     </a>
     
@@ -415,6 +439,42 @@ Android:
         <div class="tags">
             
               <a href="/tags/#范例" title="范例">范例</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2010/01/01/OpenGL/Ubuntu OpenGL 开发环境安装配置/">
+        <h2 class="post-title">
+            Ubuntu OpenGL 开发环境安装配置
+        </h2>
+        <h3 class="post-subtitle">
+             " "
+        </h3>
+        <div class="post-content-preview">
+            Ubuntu OpenGL 开发环境安装配置
+LFW 库安装12apt-cache search glfwsudo apt-get install libglfw3 libglfw3-dev
+
+&#x2F;&#x2F; 引入GLFW库
+1#include &lt;GLFW/glfw3.h&gt;
+
+库链接 -lglfw
+GLEW 库安装  apt-cache search glew
+  su......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2010-01-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
             
         </div>
     
@@ -438,42 +498,6 @@ Android:
 
 显示列表是一组 OpenGL 命令的集合。当它被创建后，所有的顶点数据和像素数据被传输到服务端的显示列表内存中，这个过程只执行一次。显示列表是比较快的绘制静态数据的方式，因为顶点数据和 OpenGL 命令被缓存在服务端的显示列表中，减少从客户端到服务端的数据传输周期。
 因为缓存在服务端，可以被多个客户端共享。但被编译后......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2010-01-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2010/01/01/OpenGL/Ubuntu OpenGL 开发环境安装配置/">
-        <h2 class="post-title">
-            Ubuntu OpenGL 开发环境安装配置
-        </h2>
-        <h3 class="post-subtitle">
-             " "
-        </h3>
-        <div class="post-content-preview">
-            Ubuntu OpenGL 开发环境安装配置
-LFW 库安装
-12apt-cache search glfwsudo apt-get install libglfw3 libglfw3-dev
-// 引入GLFW库
-1#include &lt;GLFW/glfw3.h&gt;
-库链接 -lglfw
-GLEW 库安装
-  apt-cache search glew
-  sudo apt-get......
         </div>
     </a>
     
@@ -527,13 +551,11 @@ GLEW 库安装
     <div class="tags">
         
             
-        
-            
             <a href="/tags/#Java" title="Java" rel="2">Java</a>
             
         
             
-            <a href="/tags/#Android" title="Android" rel="13">Android</a>
+            <a href="/tags/#Android" title="Android" rel="14">Android</a>
             
         
             
@@ -545,31 +567,9 @@ GLEW 库安装
             
         
             
+        
+            
             <a href="/tags/#范例" title="范例" rel="7">范例</a>
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
             
         
             
@@ -591,6 +591,32 @@ GLEW 库安装
             
         
             
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+            <a href="/tags/#Kotlin" title="Kotlin" rel="2">Kotlin</a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
             <a href="/tags/#C++" title="C++" rel="2">C++</a>
             
         
@@ -600,6 +626,22 @@ GLEW 库安装
         
             
             <a href="/tags/#me" title="me" rel="3">me</a>
+            
+        
+            
+        
+            
+        
+            
+            <a href="/tags/#TTS" title="TTS" rel="2">TTS</a>
+            
+        
+            
+        
+            
+        
+            
+        
             
         
             
@@ -692,6 +734,10 @@ GLEW 库安装
     <ul>
       
         <li>
+          <a href="/2026/11/04/Voice/speech-barge-in-probe-turn/">端侧语音助手的「打断」为什么这么难：一次 probe-turn 晋升的完整设计</a>
+        </li>
+      
+        <li>
           <a href="/2026/10/28/Agent/mnn-cancellable-streaming-generation/">移动端本地 LLM 流式生成：如何做到「可取消」，且中文不截断半个字</a>
         </li>
       
@@ -705,10 +751,6 @@ GLEW 库安装
       
         <li>
           <a href="/2022/03/06/work/project_foucs/">Focus 番茄工作法</a>
-        </li>
-      
-        <li>
-          <a href="/2022/01/07/Android/Android_jacoco_配置/">Android 单元测试 Jacoco 配置</a>
         </li>
       
     </ul>

@@ -136,13 +136,6 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/archives/">Archives</a>
                         </li>
                         
@@ -151,6 +144,13 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -226,17 +226,8 @@
 “文章目录”
 
 
-置顶
-我的作品
-外贸仓库管理系统：货有道
-Focus 工作番茄法应用
-Android
-一个 Android 路由框架
-在 Android Wear 表盘中实现双击事件
-RecyclerView 高性能刷新工具 DiffUtil
-Android 耗电优化
-Android 优雅处理 App Crash 过程
-读《Android源码设计模式解析与实战》
+置顶我的作品外贸仓库管理系统：货有道Focus 工作番茄法应用
+Android一个 Android 路由框架在 Android Wear 表盘中实现双击事件RecyclerView 高性能刷新工具 DiffUtilAndroid 耗电优化Android 优雅处理 App Crash 过程读《Android源码设计模式解析与实战》
 
 ...
         </div>
@@ -262,6 +253,53 @@ Android 优雅处理 App Crash 过程
 
 <div class="post-preview">
 
+    <a href="/2026/11/04/Voice/speech-barge-in-probe-turn/">
+        <h2 class="post-title">
+            端侧语音助手的「打断」为什么这么难：一次 probe-turn 晋升的完整设计
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+状态：v1 独立版（2026-11-04）· 与具体项目解耦，类名与工程结构做了泛化目标读者：做端侧语音助手 &#x2F; 实时语音交互的人；尤其是被「打断不太灵」「它总少听我半句话」折磨过的人环境：Android + Kotlin 协程；流式 ASR（会持续吐 partial）；输入侧有 USB 麦克风阵列（硬件 AEC）与手机麦克风两种路径代码：正文片段是删节后的骨架，保留能说明设计的......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2026-11-04
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Android" title="Android">Android</a>
+            
+              <a href="/tags/#Kotlin" title="Kotlin">Kotlin</a>
+            
+              <a href="/tags/#TTS" title="TTS">TTS</a>
+            
+              <a href="/tags/#语音交互" title="语音交互">语音交互</a>
+            
+              <a href="/tags/#打断" title="打断">打断</a>
+            
+              <a href="/tags/#barge-in" title="barge-in">barge-in</a>
+            
+              <a href="/tags/#VAD" title="VAD">VAD</a>
+            
+              <a href="/tags/#ASR" title="ASR">ASR</a>
+            
+              <a href="/tags/#状态机" title="状态机">状态机</a>
+            
+              <a href="/tags/#端侧" title="端侧">端侧</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2026/10/28/Agent/mnn-cancellable-streaming-generation/">
         <h2 class="post-title">
             移动端本地 LLM 流式生成：如何做到「可取消」，且中文不截断半个字
@@ -271,14 +309,10 @@ Android 优雅处理 App Crash 过程
         </h3>
         <div class="post-content-preview">
             
-状态：v2 独立版（2026-10-28）· 与具体项目解耦
-目标读者：在 Android / iOS 上通过 JNI 接本地 LLM 的人；尤其是同时被「用户说停停不下来」和「中文乱码」折磨过的人
-代码：正文为最小骨架，可独立复现；文末附完整骨架代码
-环境：MNN LLM（C++ / JNI）、NDK、Kotlin 协程；示例模型为 0.5B 级小参数 LLM
+状态：v2 独立版（2026-10-28）· 与具体项目解耦目标读者：在 Android &#x2F; iOS 上通过 JNI 接本地 LLM 的人；尤其是同时被「用户说停停不下来」和「中文乱码」折磨过的人代码：正文为最小骨架，可独立复现；文末附完整骨架代码环境：MNN LLM（C++ &#x2F; JNI）、NDK、Kotlin 协程；示例模型为 0.5B 级小参数 LLM
 
 
-TL;DR
-本地 LL......
+TL;D......
         </div>
     </a>
     
@@ -325,9 +359,9 @@ TL;DR
         </h3>
         <div class="post-content-preview">
             
-本文记录在一台**老卡服务器（3× Tesla V100-SXM2-16GB，驱动 525.125.06）**上，用 conda 环境部署并运行 BreezeBlue/Breeze-TTS-2 的全过程。
+本文记录在一台老卡服务器（3× Tesla V100-SXM2-16GB，驱动 525.125.06）上，用 conda 环境部署并运行 BreezeBlue&#x2F;Breeze-TTS-2 的全过程。
 覆盖两种运行方式：命令行推理（infer.py）与流式 HTTP API（python -m breeze_infer.api）。
-官方默认配置面向 H100/A100 + CUDA 1......
+官方默认配置面向 H100&#x2F;A100 + ......
         </div>
     </a>
     
@@ -369,13 +403,12 @@ TL;DR
              "一个自主助手项目的记忆与工具检索"
         </h3>
         <div class="post-content-preview">
-            一、引言：一个真实的选型困境
-我参与的一个项目，是一个基于 LangGraph 的多代理自主助手。它有两个绕不开的检索需求：
+            一、引言：一个真实的选型困境我参与的一个项目，是一个基于 LangGraph 的多代理自主助手。它有两个绕不开的检索需求：
 
 长期记忆——把和用户聊过的事实、偏好、决策存下来，之后按语义召回；
-工具/技能检索——几百个工具和技能挂在系统里，用户一句话过来，得在几十毫秒内找到最相关的那几个。
+工具&#x2F;技能检索——几百个工具和技能挂在系统里，用户一句话过来，得在几十毫秒内找到最相关的那几个。
 
-一开始，记忆模块用的是 ChromaDB。这几乎是当时的&quot;标准答案&quot;：你有个向......
+一开始，记忆模块用的是 ChromaDB。这几乎是当时的”标准答案”：你有个向量，你把它存......
         </div>
     </a>
     
@@ -403,14 +436,8 @@ TL;DR
              "一个运用番茄工作法提高你的效率的软件"
         </h3>
         <div class="post-content-preview">
-            简介
-专注于运用番茄工作法提高你的生产力，养成好习惯的软件
-番茄工作法的原理：
-专注(工作或学习) 25 分钟（为一个番茄时间），休息 5 分钟。每 4 个番茄时间后休息时间增加为 15 分钟，以此循环合适的工作周期。
-通过运用智能终端便捷进行计时、提醒，养成好习惯、提高专注度、提高生产力。
-支持智能手表、手机、PC 多种使用方式。
-系统结构
-智能手表 WearOS by Google，移动......
+            简介专注于运用番茄工作法提高你的生产力，养成好习惯的软件番茄工作法的原理：专注(工作或学习) 25 分钟（为一个番茄时间），休息 5 分钟。每 4 个番茄时间后休息时间增加为 15 分钟，以此循环合适的工作周期。通过运用智能终端便捷进行计时、提醒，养成好习惯、提高专注度、提高生产力。支持智能手表、手机、PC 多种使用方式。
+系统结构智能手表 WearOS by Google，移动端 Andr......
         </div>
     </a>
     
@@ -447,12 +474,10 @@ TL;DR
             
 “”
 
-在 instrument test 使用 Jacoco
-在新的 Android Studio 版本中，新创建的项目 androidTest 默认配置 Jacoco 支持。
-
+在 instrument test 使用 Jacoco在新的 Android Studio 版本中，新创建的项目 androidTest 默认配置 Jacoco 支持。
 
 在 build.gralde (Module:xxx)
-  1234567android &#123;   buildTypes &#123;       debug &#123;           tes......
+  1234567android &#123;   buildTypes &#123;       debug &#123;           testC......
         </div>
     </a>
     
@@ -481,14 +506,10 @@ TL;DR
         </h3>
         <div class="post-content-preview">
             一个 Android 路由框架
-
 “如何实现一个简单在路由框架”
 
 在 Android 模块化中，如何实现页面跳转和服务调用呢？
-页面跳转原理
-**问：**模块相互独立后，不能通过 import 直接引用需要的 Activity 类，有什么办法？
-通过反射来获得需要的 Activity  类，再传递 startActvity 函数。
-**问：**如果数量比较多，而且需要灵活使用，应该怎么管理......
+页面跳转原理问：模块相互独立后，不能通过 import 直接引用需要的 Activity 类，有什么办法？通过反射来获得需要的 Activity  类，再传递 startActvity 函数。问：如果数量比较多，而且需要灵活使用，应该怎么管理呢？使用 Map&lt;......
         </div>
     </a>
     
@@ -521,11 +542,10 @@ TL;DR
 “”
 
 RecyclyerView 高效刷新是好用户体验的重点。
-最直接的刷新方式
-12Adapter.notifyDataSetChanged();// 直接刷新重绘整个可视区域的 Item，容易造成 onBindViewHolder 卡顿。
+最直接的刷新方式12Adapter.notifyDataSetChanged();// 直接刷新重绘整个可视区域的 Item，容易造成 onBindViewHolder 卡顿。
+
 更好的办法是什么？
-局部刷新方式
-1234567Adapter.notifyItemCh......
+局部刷新方式1234567Adapter.notifyItemCha......
         </div>
     </a>
     
@@ -556,13 +576,9 @@ RecyclyerView 高效刷新是好用户体验的重点。
             
 “个人简历”
 
-简介
-3年以上 Andriod 开发经验。具备配合产品原型独立完成应用项目的前后端开发经验能力，求职开发岗位。
-目标成为职业工程师，追求成为具备完整把控项目的技术工程师。
-相关工作经验
-Android 工程师  广州**公寓管理有限公司  2019.6 - 2021.6
-负责城中村公寓出租管理平台 Android 端 - 小吒生活|小吒管家
-MVP 架构，支持PDF合同预览......
+简介3年以上 Andriod 开发经验。具备配合产品原型独立完成应用项目的前后端开发经验能力，求职开发岗位。目标成为职业工程师，追求成为具备完整把控项目的技术工程师。
+相关工作经验Android 工程师  广州**公寓管理有限公司  2019.6 - 2021.6
+负责城中村公寓出租管理平台 Android 端 - 小吒生活|小吒管家MVP 架构，支持PDF合同预览，支持手......
         </div>
     </a>
     
@@ -573,42 +589,6 @@ MVP 架构，支持PDF合同预览......
         <div class="tags">
             
               <a href="/tags/#me" title="me">me</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2021/10/23/Android/Android_Wear_double_click_event/">
-        <h2 class="post-title">
-            在 Android Wear 表盘中实现双击事件
-        </h2>
-        <h3 class="post-subtitle">
-             "Wear 表盘开发"
-        </h3>
-        <div class="post-content-preview">
-            
-“Wear 表盘开发”
-
-实现思路：
-第一次点击事件，启动一个延时事件，在延时时间内没有第二次点击，则延时事件就是单击事件。
-如果有第二次点击发生，则判断是否延时内，并且在同一个点击区域内，如果是，则取消延时事件，马上发送双击事件。
-如果第二次点击超出延时(单击事件已经发送成功)，或者不在同一个点击区域内(另一个单击动作)，则已经是另一个事件。
-参考代码：
-1234567891011121......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2021-10-23
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#范例" title="范例">范例</a>
             
         </div>
     
@@ -652,13 +632,11 @@ MVP 架构，支持PDF合同预览......
     <div class="tags">
         
             
-        
-            
             <a href="/tags/#Java" title="Java" rel="2">Java</a>
             
         
             
-            <a href="/tags/#Android" title="Android" rel="13">Android</a>
+            <a href="/tags/#Android" title="Android" rel="14">Android</a>
             
         
             
@@ -670,31 +648,9 @@ MVP 架构，支持PDF合同预览......
             
         
             
+        
+            
             <a href="/tags/#范例" title="范例" rel="7">范例</a>
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
             
         
             
@@ -716,6 +672,32 @@ MVP 架构，支持PDF合同预览......
             
         
             
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+            <a href="/tags/#Kotlin" title="Kotlin" rel="2">Kotlin</a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
             <a href="/tags/#C++" title="C++" rel="2">C++</a>
             
         
@@ -725,6 +707,22 @@ MVP 架构，支持PDF合同预览......
         
             
             <a href="/tags/#me" title="me" rel="3">me</a>
+            
+        
+            
+        
+            
+        
+            
+            <a href="/tags/#TTS" title="TTS" rel="2">TTS</a>
+            
+        
+            
+        
+            
+        
+            
+        
             
         
             
@@ -817,6 +815,10 @@ MVP 架构，支持PDF合同预览......
     <ul>
       
         <li>
+          <a href="/2026/11/04/Voice/speech-barge-in-probe-turn/">端侧语音助手的「打断」为什么这么难：一次 probe-turn 晋升的完整设计</a>
+        </li>
+      
+        <li>
           <a href="/2026/10/28/Agent/mnn-cancellable-streaming-generation/">移动端本地 LLM 流式生成：如何做到「可取消」，且中文不截断半个字</a>
         </li>
       
@@ -830,10 +832,6 @@ MVP 架构，支持PDF合同预览......
       
         <li>
           <a href="/2022/03/06/work/project_foucs/">Focus 番茄工作法</a>
-        </li>
-      
-        <li>
-          <a href="/2022/01/07/Android/Android_jacoco_配置/">Android 单元测试 Jacoco 配置</a>
         </li>
       
     </ul>

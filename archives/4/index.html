@@ -136,13 +136,6 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/archives/">Archives</a>
                         </li>
                         
@@ -151,6 +144,13 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -213,6 +213,40 @@
 
 <div class="post-preview">
 
+    <a href="/2017/07/28/Cplusplus/about_cplusplus_new/">
+        <h2 class="post-title">
+            关于 new 的各种特性
+        </h2>
+        <h3 class="post-subtitle">
+             "what is new?"
+        </h3>
+        <div class="post-content-preview">
+            
+“I from C++ .”
+
+关于 new 的各种特性​          在 C 的时代，内存分配都是用 malloc( )、calloc( ) ，在 C++ 都是 new 、 delete、 new [ ]、delete [ ] 成对使用就好。虽然简化很多，但还是有一些细节。例如：
+12int* p_int = new int;*p_int += 2;
+
+在上述代码中， *p_int......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2017-07-28
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#C++" title="C++">C++</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2017/07/20/Cplusplus/a_question_about_Cplusplus_pointer/">
         <h2 class="post-title">
             一个C++指针的面试题
@@ -224,12 +258,13 @@
             
 “我们来做面试题。”
 
-一个C++指针的面试题
-在网上看到这么一道C++题目，代码如下，求 n 是多少？
+一个C++指针的面试题在网上看到这么一道C++题目，代码如下，求 n 是多少？
 1int n = (int) ( ( (int )0x0 ) + 4) ;
+
 ​     解题：
 123int p1 = (int) 0x0; // 第一步int p2 = p1 + 4;    // 第二步int n  = (int) p2;  // 第三步
-这里涉及C++类型转换、类......
+
+这里涉及C++类型转换、......
         </div>
     </a>
     
@@ -260,11 +295,9 @@
             
 “algorithm time.”
 
-翻转二叉树（Invert Binary Tree）
-在刷 LeetCode 遇上它。听说因为 Google 让翻转二叉树成一个梗，也成为 LeetCode 的题目(Invert Binary Tree)。
-参考链接
-一、&quot;Hello World &quot;
-1234567891011121314TreeNode* invertTree(Tr......
+翻转二叉树（Invert Binary Tree）在刷 LeetCode 遇上它。听说因为 Google 让翻转二叉树成一个梗，也成为 LeetCode 的题目(Invert Binary Tree)。参考链接
+一、”Hello World “
+1234567891011121314TreeNode* invertTree(TreeNode* root......
         </div>
     </a>
     
@@ -295,8 +328,7 @@
             
 “创建第一个项目.”
 
-使用 
-在 cocos2d-x-2.26/tools/project-creator 目录，运行 create-project.py 脚本,进行创建新项目，成功创建的项目保存在 cocos2d-x-2.2.6/project 目录下。
+使用 create-project.py在 cocos2d-x-2.26&#x2F;tools&#x2F;project-creator 目录，运行 create-project.py 脚本,进行创建新项目，成功创建的项目保存在 cocos2d-x-2.2.6&#x2F;project 目录下。
 ...
         </div>
     </a>
@@ -331,14 +363,12 @@
 一直都想动手开发一个游戏，现在动手做。
 选择游戏引擎 Cocos2d-x ，如果一切都从画像素点开始，那是做游戏引擎的。
 开发环境
-
 Windows
 VS 2010
 Python 2.7
 Cocos2d-x 2.2.6
 
-编译 Cocos2d-x
-在确保 VS 2010 和 Python  2.7 正确安装成功后。直接运行 cocos2d-x-2.2.6 目录下的 bu......
+编译 Cocos2d-x在确保 VS 2010 和 Python  2.7 正确安装成功后。直接运行 cocos2d-x-2.2.6 目录下的 buil......
         </div>
     </a>
     
@@ -369,8 +399,7 @@ Cocos2d-x 2.2.6
             
 “Yeah It’s on.  ”
 
-发言
-github.io 的 Blog 就这么开通了。
+发言github.io 的 Blog 就这么开通了。
 ...
         </div>
     </a>
@@ -424,77 +453,6 @@ github.io 的 Blog 就这么开通了。
 
 <div class="post-preview">
 
-    <a href="/2010/01/01/Android/how_to_test_MVVM/">
-        <h2 class="post-title">
-            如何测试 MVVM
-        </h2>
-        <h3 class="post-subtitle">
-             ""
-        </h3>
-        <div class="post-content-preview">
-            如何测试 MVVM
-
-“”
-
-MVVM 特性，解耦 UI 逻辑与业务逻辑，降低耦合度。
-Model 层不含 Android 类，只含数据处理逻辑，支持单元测试。
-ViewModel 层封装 UI 逻辑，也不含 Android 类，支持单元测试。
-ViewModel 需要绑定 Model， 支持替换 Model 数据源，
-为什么要测试？
-数据绑定使得 Bug 很难被定位调试。分层测试可以降低调......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2010-01-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#范例" title="范例">范例</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2010/01/01/Android/template/">
-        <h2 class="post-title">
-            范例标题
-        </h2>
-        <h3 class="post-subtitle">
-             "范例小标题"
-        </h3>
-        <div class="post-content-preview">
-            Android 配置自签名证书
-
-“范例小标题”
-
-Android 网络配置
-注意生成的 CA 证书需要保持 CN(CommonName) 与 subjectAltName:[IP Address:: xxx]  一致，否则会出 javax.net.ssl.SSLPeerUnverifiedException: Hostname .*.**not verified 异常.
-生成CA证书   ......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2010-01-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#范例" title="范例">范例</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
     <a href="/2010/01/01/0/OpenCV 手记/">
         <h2 class="post-title">
             OpenCV 手记
@@ -512,9 +470,39 @@ Android 网络配置
 图像通道 灰度图、三通道图、RGB色彩模式、四通道、alpha通道(透明度)
 Mat 基本图像容器
 
-Mat、CvMat、IplImage 都可以表示和显示图像。
-Mat类型则是C++版本的矩阵类型，侧重于计算，数学性较高，OpenCV 对 Mat 类型的计算进行了优化
-（CvArr 用作函数的参数，无论传入的是 CvMat 或 IplI......
+Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本的矩阵类型，侧重于计算，数学性较高，OpenCV 对 Mat 类型的计算进行了优化（CvArr 用作函数的参数，无论传入的是 CvMat 或 IplIma......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2010-01-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#OpenCV" title="OpenCV">OpenCV</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2010/01/01/0/OpenCv 新手章/">
+        <h2 class="post-title">
+            OpenCV 手记
+        </h2>
+        <h3 class="post-subtitle">
+             "入门之路"
+        </h3>
+        <div class="post-content-preview">
+            OpenCV 新手章
+OpenCV 认识OpenCV 是一个视觉库，有着各种的通用工具算法。
+安装 OpenCV 开发库sudo apt-get install libopencv-dev
+实例(显示图片):
+12345678910111213141516171819202122232425262728#include &lt;opencv2/core/core.hpp&gt;#includ......
         </div>
     </a>
     
@@ -604,13 +592,11 @@ Mat类型则是C++版本的矩阵类型，侧重于计算，数学性较高，Op
     <div class="tags">
         
             
-        
-            
             <a href="/tags/#Java" title="Java" rel="2">Java</a>
             
         
             
-            <a href="/tags/#Android" title="Android" rel="13">Android</a>
+            <a href="/tags/#Android" title="Android" rel="14">Android</a>
             
         
             
@@ -622,31 +608,9 @@ Mat类型则是C++版本的矩阵类型，侧重于计算，数学性较高，Op
             
         
             
+        
+            
             <a href="/tags/#范例" title="范例" rel="7">范例</a>
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
             
         
             
@@ -668,6 +632,32 @@ Mat类型则是C++版本的矩阵类型，侧重于计算，数学性较高，Op
             
         
             
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+            <a href="/tags/#Kotlin" title="Kotlin" rel="2">Kotlin</a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
             <a href="/tags/#C++" title="C++" rel="2">C++</a>
             
         
@@ -677,6 +667,22 @@ Mat类型则是C++版本的矩阵类型，侧重于计算，数学性较高，Op
         
             
             <a href="/tags/#me" title="me" rel="3">me</a>
+            
+        
+            
+        
+            
+        
+            
+            <a href="/tags/#TTS" title="TTS" rel="2">TTS</a>
+            
+        
+            
+        
+            
+        
+            
+        
             
         
             
@@ -769,6 +775,10 @@ Mat类型则是C++版本的矩阵类型，侧重于计算，数学性较高，Op
     <ul>
       
         <li>
+          <a href="/2026/11/04/Voice/speech-barge-in-probe-turn/">端侧语音助手的「打断」为什么这么难：一次 probe-turn 晋升的完整设计</a>
+        </li>
+      
+        <li>
           <a href="/2026/10/28/Agent/mnn-cancellable-streaming-generation/">移动端本地 LLM 流式生成：如何做到「可取消」，且中文不截断半个字</a>
         </li>
       
@@ -782,10 +792,6 @@ Mat类型则是C++版本的矩阵类型，侧重于计算，数学性较高，Op
       
         <li>
           <a href="/2022/03/06/work/project_foucs/">Focus 番茄工作法</a>
-        </li>
-      
-        <li>
-          <a href="/2022/01/07/Android/Android_jacoco_配置/">Android 单元测试 Jacoco 配置</a>
         </li>
       
     </ul>

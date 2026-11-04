@@ -3,6 +3,76 @@
 
 
     <url>
+        <loc>https://k2archer.github.io/tags/端侧/</loc>
+        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/状态机/</loc>
+        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/ASR/</loc>
+        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/VAD/</loc>
+        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/barge-in/</loc>
+        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/打断/</loc>
+        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/语音交互/</loc>
+        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/TTS/</loc>
+        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/Kotlin/</loc>
+        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/Android/</loc>
+        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://k2archer.github.io/tags/可取消/</loc>
         <lastmod>2026-10-29T04:00:00.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -18,13 +88,6 @@
 
     <url>
         <loc>https://k2archer.github.io/tags/协程/</loc>
-        <lastmod>2026-10-29T04:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/Kotlin/</loc>
         <lastmod>2026-10-29T04:00:00.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -60,13 +123,6 @@
 
     <url>
         <loc>https://k2archer.github.io/tags/MNN/</loc>
-        <lastmod>2026-10-29T04:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/Android/</loc>
         <lastmod>2026-10-29T04:00:00.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -116,13 +172,6 @@
 
     <url>
         <loc>https://k2archer.github.io/tags/语音合成/</loc>
-        <lastmod>2026-09-10T06:42:20.965Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/TTS/</loc>
         <lastmod>2026-09-10T06:42:20.965Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -276,6 +325,13 @@
     </url>
 
     <url>
+        <loc>https://k2archer.github.io/tags/Ctags/</loc>
+        <lastmod>2018-06-02T15:17:09.729Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://k2archer.github.io/tags/LeetCode/</loc>
         <lastmod>2018-06-02T15:17:09.729Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -284,13 +340,6 @@
 
     <url>
         <loc>https://k2archer.github.io/tags/设计模式/</loc>
-        <lastmod>2018-06-02T15:17:09.729Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/Ctags/</loc>
         <lastmod>2018-06-02T15:17:09.729Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

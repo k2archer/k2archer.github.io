@@ -9,6 +9,20 @@
 
 
     <url>
+        <loc>https://k2archer.github.io/categories/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/</loc>
+        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/categories/%E8%AF%AD%E9%9F%B3%E6%8A%80%E6%9C%AF/</loc>
+        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://k2archer.github.io/categories/%E7%AB%AF%E4%BE%A7-AI/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/</loc>
         <lastmod>2026-10-29T04:00:00.000Z</lastmod>
         <changefreq>weekly</changefreq>

@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          端侧语音助手的「打断」为什么这么难：一次 probe-turn 晋升的完整设计 - k2archer的博客 | k2archer&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://k2archer.github.io/2026/11/04/Voice/speech-barge-in-probe-turn/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/home-bg-o.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                            
+                              <a class="tag" href="/tags/#Kotlin" title="Kotlin">Kotlin</a>
+                            
+                              <a class="tag" href="/tags/#TTS" title="TTS">TTS</a>
+                            
+                              <a class="tag" href="/tags/#语音交互" title="语音交互">语音交互</a>
+                            
+                              <a class="tag" href="/tags/#打断" title="打断">打断</a>
+                            
+                              <a class="tag" href="/tags/#barge-in" title="barge-in">barge-in</a>
+                            
+                              <a class="tag" href="/tags/#VAD" title="VAD">VAD</a>
+                            
+                              <a class="tag" href="/tags/#ASR" title="ASR">ASR</a>
+                            
+                              <a class="tag" href="/tags/#状态机" title="状态机">状态机</a>
+                            
+                              <a class="tag" href="/tags/#端侧" title="端侧">端侧</a>
+                            
+                        </div>
+                        <h1>端侧语音助手的「打断」为什么这么难：一次 probe-turn 晋升的完整设计</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by k2archer on
+                            2026-11-04
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">k2archer&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p><strong>状态</strong>：v1 独立版（2026-11-04）· 与具体项目解耦，类名与工程结构做了泛化<br><strong>目标读者</strong>：做端侧语音助手 &#x2F; 实时语音交互的人；尤其是被「打断不太灵」「它总少听我半句话」折磨过的人<br><strong>环境</strong>：Android + Kotlin 协程；流式 ASR（会持续吐 partial）；输入侧有 USB 麦克风阵列（硬件 AEC）与手机麦克风两种路径<br><strong>代码</strong>：正文片段是删节后的骨架，保留能说明设计的最少结构，不依赖某个具体 SDK；数字与日志来自真机</p>
+</blockquote>
+<hr>
+<h2><span id="tldr">TL;DR</span></h2><p>免提场景下打断 TTS 有两个互相冲突的要求：<strong>要快</strong>（几百毫秒内让位）和<strong>不能误判</strong>（VAD 假阳性会掐掉正常播报）。多数实现只能二选一。</p>
+<p>我的做法是把「发现疑似人声」和「确认打断」拆成两个阶段：</p>
+<ol>
+<li>VAD 只负责发现<strong>疑似</strong>有人说话 → <strong>压低音量</strong>（不停播报）+ 起一个<strong>探测 ASR 轮</strong>；</li>
+<li>直到拿到<strong>首个非空 ASR partial</strong> 才真正打断；</li>
+<li>确认后<strong>把探测轮晋升为正式轮</strong>，而不是停掉重开——用户的第一句话一个字都不会被解码两次。</li>
+</ol>
+<p>代价是多了一个 500ms 量级的 pre-roll 缓冲和一个 2.5s 的探测超时；收益是<strong>打断不再依赖 VAD 的准确率</strong>。</p>
+<hr>
+<h2><span id="1-问题一个等一下">1. 问题：一个「等一下」</span></h2><p>先对齐一下术语：<strong>打断</strong>（barge-in）指的是用户在助手播报（TTS）时开口，系统立刻让位、停止播报，并直接开始听用户接下来说的那句话。</p>
+<p>播报进行到第 3 秒，用户说「等一下」。</p>
+<p>你的目标：~100ms 内停止播报，并立刻开始听用户接下来要说什么。</p>
+<p>这件事有三个隐藏难点，只有真做过才会依次撞上：</p>
+<table>
+<thead>
+<tr>
+<th>难点</th>
+<th>现象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>回声自打断</strong></td>
+<td>手机免提时 TTS 自己的声音进麦克风 → VAD 判「有人说话」 → 无限打断自己</td>
+</tr>
+<tr>
+<td><strong>假阳性</strong></td>
+<td>40ms 的关门声&#x2F;咳嗽就能骗过 VAD → 正常播报被莫名掐断</td>
+</tr>
+<tr>
+<td><strong>首音节丢失</strong></td>
+<td>确认打断后重启 ASR，此时 ring buffer 已被清 → 用户「等一下」的「等」字没了</td>
+</tr>
+</tbody></table>
+<p><strong>第三条最不容易被发现</strong>，因为用户体验上它只是「它总是少听我半句话」，很难归因。</p>
+<hr>
+<h2><span id="2-第一版vad-一超阈值就停播">2. 第一版：VAD 一超阈值就停播</span></h2><p>大部分人的第一版都长这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VAD 置信度 &gt; 0.5 → 停 TTS → 重新起一轮 ASR</span><br></pre></td></tr></table></figure>
+
+<p>看起来很合理，而且能跑。这是这个项目的第一个版本。</p>
+<hr>
+<h2><span id="3-为什么它不行">3. 为什么它不行</span></h2><h3><span id="31-坑一为了修回声我把打断功能整个删掉了">3.1 坑一：为了修回声，我把打断功能整个删掉了</span></h3><p>免提自打断是第一个撞上的问题。最直觉的补丁是——<strong>播报期间忽略一切 VAD</strong>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 我最初的补丁（后来被下面这段日志证伪了）</span></span><br><span class="line"><span class="keyword">if</span> (isReplying) &#123;</span><br><span class="line">    Log.d(TAG, <span class="string">"Ignoring: TTS still playing (likely echo)"</span>)</span><br><span class="line">    <span class="keyword">return</span>      <span class="comment">// ← 打断功能在这里死掉</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码在真机上跑出来的日志是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10-26 15:48:49.346  D BargeInCoordinator: [VAD] Decision: Trigger interrupt - StartNewTurn</span><br><span class="line">10-26 15:48:49.346  D BargeInCoordinator: [VAD] Ignoring StartNewTurn: TTS still playing (likely echo), isReplying=true</span><br></pre></td></tr></table></figure>
+
+<p>同一毫秒：<strong>决策产生了，然后被自己丢掉。</strong></p>
+<p>按这个假设做了定向 grep 计数（12 分钟真机日志，23,070 行）：</p>
+<table>
+<thead>
+<tr>
+<th>grep 串</th>
+<th align="right">次数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[VAD] Decision: Trigger interrupt - StartNewTurn</code></td>
+<td align="right"><strong>12</strong></td>
+</tr>
+<tr>
+<td><code>Ignoring StartNewTurn</code></td>
+<td align="right"><strong>11</strong></td>
+</tr>
+</tbody></table>
+<p><strong>12 次打断意图，11 次被这行守卫丢弃</strong>——打断功能在结构上等于不存在。而我当时以为「打断已经做了，只是不太灵」。</p>
+<blockquote>
+<p>这是个值得单独说的教训：<strong>「功能写了」和「功能可达」是两件事。</strong> 一个永远走不到的分支，在代码评审里看起来和正常分支一模一样。</p>
+</blockquote>
+<h3><span id="32-坑二假阳性会掐掉正常播报">3.2 坑二：假阳性会掐掉正常播报</span></h3><p>去掉守卫之后，噪声开始骗过 VAD。THINKING（已在准备答案、还没开口）阶段被误取消，用户会觉得「它突然不说话了」。</p>
+<p>单点 VAD 信号在这个问题上是<strong>不可靠的输入</strong>——而打断是一个<strong>不可逆</strong>操作（TTS 停了就得从头说）。</p>
+<h3><span id="33-坑三首音节被吃了">3.3 坑三：首音节被吃了</span></h3><p>即使前两个坑都绕过，「确认打断 → 停 TTS → 重新 startListening」这个流程还有个隐藏时序问题：</p>
+<p>ASR 是流式的，用户说「等一下」的时候，<strong>「等」这个字已经过去了几百毫秒</strong>。如果你在确认打断之后才 <code>startListening()</code>，前面那几百毫秒的音频已经在 ring buffer 里被冲掉了。</p>
+<hr>
+<h2><span id="4-方案把疑似和确认拆开">4. 方案：把「疑似」和「确认」拆开</span></h2><p>核心想法很简单：<strong>VAD 不该有权力直接打断，它只该有权力「请求确认」。</strong></p>
+<p>整条链路的状态转移如下（<code>--&gt;</code> 表示定时器兜底，不是正常路径）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">REPLYING</span><br><span class="line">  | VAD 置信度落在 0.5..0.9（疑似人声，暂不改状态）</span><br><span class="line">  v</span><br><span class="line">DUCKING + PROBE TURN（压低音量；用 500ms pre-roll 播种一个探测 ASR）</span><br><span class="line">  |</span><br><span class="line">  |-- 首个非空 partial --&gt; PROMOTE --&gt; INTERRUPTING</span><br><span class="line">  |                                        |</span><br><span class="line">  |                                        |-- TTS 停止回调 --&gt; LISTENING</span><br><span class="line">  |                                        |</span><br><span class="line">  |                                        +-- 600ms 无回调 --&gt; 强推 --&gt; LISTENING</span><br><span class="line">  |</span><br><span class="line">  |-- 2.5s 没有任何 partial --&gt; ABORT（恢复音量）--&gt; REPLYING</span><br><span class="line">  |</span><br><span class="line">  +-- VAD 说人声结束但仍无 partial --&gt; 宽限 600ms --&gt; ABORT --&gt; REPLYING</span><br></pre></td></tr></table></figure>
+
+<p>四层，逐层收窄误判：</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>机制</th>
+<th>解决哪个坑</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>L1</strong> 置信度分带</td>
+<td>高置信直通，低置信丢弃，中间带才走确认</td>
+<td>假阳性</td>
+</tr>
+<tr>
+<td><strong>L2</strong> duck 先于打断</td>
+<td>疑似人声先<strong>压低 TTS 音量</strong>但不停播报</td>
+<td>体验（用户感觉「它要让位了」）+ 给确认争取时间</td>
+</tr>
+<tr>
+<td><strong>L3</strong> 探测轮（probe turn）</td>
+<td>用 ring buffer 的 <strong>pre-roll</strong> 播种一个探测 ASR，等第一个<strong>非空</strong> partial</td>
+<td>首音节 + 假阳性</td>
+</tr>
+<tr>
+<td><strong>L4</strong> 晋升（promote）而非重启</td>
+<td>确认后把探测轮<strong>原地转为正式轮</strong></td>
+<td>首音节被二次解码</td>
+</tr>
+</tbody></table>
+<h3><span id="41-l1置信度分带">4.1 L1：置信度分带</span></h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// InterruptPolicy.evaluateReplying()</span></span><br><span class="line"><span class="keyword">if</span> (!enableBargeIn) <span class="keyword">return</span> Ignore</span><br><span class="line"><span class="keyword">if</span> (consecutiveBargeInCount &gt;= maxConsecutiveBargeIns) <span class="keyword">return</span> Ignore   <span class="comment">// 防连打断刷屏</span></span><br><span class="line"><span class="comment">// 冷却期对所有路径生效：否则刚打断完会被下一帧 VAD 再打断一次，形成乒乓</span></span><br><span class="line"><span class="keyword">if</span> (!passesCooldown(currentTimeMs)) <span class="keyword">return</span> Ignore</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (speechActive) &#123;</span><br><span class="line">    <span class="keyword">if</span> (speechDetected == <span class="literal">true</span>) <span class="keyword">return</span> executeBargeIn(currentTimeMs)   <span class="comment">// 硬件级人声标志</span></span><br><span class="line">    <span class="keyword">if</span> (vadConfidence &gt;= <span class="number">0.9</span>f) <span class="keyword">return</span> executeBargeIn(currentTimeMs)    <span class="comment">// 高置信直通</span></span><br><span class="line">    <span class="keyword">if</span> (vadConfidence &lt; <span class="number">0.5</span>f) <span class="keyword">return</span> Ignore                            <span class="comment">// 当噪声忽略</span></span><br><span class="line">    <span class="keyword">return</span> onSpeechStart(currentTimeMs)                                <span class="comment">// [0.5, 0.9) 走确认</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>两个细节值得说：</p>
+<p><strong>① 冷却期必须覆盖「直通」路径。</strong> 我一开始只给中间带加冷却，结果高置信路径会形成乒乓：刚打断完，下一帧 VAD 还是 speechActive，于是再打断一次。注释里写的「否则会形成乒乓」就是踩过之后补的。</p>
+<p><strong>② 中间带不再由 VAD 超时自动确认。</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 中等置信度 [0.5, 0.9)：保持 Duck 状态，等待 ASR Partial 确认打断</span></span><br><span class="line"><span class="comment">// 不再由 VAD 超时自动确认，避免 VAD 误触发导致的无内容打断</span></span><br><span class="line"><span class="keyword">return</span> InterruptDecision.Ignore</span><br></pre></td></tr></table></figure>
+
+<p>我原来的实现是「duck 之后等一个 VAD 确认超时，语音还在就确认打断」。这仍然是<strong>纯 VAD 判断</strong>，只是加了个延迟——噪声持续 200ms 照样骗过。这一版把它彻底交给 ASR。（代码里那句「不再由 VAD 超时自动确认」就是这个决定的留痕；那个 150ms 的确认常量现在只剩 THINKING 路径在用。）</p>
+<h3><span id="42-l2-l3duck-一下然后起一个探测轮">4.2 L2 + L3：duck 一下，然后起一个探测轮</span></h3><p>先说清 duck：它是「把 TTS 音量临时压低，但不停止播报」。用户听感上是「它明显要让位了」，而系统这边还没做任何不可逆的决定。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 启动打断探测：降低 TTS 音量并启动探测 ASR（内部会停 KWS、以 ring pre-roll 播种）。 */</span></span><br><span class="line"><span class="keyword">private</span> suspend <span class="function"><span class="keyword">fun</span> <span class="title">beginBargeInProbe</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (bargeInProbeActive) <span class="keyword">return</span></span><br><span class="line">    bargeInProbeActive = <span class="literal">true</span></span><br><span class="line">    runCatching &#123; replyOutput.duckReply() &#125;        <span class="comment">// 只压音量，不停播报</span></span><br><span class="line">    <span class="keyword">val</span> started = runCatching &#123;</span><br><span class="line">        pipeline.startListeningTurn(<span class="number">-1</span>L)           <span class="comment">// -1L = 不裁唤醒词帧，整段 pre-roll 都用</span></span><br><span class="line">    &#125;.isSuccess</span><br><span class="line">    <span class="keyword">if</span> (!started) &#123; abortBargeInProbe(<span class="string">"probe-start-failed"</span>); <span class="keyword">return</span> &#125;</span><br><span class="line"></span><br><span class="line">    bargeInProbeTimeoutJob = scope.launch &#123;        <span class="comment">// 兜底①：2.5s 没 partial 就放弃</span></span><br><span class="line">        delay(BARGE_IN_ASR_CONFIRM_TIMEOUT_MS)</span><br><span class="line">        <span class="keyword">if</span> (bargeInProbeActive) abortBargeInProbe(<span class="string">"no-partial-timeout"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong><code>-1L</code> 这个参数是重点。</strong> 正常唤醒路径传的是唤醒词所在帧号，管线会把唤醒词对应的帧<strong>过滤掉</strong>，只保留唤醒之后的用户语音：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// VoicePipeline</span></span><br><span class="line"><span class="keyword">val</span> seedFrames = <span class="keyword">if</span> (triggerFrameIndex &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">    rawSeedFrames.filter &#123; it.frameIndex &gt; triggerFrameIndex &#125;  <span class="comment">// 裁掉唤醒词</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    rawSeedFrames                                              <span class="comment">// 打断场景：全部保留</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>打断时没有唤醒词要裁，所以传 <code>-1L</code>，把 <strong>500ms pre-roll</strong>（<code>preRollDurationMs = 500</code>）原样喂给 ASR。</p>
+<p><strong>这就是「坑三」的答案</strong>：探测轮启动时，用户已经说出去的那几百毫秒<strong>已经在缓冲里了</strong>，不是从零开始听。</p>
+<blockquote>
+<p>补一句术语：<strong>ring buffer</strong> 是采集侧一直在跑的环形录音缓冲，<strong>pre-roll</strong> 指「触发那一刻往前回溯的那一段」。它的作用就是让触发之前的音频不丢——这正是打断场景最需要的东西。</p>
+</blockquote>
+<h3><span id="43-l4晋升而不是重启">4.3 L4：晋升，而不是重启</span></h3><p>这是整套设计里我最满意的一处。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> suspend <span class="function"><span class="keyword">fun</span> <span class="title">handleAsrPartialInterrupt</span><span class="params">(asrText: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 探测轮运行中且仍在可打断窗口内，首个非空 partial 确认打断</span></span><br><span class="line">    <span class="keyword">if</span> (asrPartialGateActive() &amp;&amp; isInAssistantTalkingWindow() &amp;&amp; bargeInProbeActive) &#123;</span><br><span class="line">        <span class="keyword">if</span> (asrText.isBlank()) <span class="keyword">return</span>          <span class="comment">// 空白 partial 不算数</span></span><br><span class="line">        <span class="keyword">val</span> allowed = interruptPolicy.confirmAsrPartialBargeIn(asrText, ...)</span><br><span class="line">        <span class="keyword">if</span> (!allowed) <span class="keyword">return</span>                   <span class="comment">// 冷却期/上限</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// ── 晋升（promote）：不 abort、不重启探测 ASR ──</span></span><br><span class="line">        <span class="comment">// 探测轮继续作为正式识别轮解码到底，避免"句中被砍断、清空后二次解码"</span></span><br><span class="line">        Log.i(TAG, <span class="string">"First non-blank partial='...' — PROMOTING probe session (no restart)"</span>)</span><br><span class="line">        bargeInProbeTimeoutJob?.cancel()</span><br><span class="line">        bargeInProbeGraceJob?.cancel()</span><br><span class="line">        runCatching &#123; replyOutput.restoreVolume() &#125;     <span class="comment">// 音量恢复：不再需要 duck 了</span></span><br><span class="line"></span><br><span class="line">        dispatchAndLog(CoordinatorEvent.UserSpeechDetected(</span><br><span class="line">            source = <span class="string">"ASR_PARTIAL_GATE_<span class="subst">$&#123;current.name&#125;</span>"</span>,</span><br><span class="line">            interruptSource = InterruptSource.ASR_PARTIAL,</span><br><span class="line">            asrText = asrText,</span><br><span class="line">        ))</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关键点：<strong>这里没有 <code>stopListeningTurn()</code>，也没有第二次 <code>startListeningTurn()</code>。</strong></p>
+<p>探测轮从「为了确认而临时起的轮次」<strong>原地变成</strong>「正式识别轮」。用户说的「等一下」这条音频流，从头到尾只被解码了一次。</p>
+<blockquote>
+<p>如果按直觉实现（确认 → 停 → 重开），会出现：探测轮已经解出「等一」，你把它停掉，再开一个干净的轮次——用户得把「等一下」重说一遍，或者只有后半句「下」进了新轮次。这是很多语音助手「总是听不全第一句」的真正原因。</p>
+</blockquote>
+<hr>
+<h2><span id="5-三重兜底真正让它能上设备的部分">5. 三重兜底：真正让它能上设备的部分</span></h2><p>一个只在 happy path 上正确的打断实现，会在真机上随机失效。我最后落的是三条超时，各自负责一类失败：</p>
+<table>
+<thead>
+<tr>
+<th>兜底</th>
+<th>触发条件</th>
+<th>常量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>探测超时</strong></td>
+<td>起了探测轮但 2.5s 没有任何 partial → 放弃，恢复音量</td>
+<td><code>BARGE_IN_ASR_CONFIRM_TIMEOUT_MS = 2_500L</code></td>
+</tr>
+<tr>
+<td><strong>语音提前结束</strong></td>
+<td>VAD 说人声结束了，但还没有 partial → 宽限 600ms 等尾巴词，超时再放弃</td>
+<td><code>BARGE_IN_ASR_GRACE_MS = 600L</code></td>
+</tr>
+<tr>
+<td><strong>晋升后 TTS 未停</strong></td>
+<td>已进入 INTERRUPTING，但 TTS 的停止回调没来 → 600ms 后强制推进状态机</td>
+<td><code>PROMOTE_REPLY_STOP_GRACE_MS = 600L</code></td>
+</tr>
+</tbody></table>
+<p>第二条尤其重要，因为它对应一个真实场景：<strong>用户说了半句就停下</strong>（「那个……」）。这时候 VAD 会立刻报人声结束，但 ASR 可能还差几十毫秒才吐出第一个 partial。如果你一收到 silence 就 abort，会把一个真实的打断当噪声丢掉。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> suspend <span class="function"><span class="keyword">fun</span> <span class="title">handleGatedSpeech</span><span class="params">(speechActive: <span class="type">Boolean</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!speechActive) &#123;</span><br><span class="line">        <span class="keyword">if</span> (bargeInProbeActive) &#123;</span><br><span class="line">            bargeInProbeGraceJob = scope.launch &#123;</span><br><span class="line">                delay(BARGE_IN_ASR_GRACE_MS)                 <span class="comment">// 宽限，等尾巴词</span></span><br><span class="line">                <span class="keyword">if</span> (bargeInProbeActive) abortBargeInProbe(<span class="string">"speech-ended-before-partial"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bargeInProbeActive) <span class="keyword">return</span></span><br><span class="line">    beginBargeInProbe()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第三条是最「脏」但最必要的一条。状态机里 <code>REPLYING → INTERRUPTING</code> 依赖 TTS 引擎的停止回调；<strong>如果引擎因为任何原因没回调，会话就卡在 INTERRUPTING</strong>——用户看到的是「它变成哑巴了」。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安全网：若 TTS 停止回调未及时到，主动补发 ReplyInterrupted 推进到 LISTENING</span></span><br><span class="line"><span class="keyword">if</span> (stateMachine.currentState.value == SessionState.INTERRUPTING) &#123;</span><br><span class="line">    bargeInProbePromoteSafetyJob = scope.launch &#123;</span><br><span class="line">        delay(PROMOTE_REPLY_STOP_GRACE_MS)</span><br><span class="line">        <span class="keyword">if</span> (bargeInProbeActive &amp;&amp; stateMachine.currentState.value == SessionState.INTERRUPTING) &#123;</span><br><span class="line">            Log.w(TAG, <span class="string">"Reply stop callback missing — forcing ReplyInterrupted to LISTENING"</span>)</span><br><span class="line">            dispatchAndLog(CoordinatorEvent.ReplyInterrupted(...))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意它没有 abort 探测轮</strong>——即使被迫强推状态，识别还在继续。这个细节决定了「引擎回调丢了」的后果是「打断稍慢一点」而不是「用户这句话白说了」。</p>
+<hr>
+<h2><span id="6-我怎么证明它真的没二次解码">6. 我怎么证明它真的没二次解码</span></h2><p>这是我觉得这篇最值得抄的一点。</p>
+<p>打断这种东西，靠人工体验测试是测不出来「有没有重复解码」的。所以我把它写成了一条<strong>可断言的不变量</strong>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// BargeInProbeTurnTest.kt</span></span><br><span class="line">h.engineResults.emit(AsrResult.Partial(text = <span class="string">"等一"</span>, latencyMs = <span class="number">0</span>))</span><br><span class="line">awaitUntil &#123; h.coordinator.currentState.value == SessionState.LISTENING &#125;</span><br><span class="line"></span><br><span class="line">assertTrue(<span class="string">"确认后应 StopReply 打断 TTS"</span>, h.reply.stopReplyCalled)</span><br><span class="line">assertEquals(<span class="string">"promote 不重启 ASR（仍为探测那一次）"</span>, <span class="number">1</span>, h.pipeline.startListeningTurnCount)</span><br><span class="line">assertEquals(<span class="string">"promote 不 abort 探测轮"</span>, <span class="number">0</span>, h.pipeline.stopListeningTurnCount)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>「首音节不丢」不是一个说法，是一条断言。</strong></p>
+<p><code>startListeningTurnCount == 1</code> + <code>stopListeningTurnCount == 0</code><br>&#x3D; 整段交互只起过一轮 ASR，且中途从未停过它。</p>
+</blockquote>
+<p>这条断言的另一个好处：它<strong>锁死了一个设计决策</strong>。以后谁想在这里加一次 <code>stop/start</code>，测试会立刻红，并且报错信息直接告诉你为什么不能加。</p>
+<p>同一个测试文件里还有一条更细的：<strong>空 partial 不算确认</strong>。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">h.engineResults.emit(AsrResult.Partial(text = <span class="string">"  "</span>, latencyMs = <span class="number">0</span>))   <span class="comment">// 只有空格</span></span><br><span class="line">delay(<span class="number">300</span>)</span><br><span class="line">assertFalse(<span class="string">"空 partial 不应打断"</span>, h.reply.stopReplyCalled)</span><br></pre></td></tr></table></figure>
+
+<p>这对应一个真实的坑：ASR 在噪声段有时会吐出空白 partial。如果按「收到 partial 就打断」实现，用户咳嗽一声就能打断播报。</p>
+<hr>
+<h2><span id="7-边界三个前提外加一句需要提前说清的话">7. 边界：三个前提，外加一句需要提前说清的话</span></h2><p>我之前在别的地方犯过一个错：把「我在自己项目里跑通了」说成「这是通用解法」。这里先把边界讲清楚——它有三个明确的前提和缺口。</p>
+<h3><span id="71-前提一它依赖回声已经被处理过">7.1 前提一：它依赖「回声已经被处理过」</span></h3><p>整套门控的入口是一个布尔量：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">asrPartialGateActive</span><span class="params">()</span></span>: <span class="built_in">Boolean</span> =</span><br><span class="line">    echoSafeCapture &amp;&amp; currentConfig.enableBargeIn &amp;&amp; currentConfig.enableAsrBargeIn</span><br></pre></td></tr></table></figure>
+
+<p><code>echoSafeCapture</code> 表示「这一路输入的回声已经被处理过了」——<strong>目前只有 USB 麦克风阵列走硬件 AEC 时为真</strong>。</p>
+<p><strong>手机麦克风路径我还没解决。</strong> 手机麦上跑的仍然是保守策略：疑似回声就直接忽略打断。原因很直接——<strong>软件 AEC 我还没做</strong>。管线里那个 <code>AecController</code> 抽象，三个实现目前都还是：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">process</span><span class="params">(frame: <span class="type">AudioFrame</span>)</span></span>: AudioFrame = frame   <span class="comment">// 恒等函数</span></span><br></pre></td></tr></table></figure>
+
+<p>也就是说，<strong>在手机上是「没有打断」，不是「打断得很准」</strong>。这是我欠的账，方案已经写好了，还没实现。</p>
+<p>这也是为什么前面反复强调「门控」：整套设计的安全性建立在「VAD 说的是人声，不是 TTS 回声」这个前提上。前提不成立时，正确的做法是<strong>关掉打断</strong>，而不是把阈值调高——调高只是把误判率降到「偶尔很尴尬」。</p>
+<h3><span id="72-前提二让位只要-28-ms停播要-470-ms差的那-439-ms-全在等确认">7.2 前提二：让位只要 2–8 ms，停播要 470 ms——差的那 439 ms 全在等确认</span></h3><p>我后来真的测了（2026-11-01，一台 Android 手机 + USB 麦克风阵列）。<strong>两个数现在同源了</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">实测</th>
+<th>目标</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>barge_in_duck</code>（起音 → 音量压低）</td>
+<td align="right"><strong>2 &#x2F; 8 ms</strong></td>
+<td>≤ 100</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>barge_in_stop</code>（起音 → 播报停止）</td>
+<td align="right"><strong>467 &#x2F; 472 ms</strong></td>
+<td>≤ 400</td>
+<td>❌ 差 ~70 ms</td>
+</tr>
+</tbody></table>
+<p>一次播报中被「等一下」打断的完整时间轴：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">17:50:03.604  硬件 VAD 起音 → duck + 起探测轮</span><br><span class="line">17:50:04.045  首个非空 ASR partial「等」→ 探测轮转正   (+441 ms)</span><br><span class="line">17:50:04.071  播报真正停止                              (+467 ms)</span><br></pre></td></tr></table></figure>
+
+<p><strong>真正值得看的是这三个数：</strong></p>
+<blockquote>
+<p>从 duck（2 ms）到 stop（467 ms）是 <strong>465 ms，其中 439 ms（94%）在等第一个 ASR partial</strong>；<br><strong>partial 到手之后，停播只用了 26 ms。</strong></p>
+</blockquote>
+<p>也就是说：</p>
+<blockquote>
+<p><strong>我的动作一点都不慢（8 ms 就让位了）。慢的是「我必须先确认你确实在说话」。</strong></p>
+</blockquote>
+<p>而这正是这个方案的全部代价——它用 439 ms 的确认时间，换了「不被 VAD 假阳性掐掉播报」。</p>
+<p>想压到 100 ms 级只有一条路：<strong>硬件 VAD 一起来就直接停播</strong>（而不是先 duck 再等 partial）。那会把回声风险原样拿回来——TTS 自己的声音被当成人在说话。所以我没做。</p>
+<h4><span id="这个数我一开始是测不到的原因值得单独说">这个数我一开始是测不到的，原因值得单独说</span></h4><p>第一版埋点里 <code>barge_in_duck</code> <strong>一条都没落盘</strong>。原因是两个时钟不同源：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">markBargeInDuck</span><span class="params">(point: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> onset = bargeInOnsetMs</span><br><span class="line">    <span class="keyword">if</span> (onset &lt;= <span class="number">0</span>L) <span class="keyword">return</span>        <span class="comment">// ← 软件 VAD 还没起音，这里就返回了</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>bargeInOnsetMs</code> 记在<strong>软件 VAD</strong> 上，但 duck 是被<strong>硬件 VAD 提前 117 ms</strong> 触发的。于是每次 duck 发生时，onset 还是 0，直接 return。</p>
+<p><strong>两个不同源的时钟量同一件事，就是坑。</strong> 修法是把起音时刻统一到<strong>触发 duck 的那一路</strong>记录——修完之后 <code>onset=hwdect</code>，两个数终于同一个基线、可以相减了。</p>
+<blockquote>
+<p>顺便，这个缺陷还让旧的 <code>barge_in_stop</code>（315 ms）偏小——因为它从软件 VAD 起算，漏掉了硬件 VAD 抢先的那 117 ms。</p>
+</blockquote>
+<blockquote>
+<p>这个领域里大家都在说「低延迟」。我拿到的两个真实数字是 <strong>8 ms（让位）</strong> 和 <strong>470 ms（停播）</strong>，而且我知道后者 94% 是设计代价、不是实现低效。<strong>这两个事实都要说清楚，否则第一个数字会被当成第二个来宣传。</strong></p>
+</blockquote>
+<h3><span id="73-前提三几个关键常量是经验值">7.3 前提三：几个关键常量是经验值</span></h3><ul>
+<li>连续打断上限 <strong>3 次</strong></li>
+<li>打断冷却 <strong>2 秒</strong></li>
+<li>探测超时 <strong>2.5 秒</strong></li>
+<li>语音结束宽限 <strong>600ms</strong></li>
+</ul>
+<p><strong>这四个数没有一个是从测量里来的</strong>，是调出来的。它们很可能不是最优值——如果你在做一个类似的东西，请从测量开始，别抄我的常数。</p>
+<h3><span id="74-另外样本量很小">7.4 另外：样本量很小</span></h3><p>上面那两个延迟数字目前只有 <strong>2 次打断</strong>（n&#x3D;2），是我在调通后顺手抓的两条。它们的量级我认为是可信的（2&#x2F;8 ms 和 467&#x2F;472 ms 两次都对得上），但<strong>具体数值不宜当基准</strong>。如果要拿它做对比，先补到 10 次以上再说话。</p>
+<p>这一条我特意留在文里，是因为「n&#x3D;2 的延迟结论」在技术文章里太常见了，而它其实只能支撑「量级」这一个结论。</p>
+<hr>
+<h2><span id="8-一句话总结">8. 一句话总结</span></h2><p>打断的难点不在「检测到人声」。真正的难点是两件事：<strong>你还得决定信不信它</strong>，以及<strong>在信它的时候不能丢掉用户已经说出口的那半句话</strong>。</p>
+<p>把这两件事拆开——VAD 只请求确认，ASR 才给结论，探测轮晋升而不重启——这三步就把一个「总是不太灵」的功能变成了可断言的行为。</p>
+<hr>
+<h3><span id="附本文涉及的关键常量">附：本文涉及的关键常量</span></h3><table>
+<thead>
+<tr>
+<th>常量</th>
+<th>值</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>preRollDurationMs</code></td>
+<td>500 ms</td>
+<td><code>VoicePipeline</code></td>
+</tr>
+<tr>
+<td><code>BARGE_IN_ASR_CONFIRM_TIMEOUT_MS</code></td>
+<td>2,500 ms</td>
+<td><code>BargeInCoordinator</code></td>
+</tr>
+<tr>
+<td><code>BARGE_IN_ASR_GRACE_MS</code></td>
+<td>600 ms</td>
+<td>同上</td>
+</tr>
+<tr>
+<td><code>PROMOTE_REPLY_STOP_GRACE_MS</code></td>
+<td>600 ms</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>置信度直通阈值</td>
+<td>≥ 0.9</td>
+<td><code>InterruptPolicy.evaluateReplying</code></td>
+</tr>
+<tr>
+<td>置信度忽略阈值</td>
+<td>&lt; 0.5</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>连续打断上限</td>
+<td>3</td>
+<td><code>InterruptPolicy</code></td>
+</tr>
+<tr>
+<td>打断冷却</td>
+<td>2 s</td>
+<td><code>InterruptPolicy</code></td>
+</tr>
+</tbody></table>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2026/10/28/Agent/mnn-cancellable-streaming-generation/" data-toggle="tooltip" data-placement="top" title="移动端本地 LLM 流式生成：如何做到「可取消」，且中文不截断半个字">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                          <a class="tag" href="/tags/#Kotlin" title="Kotlin">Kotlin</a>
+                        
+                          <a class="tag" href="/tags/#TTS" title="TTS">TTS</a>
+                        
+                          <a class="tag" href="/tags/#语音交互" title="语音交互">语音交互</a>
+                        
+                          <a class="tag" href="/tags/#打断" title="打断">打断</a>
+                        
+                          <a class="tag" href="/tags/#barge-in" title="barge-in">barge-in</a>
+                        
+                          <a class="tag" href="/tags/#VAD" title="VAD">VAD</a>
+                        
+                          <a class="tag" href="/tags/#ASR" title="ASR">ASR</a>
+                        
+                          <a class="tag" href="/tags/#状态机" title="状态机">状态机</a>
+                        
+                          <a class="tag" href="/tags/#端侧" title="端侧">端侧</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://k2archer.github.io" target="_blank">k2archer&#39;s Blog</a></li>
+                    
+                        <li><a href="https://github.com/k2archer" target="_blank">k2archer&#39;s GitHub</a></li>
+                    
+                        <li><a href="https://leetcode.com/k2archer" target="_blank">k2archer&#39;s Leetcode</a></li>
+                    
+                        <li><a href="https://segmentfault.com/u/k2archer" target="_blank">SegmentFault</a></li>
+                    
+                        <li><a href="https://hexo.io/zh-cn" target="_blank">Hexo</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://k2archer.github.io/2026/11/04/Voice/speech-barge-in-probe-turn/";
+    var disqus_url = "https://k2archer.github.io/2026/11/04/Voice/speech-barge-in-probe-turn/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/k2archer">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; k2archer 2026 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://k2archer.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://k2archer.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

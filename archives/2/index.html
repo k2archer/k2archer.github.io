@@ -136,13 +136,6 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/archives/">Archives</a>
                         </li>
                         
@@ -151,6 +144,13 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -213,6 +213,38 @@
 
 <div class="post-preview">
 
+    <a href="/2021/10/23/Android/Android_Wear_double_click_event/">
+        <h2 class="post-title">
+            在 Android Wear 表盘中实现双击事件
+        </h2>
+        <h3 class="post-subtitle">
+             "Wear 表盘开发"
+        </h3>
+        <div class="post-content-preview">
+            
+“Wear 表盘开发”
+
+实现思路：第一次点击事件，启动一个延时事件，在延时时间内没有第二次点击，则延时事件就是单击事件。如果有第二次点击发生，则判断是否延时内，并且在同一个点击区域内，如果是，则取消延时事件，马上发送双击事件。如果第二次点击超出延时(单击事件已经发送成功)，或者不在同一个点击区域内(另一个单击动作)，则已经是另一个事件。
+参考代码：12345678910111213141......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2021-10-23
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#范例" title="范例">范例</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2021/10/23/work/huoyoudao/">
         <h2 class="post-title">
             外贸仓库管理系统：货有道
@@ -221,13 +253,9 @@
              "某亚马逊童袜商家定制开发仓管系统"
         </h3>
         <div class="post-content-preview">
-            简介
-小包进货，按订单打包成整包，海运发货。库存(小包、整包)统计，发货统计。
-配合 Android 端 PDA 现场移动管理，包括扫码查验货(信息及图片)，出入库，无线条码标签打印。
-系统架构
-后台PC端 Python + Vue + Element UI ，移动端 Android PDA ，后端 Python + Bottle，数据库 MySQL 。
-系统界面演示
-本图为某个开发阶段，交......
+            简介小包进货，按订单打包成整包，海运发货。库存(小包、整包)统计，发货统计。配合 Android 端 PDA 现场移动管理，包括扫码查验货(信息及图片)，出入库，无线条码标签打印。
+系统架构后台PC端 Python + Vue + Element UI ，移动端 Android PDA ，后端 Python + Bottle，数据库 MySQL 。
+系统界面演示本图为某个开发阶段，交付演示动......
         </div>
     </a>
     
@@ -267,15 +295,10 @@
         <div class="post-content-preview">
             Android 耗电优化
 Android 电耗管理历程
-
-Android 5.0 之前
-系统无限制的开放条件，多进程、1 像素 Activity、广播拉起，SDK互拉等，各种保活手段辉煌的时代.
+Android 5.0 之前系统无限制的开放条件，多进程、1 像素 Activity、广播拉起，SDK互拉等，各种保活手段辉煌的时代.
 Android 5.0 - 8.0
-
-Android 5.0
-开始改善之路，Google 推出 Vitals 计划改善稳定和性能，开始增加各种性能分析统计工具。
-Android 6.0
-优化后台和广......
+Android 5.0  开始改善之路，Google 推出 Vitals 计划改善稳定和性能，开始增加各种性能分析统计工具。
+Android 6.0优化后台和广播的耗......
         </div>
     </a>
     
@@ -306,13 +329,9 @@ Android 6.0
             
 “resume”
 
-Introduction
-2年以上 Andriod 开发经验。具备立完成中小项目应用开发，求职开发岗位。
-有良好的计算机编程知识基础，略查词典能看英文技术文档。
-成为职业工程师，追求成为具备完整把控项目的技术工程师。
-Experience
-Android engineer  广州**米阁公寓管理有限公司  2019.6 - 现在
-负责城中村公寓出租管理平台 Androi......
+Introduction2年以上 Andriod 开发经验。具备立完成中小项目应用开发，求职开发岗位。有良好的计算机编程知识基础，略查词典能看英文技术文档。成为职业工程师，追求成为具备完整把控项目的技术工程师。
+ExperienceAndroid engineer  广州**米阁公寓管理有限公司  2019.6 - 现在
+负责城中村公寓出租管理平台 Android 端开......
         </div>
     </a>
     
@@ -347,13 +366,13 @@ Focus
 作品一：酒店订房页面
 熟练编写布局，实现一个简单的地址选择器。
 
+
 作品二、图书商城
-C/S 架构，Android 前端，Java 实现简单 Web 服务端。
-通过 HTTP API 连接前端进行交互.具备基本的完整前后端开发技术认知。
+C&#x2F;S 架构，Android 前端，Java 实现简单 Web 服务端。通过 HTTP API 连接前端进行交互.具备基本的完整前后端开发技术认知。
+
 
 作品三、贴纸扫码广告
-仿实体店贴纸广告投放平台商家端
-实体店铺进驻、激活投放、统计收益的App。
+仿实体店贴纸广告投放平台商家端实体店铺进驻、激活投放、统计收益的App。
 
 ...
         </div>
@@ -387,12 +406,8 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。
 
 “”
 
-前言
-如何优雅地处理在用户使用 App 时发生的 Crash 呢？
-友好地提醒用户 App 崩溃，需要保存发送崩溃信息，并重启 App。
-实现思路
-实现单实例 UncaughtExceptionHandler，重写 uncaughtExecption() 方法。
-在 uncaughtExecption() 方法中，优雅提醒用户程......
+前言如何优雅地处理在用户使用 App 时发生的 Crash 呢？友好地提醒用户 App 崩溃，需要保存发送崩溃信息，并重启 App。
+实现思路实现单实例 UncaughtExceptionHandler，重写 uncaughtExecption() 方法。在 uncaughtExecption() 方法中，优雅提醒用户程序异常。......
         </div>
     </a>
     
@@ -423,14 +438,8 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。
             
 “刷题笔记”
 
-109. 有序链表转换二叉搜索树
-题目描述 链接 ：
-给定一个单链表，其中的元素按升序排序，将其转换为高度平衡的二叉搜索树。
-本题中，一个高度平衡二叉树是指一个二叉树每个节点的左右两个子树的高度差的绝对值不超过 1。
-解题思路：
-第一想法，这是一个平衡二叉树的建树过程。有没有更优的方法？
-由于给出的单链表是 按升序排序，而二叉树的中序遍历也是有序的。
-利用这两个特性，把一个......
+109. 有序链表转换二叉搜索树题目描述 链接 ：给定一个单链表，其中的元素按升序排序，将其转换为高度平衡的二叉搜索树。本题中，一个高度平衡二叉树是指一个二叉树每个节点的左右两个子树的高度差的绝对值不超过 1。
+解题思路：第一想法，这是一个平衡二叉树的建树过程。有没有更优的方法？由于给出的单链表是 按升序排序，而二叉树的中序遍历也是有序的。利用这两个特性，把一个单链表保留中......
         </div>
     </a>
     
@@ -441,6 +450,37 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。
         <div class="tags">
             
               <a href="/tags/#Leetcode" title="Leetcode">Leetcode</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/05/30/OpenGL/OpenGL 绘制方式：传统方式绘制三角形/">
+        <h2 class="post-title">
+            OpenGL 绘制方式：传统方式绘制三角形
+        </h2>
+        <h3 class="post-subtitle">
+             " "
+        </h3>
+        <div class="post-content-preview">
+            OpenGL 绘制方式：传统方式绘制三角形OpenGL 早期的绘制方式就是使用 glBegin() … glEnd() 绘制方式，在这两个函数之间给出绘制的顶点数据。
+但是，这种绘制方式效率比较低，因为需要一个顶点数据调用一次 glVertex() ，从客户端(内存)传输到服务端(GPU)，glVertex() 调用次数过多，数据传输次数过多。
+示例代码：
+12345678910111213......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2018-05-30
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
             
         </div>
     
@@ -462,11 +502,11 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。
 
 “Git 进阶使用”
 
-安装 git
-1sudo apt-get install git-all
-安装启动时运行工具
-本文使用 git-daemon-sysvinit，亦可使用 git-daemon-run ，但配置方式不同。
+安装 git1sudo apt-get install git-all
+
+安装启动时运行工具本文使用 git-daemon-sysvinit，亦可使用 git-daemon-run ，但配置方式不同。
 1sudo apt-get install git-daemon-sysvinit
+
 配置 git-da......
         </div>
     </a>
@@ -478,38 +518,6 @@ C/S 架构，Android 前端，Java 实现简单 Web 服务端。
         <div class="tags">
             
               <a href="/tags/#Git" title="Git">Git</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/05/30/OpenGL/OpenGL 绘制方式：传统方式绘制三角形/">
-        <h2 class="post-title">
-            OpenGL 绘制方式：传统方式绘制三角形
-        </h2>
-        <h3 class="post-subtitle">
-             " "
-        </h3>
-        <div class="post-content-preview">
-            OpenGL 绘制方式：传统方式绘制三角形
-OpenGL 早期的绘制方式就是使用 glBegin() … glEnd() 绘制方式，在这两个函数之间给出绘制的顶点数据。
-但是，这种绘制方式效率比较低，因为需要一个顶点数据调用一次 glVertex() ，从客户端(内存)传输到服务端(GPU)，glVertex() 调用次数过多，数据传输次数过多。
-示例代码：
-1234567891011121......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2018-05-30
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
             
         </div>
     
@@ -532,9 +540,8 @@ OpenGL 早期的绘制方式就是使用 glBegin() … glEnd() 绘制方式，�
 
 在Android 开发过程中，我们会经常查看 Sqlite 数据库文件的数据，直接在 adb shell 下运行 sqlit3 ，但是，很多系统里面是没有的！
 1/system/bin/sh: sqlite3: not found
-使用 Android ndk-build 编译
-下载、解压
-12$ wget http://www.sqlite.org/2018/......
+
+使用 Android ndk-build 编译下载、解压12$ wget http://www.sqlite.org/2018/s......
         </div>
     </a>
     
@@ -549,62 +556,6 @@ OpenGL 早期的绘制方式就是使用 glBegin() … glEnd() 绘制方式，�
               <a href="/tags/#Sqlite" title="Sqlite">Sqlite</a>
             
               <a href="/tags/#NDK" title="NDK">NDK</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/04/21/Interview/判断操作系统32位或64位/">
-        <h2 class="post-title">
-            判断操作系统32位或64位
-        </h2>
-        <h3 class="post-subtitle">
-             "面试题"
-        </h3>
-        <div class="post-content-preview">
-            
-“嗯。这一个面试题”
-
-方法一 判断指针长度
-使用范围：C/C++ 语言
-12345// C++ Languageif (sizeof(void*) &lt; 8)	// 32 位else 	// 64 位
-方法二 编译宏指令
-使用范围：编译器
-
-
-
-gcc macro
-
-
-
-
-
-
-
-platform
-Predefined macro
-
-
-
-
-x86
-_M_IX86
-__INTEL__
-_......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2018-04-21
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#me" title="me">me</a>
             
         </div>
     
@@ -652,13 +603,11 @@ _......
     <div class="tags">
         
             
-        
-            
             <a href="/tags/#Java" title="Java" rel="2">Java</a>
             
         
             
-            <a href="/tags/#Android" title="Android" rel="13">Android</a>
+            <a href="/tags/#Android" title="Android" rel="14">Android</a>
             
         
             
@@ -670,31 +619,9 @@ _......
             
         
             
+        
+            
             <a href="/tags/#范例" title="范例" rel="7">范例</a>
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
             
         
             
@@ -716,6 +643,32 @@ _......
             
         
             
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+            <a href="/tags/#Kotlin" title="Kotlin" rel="2">Kotlin</a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
             <a href="/tags/#C++" title="C++" rel="2">C++</a>
             
         
@@ -725,6 +678,22 @@ _......
         
             
             <a href="/tags/#me" title="me" rel="3">me</a>
+            
+        
+            
+        
+            
+        
+            
+            <a href="/tags/#TTS" title="TTS" rel="2">TTS</a>
+            
+        
+            
+        
+            
+        
+            
+        
             
         
             
@@ -817,6 +786,10 @@ _......
     <ul>
       
         <li>
+          <a href="/2026/11/04/Voice/speech-barge-in-probe-turn/">端侧语音助手的「打断」为什么这么难：一次 probe-turn 晋升的完整设计</a>
+        </li>
+      
+        <li>
           <a href="/2026/10/28/Agent/mnn-cancellable-streaming-generation/">移动端本地 LLM 流式生成：如何做到「可取消」，且中文不截断半个字</a>
         </li>
       
@@ -830,10 +803,6 @@ _......
       
         <li>
           <a href="/2022/03/06/work/project_foucs/">Focus 番茄工作法</a>
-        </li>
-      
-        <li>
-          <a href="/2022/01/07/Android/Android_jacoco_配置/">Android 单元测试 Jacoco 配置</a>
         </li>
       
     </ul>
