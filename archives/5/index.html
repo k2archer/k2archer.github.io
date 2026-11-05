@@ -143,14 +143,14 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -213,20 +213,19 @@
 
 <div class="post-preview">
 
-    <a href="/2010/01/01/0/OpenGL 绘制方式：用顶点数组绘制三角形/">
+    <a href="/2010/01/01/0/OpenCv 新手章/">
         <h2 class="post-title">
-            OpenGL 绘制方式：用顶点数组绘制三角形
+            OpenCV 手记
         </h2>
         <h3 class="post-subtitle">
-             "OpenGL 入门"
+             "入门之路"
         </h3>
         <div class="post-content-preview">
-            OpenGL 绘制方式：用顶点数组绘制三角形
-
-“OpenGL 入门”
-
-OpenGL
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include &lt;GL/gl......
+            OpenCV 新手章
+OpenCV 认识OpenCV 是一个视觉库，有着各种的通用工具算法。
+安装 OpenCV 开发库sudo apt-get install libopencv-dev
+实例(显示图片):
+12345678910111213141516171819202122232425262728#include &lt;opencv2/core/core.hpp&gt;#includ......
         </div>
     </a>
     
@@ -236,7 +235,7 @@ OpenGL
         </p>
         <div class="tags">
             
-              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
+              <a href="/tags/#OpenCV" title="OpenCV">OpenCV</a>
             
         </div>
     
@@ -290,8 +289,7 @@ OpenGL
 
 “Python IDE 入门”
 
-快捷键
-Ctrl+B 函数跳转 Declaration
+快捷键Ctrl+B 函数跳转 Declaration
 ...
         </div>
     </a>
@@ -348,6 +346,39 @@ sudo apt-get install fcitx-table-wubi
 
 <div class="post-preview">
 
+    <a href="/2010/01/01/0/OpenGL 绘制方式：用顶点数组绘制三角形/">
+        <h2 class="post-title">
+            OpenGL 绘制方式：用顶点数组绘制三角形
+        </h2>
+        <h3 class="post-subtitle">
+             "OpenGL 入门"
+        </h3>
+        <div class="post-content-preview">
+            OpenGL 绘制方式：用顶点数组绘制三角形
+
+“OpenGL 入门”
+
+OpenGL
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include &lt;GL/gl......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2010-01-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2010/01/01/0/我的文章/">
         <h2 class="post-title">
             范例标题
@@ -393,12 +424,9 @@ sudo apt-get install fcitx-table-wubi
 
 “”
 
-MVVM 特性，解耦 UI 逻辑与业务逻辑，降低耦合度。
-Model 层不含 Android 类，只含数据处理逻辑，支持单元测试。
-ViewModel 层封装 UI 逻辑，也不含 Android 类，支持单元测试。
+MVVM 特性，解耦 UI 逻辑与业务逻辑，降低耦合度。Model 层不含 Android 类，只含数据处理逻辑，支持单元测试。ViewModel 层封装 UI 逻辑，也不含 Android 类，支持单元测试。
 ViewModel 需要绑定 Model， 支持替换 Model 数据源，
-为什么要测试？
-数据绑定使得 Bug 很难被定位调试。分层测试可以降低调......
+为什么要测试？数据绑定使得 Bug 很难被定位调试。分层测试可以降低调试难度......
         </div>
     </a>
     
@@ -463,17 +491,8 @@ Android 网络配置
             
 “修炼指南”
 
-基础:
-掌握 Java，理解设计模式，良好的编码习惯
-熟练 Google Guava | Apache Commons 等常用工具库
-熟练单元测试
-读过至少一个优秀的开源项目
-常见算法原理
-网络原理 socket|Http|SSL
-Android:
-熟悉自定义控件以及动画
-熟悉 okhttp Retrofit RxJava Dagger2 等常用第三方库
-熟悉常用的支付、推......
+基础:    掌握 Java，理解设计模式，良好的编码习惯    熟练 Google Guava | Apache Commons 等常用工具库    熟练单元测试    读过至少一个优秀的开源项目    常见算法原理    网络原理 socket|Http|SSL
+Android:    熟悉自定义控件以及动画    熟悉 okhttp Retrofit RxJava D......
         </div>
     </a>
     
@@ -524,42 +543,6 @@ Android:
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2010/01/01/OpenGL/Ubuntu OpenGL 开发环境安装配置/">
-        <h2 class="post-title">
-            Ubuntu OpenGL 开发环境安装配置
-        </h2>
-        <h3 class="post-subtitle">
-             " "
-        </h3>
-        <div class="post-content-preview">
-            Ubuntu OpenGL 开发环境安装配置
-LFW 库安装
-12apt-cache search glfwsudo apt-get install libglfw3 libglfw3-dev
-// 引入GLFW库
-1#include &lt;GLFW/glfw3.h&gt;
-库链接 -lglfw
-GLEW 库安装
-  apt-cache search glew
-  sudo apt-get......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2010-01-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -570,6 +553,10 @@ GLEW 库安装
             <a href="/archives/4/">&larr; Newer Posts</a>
         </li>
     
+    
+        <li class="next">
+            <a href="/archives/6/">Older Posts &rarr;</a>
+        </li>
     
 </ul>
 
@@ -596,10 +583,6 @@ GLEW 库安装
     <div class="tags">
         
             
-            <a href="/tags/#Java" title="Java" rel="2">Java</a>
-            
-        
-            
             <a href="/tags/#Android" title="Android" rel="15">Android</a>
             
         
@@ -608,13 +591,17 @@ GLEW 库安装
             
         
             
+            <a href="/tags/#Java" title="Java" rel="2">Java</a>
+            
+        
+            
+        
+            
         
             
         
             
             <a href="/tags/#范例" title="范例" rel="7">范例</a>
-            
-        
             
         
             
@@ -674,11 +661,11 @@ GLEW 库安装
             
         
             
+        
+            
+        
+            
             <a href="/tags/#端侧" title="端侧" rel="2">端侧</a>
-            
-        
-            
-        
             
         
             
@@ -698,9 +685,23 @@ GLEW 库安装
             
         
             
-            <a href="/tags/#TTS" title="TTS" rel="2">TTS</a>
+        
             
         
+            
+            <a href="/tags/#TTS" title="TTS" rel="3">TTS</a>
+            
+        
+            
+        
+            
+            <a href="/tags/#PyTorch" title="PyTorch" rel="2">PyTorch</a>
+            
+        
+            
+        
+            
+            <a href="/tags/#V100" title="V100" rel="2">V100</a>
             
         
             
@@ -797,6 +798,10 @@ GLEW 库安装
     <ul>
       
         <li>
+          <a href="/2026/11/05/TTS/V100流式TTS性能优化实践/">在 V100 上把流式 TTS 做到实时：从 RTF 1.30 到 0.62 的优化实践</a>
+        </li>
+      
+        <li>
           <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁</a>
         </li>
       
@@ -810,10 +815,6 @@ GLEW 库安装
       
         <li>
           <a href="/2026/09/10/TTS/Breeze-TTS-2-本地部署实战/">Breeze TTS 2 本地部署实战：3× Tesla V100 跑通实时中英双语 TTS</a>
-        </li>
-      
-        <li>
-          <a href="/2026/05/01/Agent/sqlite-fts5-vec-technical-decision/">为什么我用 SQLite 替代向量数据库</a>
         </li>
       
     </ul>

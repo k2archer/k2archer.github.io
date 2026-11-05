@@ -143,14 +143,14 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -213,6 +213,37 @@
 
 <div class="post-preview">
 
+    <a href="/2017/08/21/Java_int_translation_boolean/">
+        <h2 class="post-title">
+            关于 Java int 转 boolean
+        </h2>
+        <h3 class="post-subtitle">
+             " "
+        </h3>
+        <div class="post-content-preview">
+            
+“Java 入门”
+
+Java int 转 boolean在 C语言 中  0 相当于 false, 非 0 相当于 true. 但是 Java 这是不正确，会编译错误。因为：boolean只有两个值：true &amp; falseint是一定范围的值：-2147483648 – 2147483647所以，boolean 类型不能转化为 其他类型 ，其他类型 也不能转化为 boolean......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2017-08-21
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Java" title="Java">Java</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2017/08/01/install_Linux_Subsystem_on_Windows/">
         <h2 class="post-title">
             Install the Linux Subsystem on Windows 10
@@ -224,14 +255,12 @@
             
 “play Linux on Windows”
 
-安装 Windows 10 的 Linux 子系统
-一、前提条件：
-​	1、启用开发者模式
-​        2、在 启用和关闭 Windows 功能 中，安装 适用于 Linux 的 Windows 子系统(Beta)
+安装 Windows 10 的 Linux 子系统一、前提条件：
+​    1、启用开发者模式​        2、在 启用和关闭 Windows 功能 中，安装 适用于 Linux 的 Windows 子系统(Beta)
 二、建议：
-​        由于有不可描述的墙存在，可能出现下载困难或者慢，最好自备梯子。
+​        由于有不可描述的墙存在，可能出现下载困难或者慢，最好自备梯子。     
 三、安装：
-​      ......
+​......
         </div>
     </a>
     
@@ -262,11 +291,10 @@
             
 “I from C++ .”
 
-关于 new 的各种特性
-​          在 C 的时代，内存分配都是用 malloc( )、calloc( ) ，在 C++ 都是 new 、 delete、 new [ ]、delete [ ] 成对使用就好。虽然简化很多，但还是有一些细节。
-例如：
+关于 new 的各种特性​          在 C 的时代，内存分配都是用 malloc( )、calloc( ) ，在 C++ 都是 new 、 delete、 new [ ]、delete [ ] 成对使用就好。虽然简化很多，但还是有一些细节。例如：
 12int* p_int = new int;*p_int += 2;
-在上述代码中， *p_in......
+
+在上述代码中， *p_int......
         </div>
     </a>
     
@@ -297,12 +325,13 @@
             
 “我们来做面试题。”
 
-一个C++指针的面试题
-在网上看到这么一道C++题目，代码如下，求 n 是多少？
+一个C++指针的面试题在网上看到这么一道C++题目，代码如下，求 n 是多少？
 1int n = (int) ( ( (int )0x0 ) + 4) ;
+
 ​     解题：
 123int p1 = (int) 0x0; // 第一步int p2 = p1 + 4;    // 第二步int n  = (int) p2;  // 第三步
-这里涉及C++类型转换、类......
+
+这里涉及C++类型转换、......
         </div>
     </a>
     
@@ -333,11 +362,9 @@
             
 “algorithm time.”
 
-翻转二叉树（Invert Binary Tree）
-在刷 LeetCode 遇上它。听说因为 Google 让翻转二叉树成一个梗，也成为 LeetCode 的题目(Invert Binary Tree)。
-参考链接
-一、&quot;Hello World &quot;
-1234567891011121314TreeNode* invertTree(Tr......
+翻转二叉树（Invert Binary Tree）在刷 LeetCode 遇上它。听说因为 Google 让翻转二叉树成一个梗，也成为 LeetCode 的题目(Invert Binary Tree)。参考链接
+一、”Hello World “
+1234567891011121314TreeNode* invertTree(TreeNode* root......
         </div>
     </a>
     
@@ -368,8 +395,7 @@
             
 “创建第一个项目.”
 
-使用 
-在 cocos2d-x-2.26/tools/project-creator 目录，运行 create-project.py 脚本,进行创建新项目，成功创建的项目保存在 cocos2d-x-2.2.6/project 目录下。
+使用 create-project.py在 cocos2d-x-2.26&#x2F;tools&#x2F;project-creator 目录，运行 create-project.py 脚本,进行创建新项目，成功创建的项目保存在 cocos2d-x-2.2.6&#x2F;project 目录下。
 ...
         </div>
     </a>
@@ -404,14 +430,12 @@
 一直都想动手开发一个游戏，现在动手做。
 选择游戏引擎 Cocos2d-x ，如果一切都从画像素点开始，那是做游戏引擎的。
 开发环境
-
 Windows
 VS 2010
 Python 2.7
 Cocos2d-x 2.2.6
 
-编译 Cocos2d-x
-在确保 VS 2010 和 Python  2.7 正确安装成功后。直接运行 cocos2d-x-2.2.6 目录下的 bu......
+编译 Cocos2d-x在确保 VS 2010 和 Python  2.7 正确安装成功后。直接运行 cocos2d-x-2.2.6 目录下的 buil......
         </div>
     </a>
     
@@ -442,8 +466,7 @@ Cocos2d-x 2.2.6
             
 “Yeah It’s on.  ”
 
-发言
-github.io 的 Blog 就这么开通了。
+发言github.io 的 Blog 就这么开通了。
 ...
         </div>
     </a>
@@ -514,43 +537,7 @@ github.io 的 Blog 就这么开通了。
 图像通道 灰度图、三通道图、RGB色彩模式、四通道、alpha通道(透明度)
 Mat 基本图像容器
 
-Mat、CvMat、IplImage 都可以表示和显示图像。
-Mat类型则是C++版本的矩阵类型，侧重于计算，数学性较高，OpenCV 对 Mat 类型的计算进行了优化
-（CvArr 用作函数的参数，无论传入的是 CvMat 或 IplI......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2010-01-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#OpenCV" title="OpenCV">OpenCV</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2010/01/01/0/OpenCv 新手章/">
-        <h2 class="post-title">
-            OpenCV 手记
-        </h2>
-        <h3 class="post-subtitle">
-             "入门之路"
-        </h3>
-        <div class="post-content-preview">
-            OpenCV 新手章
-OpenCV 认识
-OpenCV 是一个视觉库，有着各种的通用工具算法。
-安装 OpenCV 开发库
-sudo apt-get install libopencv-dev
-实例(显示图片):
-12345678910111213141516171819202122232425262728#include &lt;opencv2/core/core.hpp&gt;#incl......
+Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本的矩阵类型，侧重于计算，数学性较高，OpenCV 对 Mat 类型的计算进行了优化（CvArr 用作函数的参数，无论传入的是 CvMat 或 IplIma......
         </div>
     </a>
     
@@ -608,10 +595,6 @@ sudo apt-get install libopencv-dev
     <div class="tags">
         
             
-            <a href="/tags/#Java" title="Java" rel="2">Java</a>
-            
-        
-            
             <a href="/tags/#Android" title="Android" rel="15">Android</a>
             
         
@@ -620,13 +603,17 @@ sudo apt-get install libopencv-dev
             
         
             
+            <a href="/tags/#Java" title="Java" rel="2">Java</a>
+            
+        
+            
+        
+            
         
             
         
             
             <a href="/tags/#范例" title="范例" rel="7">范例</a>
-            
-        
             
         
             
@@ -686,11 +673,11 @@ sudo apt-get install libopencv-dev
             
         
             
+        
+            
+        
+            
             <a href="/tags/#端侧" title="端侧" rel="2">端侧</a>
-            
-        
-            
-        
             
         
             
@@ -710,9 +697,23 @@ sudo apt-get install libopencv-dev
             
         
             
-            <a href="/tags/#TTS" title="TTS" rel="2">TTS</a>
+        
             
         
+            
+            <a href="/tags/#TTS" title="TTS" rel="3">TTS</a>
+            
+        
+            
+        
+            
+            <a href="/tags/#PyTorch" title="PyTorch" rel="2">PyTorch</a>
+            
+        
+            
+        
+            
+            <a href="/tags/#V100" title="V100" rel="2">V100</a>
             
         
             
@@ -809,6 +810,10 @@ sudo apt-get install libopencv-dev
     <ul>
       
         <li>
+          <a href="/2026/11/05/TTS/V100流式TTS性能优化实践/">在 V100 上把流式 TTS 做到实时：从 RTF 1.30 到 0.62 的优化实践</a>
+        </li>
+      
+        <li>
           <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁</a>
         </li>
       
@@ -822,10 +827,6 @@ sudo apt-get install libopencv-dev
       
         <li>
           <a href="/2026/09/10/TTS/Breeze-TTS-2-本地部署实战/">Breeze TTS 2 本地部署实战：3× Tesla V100 跑通实时中英双语 TTS</a>
-        </li>
-      
-        <li>
-          <a href="/2026/05/01/Agent/sqlite-fts5-vec-technical-decision/">为什么我用 SQLite 替代向量数据库</a>
         </li>
       
     </ul>

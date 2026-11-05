@@ -143,14 +143,14 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -213,6 +213,43 @@
 
 <div class="post-preview">
 
+    <a href="/2018/05/30/Tools/Ubuntu 用 git-daemon 搭建 git 服务器/">
+        <h2 class="post-title">
+            Ubuntu 用 git-daemon 搭建 git 服务器
+        </h2>
+        <h3 class="post-subtitle">
+             "Git 进阶使用"
+        </h3>
+        <div class="post-content-preview">
+            Ubuntu 用 git-daemon 搭建 git 服务器
+
+“Git 进阶使用”
+
+安装 git1sudo apt-get install git-all
+
+安装启动时运行工具本文使用 git-daemon-sysvinit，亦可使用 git-daemon-run ，但配置方式不同。
+1sudo apt-get install git-daemon-sysvinit
+
+配置 git-da......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2018-05-30
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Git" title="Git">Git</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2018/05/10/Android/交叉编译_Android_Sqlite3_命令/">
         <h2 class="post-title">
             交叉编译 Android Sqlite3 命令
@@ -226,9 +263,8 @@
 
 在Android 开发过程中，我们会经常查看 Sqlite 数据库文件的数据，直接在 adb shell 下运行 sqlit3 ，但是，很多系统里面是没有的！
 1/system/bin/sh: sqlite3: not found
-使用 Android ndk-build 编译
-下载、解压
-12$ wget http://www.sqlite.org/2018/......
+
+使用 Android ndk-build 编译下载、解压12$ wget http://www.sqlite.org/2018/s......
         </div>
     </a>
     
@@ -263,16 +299,14 @@
             
 “嗯。这一个面试题”
 
-方法一 判断指针长度
-使用范围：C/C++ 语言
+方法一 判断指针长度使用范围：C&#x2F;C++ 语言
 12345// C++ Languageif (sizeof(void*) &lt; 8)	// 32 位else 	// 64 位
-方法二 编译宏指令
-使用范围：编译器
+
+方法二 编译宏指令使用范围：编译器
 
 
 
 gcc macro
-
 
 
 
@@ -287,8 +321,7 @@ Predefined macro
 
 x86
 _M_IX86
-__INTEL__
-_......
+__INTEL_......
         </div>
     </a>
     
@@ -317,12 +350,10 @@ _......
         </h3>
         <div class="post-content-preview">
             
-“RecyclerView 添加空数据视图”
+ “RecyclerView 添加空数据视图”
 
-前言
-在 RecyclerView 的列表没有数据的时候显示一片空白，这就像白开水一般的交互体验，我们可以通过展示一个空数据视图，这样会给用户带来更好的交互体验。
-方案思路
-在当没有数据的时候，利用 View  的 Visibility 属性其中 VISIBLE  和 INVISIBLE  两种状态，把 RecyclerView 隐藏起来，让......
+前言在 RecyclerView 的列表没有数据的时候显示一片空白，这就像白开水一般的交互体验，我们可以通过展示一个空数据视图，这样会给用户带来更好的交互体验。
+方案思路在当没有数据的时候，利用 View  的 Visibility 属性其中 VISIBLE  和 INVISIBLE  两种状态，把 RecyclerView 隐藏起来，让空......
         </div>
     </a>
     
@@ -350,14 +381,11 @@ _......
              "Android 开发进阶"
         </h3>
         <div class="post-content-preview">
-            读《Android源码设计模式解析与实战》
+            读《Android源码设计模式解析与实战》 
 
 “Android 开发进阶”
 
-第1章 面向对象 六大原则
-单一职责原则（Single Responsibility Principle, SRP）
-如果把一个功能系统的都写一个类里，相当于把所有的功能都粘在一起，耦合度过高，缺乏可扩展性和灵活性。
-随着功能点的增多，类就会变大越来越大，代码随之越来越复杂。整个功能系统越来越脆弱，原地爆炸的。就需......
+第1章 面向对象 六大原则单一职责原则（Single Responsibility Principle, SRP）如果把一个功能系统的都写一个类里，相当于把所有的功能都粘在一起，耦合度过高，缺乏可扩展性和灵活性。随着功能点的增多，类就会变大越来越大，代码随之越来越复杂。整个功能系统越来越脆弱，原地爆炸的。就需要重......
         </div>
     </a>
     
@@ -387,14 +415,10 @@ _......
              ""
         </h3>
         <div class="post-content-preview">
-            Sublime Text 3 安装 Ctags
-在sublime text中的package control install下安装ctags
+            Sublime Text 3 安装 Ctags在sublime text中的package control install下安装ctags
 快捷键ctrl+shift+p，输入pci，再在命令行中输入ctags安装
-配置ctags路径
-preference
-引用
-sublime插件ctags安装及配置
-http://blog.csdn.net/ikscher/article/details......
+配置ctags路径preference
+引用    sublime插件ctags安装及配置    http://blog.csdn.net/ikscher/article/det......
         </div>
     </a>
     
@@ -426,17 +450,11 @@ http://blog.csdn.net/ikscher/article/details......
 
 “”
 
-实现单例模式的关键
-延迟加载、线程安全、序列化安全
-各种模式的实现
-懒汉模式
-(预先构建)类加载时构建，线程安全，(可能不被使用)资源效率不高，序列化破坏
-饿汉模式
-（延迟建构)类实例化时构建，(多线程同时构建)非线程安全，序列化破坏
-双重检查模式
-（延迟建构)类实例化时构建，线程安（JDK 1.5不保证禁止指令重排优化），序列化破坏
-静态内部类模式
-（延......
+实现单例模式的关键延迟加载、线程安全、序列化安全
+各种模式的实现懒汉模式(预先构建)类加载时构建，线程安全，(可能不被使用)资源效率不高，序列化破坏
+饿汉模式（延迟建构)类实例化时构建，(多线程同时构建)非线程安全，序列化破坏
+双重检查模式（延迟建构)类实例化时构建，线程安（JDK 1.5不保证禁止指令重排优化），序列化破坏
+静态内部类模式（延迟建构)类实......
         </div>
     </a>
     
@@ -464,12 +482,8 @@ http://blog.csdn.net/ikscher/article/details......
              "Android"
         </h3>
         <div class="post-content-preview">
-            AsyncTask 优缺点和应用
-AsyncTask 是 Android 提供的一个轻量异步任务类。
-通过继承 AsyncTask ，在类中实现异步任务操作，过程中反馈进度、完成后反馈结果给 UI 主线程。
-提供三个泛型参数， Params、Progress、Result
-Params 表示传入参数类型，Progress 表示执行进度的类型、Result 表示返回结果的类型。
-提供 4 个核......
+            AsyncTask 优缺点和应用AsyncTask 是 Android 提供的一个轻量异步任务类。
+通过继承 AsyncTask ，在类中实现异步任务操作，过程中反馈进度、完成后反馈结果给 UI 主线程。提供三个泛型参数， Params、Progress、ResultParams 表示传入参数类型，Progress 表示执行进度的类型、Result 表示返回结果的类型。提供 4 个核心方法，......
         </div>
     </a>
     
@@ -498,12 +512,10 @@ Params 表示传入参数类型，Progress 表示执行进度的类型、Result 
         </h3>
         <div class="post-content-preview">
             Hexo 安装
-
 “…”
 
 正文
-新建项目
-1234hexo initnpm installhexo ghexo s...
+新建项目1234hexo initnpm installhexo ghexo s...
         </div>
     </a>
     
@@ -534,12 +546,9 @@ Params 表示传入参数类型，Progress 表示执行进度的类型、Result 
             
 “Android 进阶”
 
-Android - Service
-Android service 的启动和连接状态
-一、 startService() 方法启动的启动状态，stopService() 停止该状态。
-二、 bindService()  方法绑定状态，unbindService() 停止该状态。
-注意： 可以同时处在两种状态，停止 Service 时需要两个状态都停止。
-从 Co......
+Android - ServiceAndroid service 的启动和连接状态
+一、 startService() 方法启动的启动状态，stopService() 停止该状态。二、 bindService()  方法绑定状态，unbindService() 停止该状态。注意： 可以同时处在两种状态，停止 Service 时需要两个状态都停止。
+从 Conte......
         </div>
     </a>
     
@@ -550,42 +559,6 @@ Android service 的启动和连接状态
         <div class="tags">
             
               <a href="/tags/#Android" title="Android">Android</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/08/21/Java_int_translation_boolean/">
-        <h2 class="post-title">
-            关于 Java int 转 boolean
-        </h2>
-        <h3 class="post-subtitle">
-             " "
-        </h3>
-        <div class="post-content-preview">
-            
-“Java 入门”
-
-Java int 转 boolean
-在 C语言 中  0 相当于 false, 非 0 相当于 true. 但是 Java 这是不正确，会编译错误。
-因为：
-boolean只有两个值：true &amp; false
-int是一定范围的值：-2147483648 – 2147483647
-所以，boolean 类型不能转化为 其他类型 ，其他类型 也不能转化为 bo......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2017-08-21
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Java" title="Java">Java</a>
             
         </div>
     
@@ -633,10 +606,6 @@ int是一定范围的值：-2147483648 – 2147483647
     <div class="tags">
         
             
-            <a href="/tags/#Java" title="Java" rel="2">Java</a>
-            
-        
-            
             <a href="/tags/#Android" title="Android" rel="15">Android</a>
             
         
@@ -645,13 +614,17 @@ int是一定范围的值：-2147483648 – 2147483647
             
         
             
+            <a href="/tags/#Java" title="Java" rel="2">Java</a>
+            
+        
+            
+        
+            
         
             
         
             
             <a href="/tags/#范例" title="范例" rel="7">范例</a>
-            
-        
             
         
             
@@ -711,11 +684,11 @@ int是一定范围的值：-2147483648 – 2147483647
             
         
             
+        
+            
+        
+            
             <a href="/tags/#端侧" title="端侧" rel="2">端侧</a>
-            
-        
-            
-        
             
         
             
@@ -735,9 +708,23 @@ int是一定范围的值：-2147483648 – 2147483647
             
         
             
-            <a href="/tags/#TTS" title="TTS" rel="2">TTS</a>
+        
             
         
+            
+            <a href="/tags/#TTS" title="TTS" rel="3">TTS</a>
+            
+        
+            
+        
+            
+            <a href="/tags/#PyTorch" title="PyTorch" rel="2">PyTorch</a>
+            
+        
+            
+        
+            
+            <a href="/tags/#V100" title="V100" rel="2">V100</a>
             
         
             
@@ -834,6 +821,10 @@ int是一定范围的值：-2147483648 – 2147483647
     <ul>
       
         <li>
+          <a href="/2026/11/05/TTS/V100流式TTS性能优化实践/">在 V100 上把流式 TTS 做到实时：从 RTF 1.30 到 0.62 的优化实践</a>
+        </li>
+      
+        <li>
           <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁</a>
         </li>
       
@@ -847,10 +838,6 @@ int是一定范围的值：-2147483648 – 2147483647
       
         <li>
           <a href="/2026/09/10/TTS/Breeze-TTS-2-本地部署实战/">Breeze TTS 2 本地部署实战：3× Tesla V100 跑通实时中英双语 TTS</a>
-        </li>
-      
-        <li>
-          <a href="/2026/05/01/Agent/sqlite-fts5-vec-technical-decision/">为什么我用 SQLite 替代向量数据库</a>
         </li>
       
     </ul>
