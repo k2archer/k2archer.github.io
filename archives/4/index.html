@@ -136,6 +136,13 @@
 
                         
                         <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/archives/">Archives</a>
                         </li>
                         
@@ -144,13 +151,6 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -213,6 +213,44 @@
 
 <div class="post-preview">
 
+    <a href="/2017/08/01/install_Linux_Subsystem_on_Windows/">
+        <h2 class="post-title">
+            Install the Linux Subsystem on Windows 10
+        </h2>
+        <h3 class="post-subtitle">
+             "Linux"
+        </h3>
+        <div class="post-content-preview">
+            
+“play Linux on Windows”
+
+安装 Windows 10 的 Linux 子系统
+一、前提条件：
+​	1、启用开发者模式
+​        2、在 启用和关闭 Windows 功能 中，安装 适用于 Linux 的 Windows 子系统(Beta)
+二、建议：
+​        由于有不可描述的墙存在，可能出现下载困难或者慢，最好自备梯子。
+三、安装：
+​      ......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by k2archer on
+            2017-08-01
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Linux" title="Linux">Linux</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2017/07/28/Cplusplus/about_cplusplus_new/">
         <h2 class="post-title">
             关于 new 的各种特性
@@ -224,10 +262,11 @@
             
 “I from C++ .”
 
-关于 new 的各种特性​          在 C 的时代，内存分配都是用 malloc( )、calloc( ) ，在 C++ 都是 new 、 delete、 new [ ]、delete [ ] 成对使用就好。虽然简化很多，但还是有一些细节。例如：
+关于 new 的各种特性
+​          在 C 的时代，内存分配都是用 malloc( )、calloc( ) ，在 C++ 都是 new 、 delete、 new [ ]、delete [ ] 成对使用就好。虽然简化很多，但还是有一些细节。
+例如：
 12int* p_int = new int;*p_int += 2;
-
-在上述代码中， *p_int......
+在上述代码中， *p_in......
         </div>
     </a>
     
@@ -258,13 +297,12 @@
             
 “我们来做面试题。”
 
-一个C++指针的面试题在网上看到这么一道C++题目，代码如下，求 n 是多少？
+一个C++指针的面试题
+在网上看到这么一道C++题目，代码如下，求 n 是多少？
 1int n = (int) ( ( (int )0x0 ) + 4) ;
-
 ​     解题：
 123int p1 = (int) 0x0; // 第一步int p2 = p1 + 4;    // 第二步int n  = (int) p2;  // 第三步
-
-这里涉及C++类型转换、......
+这里涉及C++类型转换、类......
         </div>
     </a>
     
@@ -295,9 +333,11 @@
             
 “algorithm time.”
 
-翻转二叉树（Invert Binary Tree）在刷 LeetCode 遇上它。听说因为 Google 让翻转二叉树成一个梗，也成为 LeetCode 的题目(Invert Binary Tree)。参考链接
-一、”Hello World “
-1234567891011121314TreeNode* invertTree(TreeNode* root......
+翻转二叉树（Invert Binary Tree）
+在刷 LeetCode 遇上它。听说因为 Google 让翻转二叉树成一个梗，也成为 LeetCode 的题目(Invert Binary Tree)。
+参考链接
+一、&quot;Hello World &quot;
+1234567891011121314TreeNode* invertTree(Tr......
         </div>
     </a>
     
@@ -328,7 +368,8 @@
             
 “创建第一个项目.”
 
-使用 create-project.py在 cocos2d-x-2.26&#x2F;tools&#x2F;project-creator 目录，运行 create-project.py 脚本,进行创建新项目，成功创建的项目保存在 cocos2d-x-2.2.6&#x2F;project 目录下。
+使用 
+在 cocos2d-x-2.26/tools/project-creator 目录，运行 create-project.py 脚本,进行创建新项目，成功创建的项目保存在 cocos2d-x-2.2.6/project 目录下。
 ...
         </div>
     </a>
@@ -363,12 +404,14 @@
 一直都想动手开发一个游戏，现在动手做。
 选择游戏引擎 Cocos2d-x ，如果一切都从画像素点开始，那是做游戏引擎的。
 开发环境
+
 Windows
 VS 2010
 Python 2.7
 Cocos2d-x 2.2.6
 
-编译 Cocos2d-x在确保 VS 2010 和 Python  2.7 正确安装成功后。直接运行 cocos2d-x-2.2.6 目录下的 buil......
+编译 Cocos2d-x
+在确保 VS 2010 和 Python  2.7 正确安装成功后。直接运行 cocos2d-x-2.2.6 目录下的 bu......
         </div>
     </a>
     
@@ -399,7 +442,8 @@ Cocos2d-x 2.2.6
             
 “Yeah It’s on.  ”
 
-发言github.io 的 Blog 就这么开通了。
+发言
+github.io 的 Blog 就这么开通了。
 ...
         </div>
     </a>
@@ -470,7 +514,9 @@ Cocos2d-x 2.2.6
 图像通道 灰度图、三通道图、RGB色彩模式、四通道、alpha通道(透明度)
 Mat 基本图像容器
 
-Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本的矩阵类型，侧重于计算，数学性较高，OpenCV 对 Mat 类型的计算进行了优化（CvArr 用作函数的参数，无论传入的是 CvMat 或 IplIma......
+Mat、CvMat、IplImage 都可以表示和显示图像。
+Mat类型则是C++版本的矩阵类型，侧重于计算，数学性较高，OpenCV 对 Mat 类型的计算进行了优化
+（CvArr 用作函数的参数，无论传入的是 CvMat 或 IplI......
         </div>
     </a>
     
@@ -499,10 +545,12 @@ Mat、CvMat、IplImage 都可以表示和显示图像。Mat类型则是C++版本
         </h3>
         <div class="post-content-preview">
             OpenCV 新手章
-OpenCV 认识OpenCV 是一个视觉库，有着各种的通用工具算法。
-安装 OpenCV 开发库sudo apt-get install libopencv-dev
+OpenCV 认识
+OpenCV 是一个视觉库，有着各种的通用工具算法。
+安装 OpenCV 开发库
+sudo apt-get install libopencv-dev
 实例(显示图片):
-12345678910111213141516171819202122232425262728#include &lt;opencv2/core/core.hpp&gt;#includ......
+12345678910111213141516171819202122232425262728#include &lt;opencv2/core/core.hpp&gt;#incl......
         </div>
     </a>
     
@@ -513,38 +561,6 @@ OpenCV 认识OpenCV 是一个视觉库，有着各种的通用工具算法。
         <div class="tags">
             
               <a href="/tags/#OpenCV" title="OpenCV">OpenCV</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2010/01/01/0/OpenGL 绘制方式：仅VAO绘制三角形/">
-        <h2 class="post-title">
-            OpenGL 绘制方式：仅VAO绘制三角形
-        </h2>
-        <h3 class="post-subtitle">
-             "OpenGL 入门"
-        </h3>
-        <div class="post-content-preview">
-            OpenGL 绘制方式：仅VAO绘制三角形
-
-“OpenGL 入门”
-
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869#include &lt;GL/glut.h&gt;void r......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by k2archer on
-            2010-01-01
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
             
         </div>
     
@@ -596,7 +612,7 @@ OpenCV 认识OpenCV 是一个视觉库，有着各种的通用工具算法。
             
         
             
-            <a href="/tags/#Android" title="Android" rel="14">Android</a>
+            <a href="/tags/#Android" title="Android" rel="15">Android</a>
             
         
             
@@ -608,9 +624,9 @@ OpenCV 认识OpenCV 是一个视觉库，有着各种的通用工具算法。
             
         
             
-        
-            
             <a href="/tags/#范例" title="范例" rel="7">范例</a>
+            
+        
             
         
             
@@ -658,6 +674,26 @@ OpenCV 认识OpenCV 是一个视觉库，有着各种的通用工具算法。
             
         
             
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+            <a href="/tags/#端侧" title="端侧" rel="2">端侧</a>
+            
+        
+            
+        
+            
+        
+            
             <a href="/tags/#C++" title="C++" rel="2">C++</a>
             
         
@@ -675,8 +711,6 @@ OpenCV 认识OpenCV 是一个视觉库，有着各种的通用工具算法。
         
             
             <a href="/tags/#TTS" title="TTS" rel="2">TTS</a>
-            
-        
             
         
             
@@ -775,6 +809,10 @@ OpenCV 认识OpenCV 是一个视觉库，有着各种的通用工具算法。
     <ul>
       
         <li>
+          <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁</a>
+        </li>
+      
+        <li>
           <a href="/2026/11/04/Voice/speech-barge-in-probe-turn/">端侧语音助手的「打断」为什么这么难：一次 probe-turn 晋升的完整设计</a>
         </li>
       
@@ -788,10 +826,6 @@ OpenCV 认识OpenCV 是一个视觉库，有着各种的通用工具算法。
       
         <li>
           <a href="/2026/05/01/Agent/sqlite-fts5-vec-technical-decision/">为什么我用 SQLite 替代向量数据库</a>
-        </li>
-      
-        <li>
-          <a href="/2022/03/06/work/project_foucs/">Focus 番茄工作法</a>
         </li>
       
     </ul>

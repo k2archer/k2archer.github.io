@@ -136,6 +136,13 @@
 
                         
                         <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/archives/">Archives</a>
                         </li>
                         
@@ -144,13 +151,6 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -202,7 +202,7 @@
                 
                     <a href="#Java" title="Java" rel="2">Java</a>
                 
-                    <a href="#Android" title="Android" rel="14">Android</a>
+                    <a href="#Android" title="Android" rel="15">Android</a>
                 
                     <a href="#设计模式" title="设计模式" rel="2">设计模式</a>
                 
@@ -210,9 +210,9 @@
                 
                     <a href="#LeetCode" title="LeetCode" rel="1">LeetCode</a>
                 
-                    <a href="#Ctags" title="Ctags" rel="1">Ctags</a>
-                
                     <a href="#范例" title="范例" rel="7">范例</a>
+                
+                    <a href="#Ctags" title="Ctags" rel="1">Ctags</a>
                 
                     <a href="#Android Wear" title="Android Wear" rel="1">Android Wear</a>
                 
@@ -247,6 +247,24 @@
                     <a href="#可取消" title="可取消" rel="1">可取消</a>
                 
                     <a href="#Agent" title="Agent" rel="1">Agent</a>
+                
+                    <a href="#人脸识别" title="人脸识别" rel="1">人脸识别</a>
+                
+                    <a href="#锁屏" title="锁屏" rel="1">锁屏</a>
+                
+                    <a href="#全屏 Intent" title="全屏 Intent" rel="1">全屏 Intent</a>
+                
+                    <a href="#KeyguardManager" title="KeyguardManager" rel="1">KeyguardManager</a>
+                
+                    <a href="#前台服务" title="前台服务" rel="1">前台服务</a>
+                
+                    <a href="#Camera2" title="Camera2" rel="1">Camera2</a>
+                
+                    <a href="#后台启动限制" title="后台启动限制" rel="1">后台启动限制</a>
+                
+                    <a href="#唤醒锁" title="唤醒锁" rel="1">唤醒锁</a>
+                
+                    <a href="#端侧" title="端侧" rel="2">端侧</a>
                 
                     <a href="#Sqlite" title="Sqlite" rel="1">Sqlite</a>
                 
@@ -294,9 +312,9 @@
                 
                     <a href="#状态机" title="状态机" rel="1">状态机</a>
                 
-                    <a href="#端侧" title="端侧" rel="1">端侧</a>
-                
                     <a href="#全栈" title="全栈" rel="2">全栈</a>
+                
+                    <a href="#Wear" title="Wear" rel="1">Wear</a>
                 
                     <a href="#仓库管理系统" title="仓库管理系统" rel="1">仓库管理系统</a>
                 
@@ -307,8 +325,6 @@
                     <a href="#Python" title="Python" rel="1">Python</a>
                 
                     <a href="#Element UI" title="Element UI" rel="1">Element UI</a>
-                
-                    <a href="#Wear" title="Wear" rel="1">Wear</a>
                 
             </div>
 
@@ -377,6 +393,25 @@
                         
                             <h3 class="post-subtitle">
                                  "文章目录"
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">
+                        <h2 class="post-title">
+                            「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                从常驻识别到全屏 Intent 闭环，一份被国产 ROM 打回三次的实现记录
                             </h3>
                         
                     </a>
@@ -723,32 +758,6 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Ctags">
-                    <span class="tag-text">Ctags</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/02/20/sublime_text_install_ctags/">
-                        <h2 class="post-title">
-                            Sublime Text 3 安装 Ctags
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                 ""
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="范例">
                     <span class="tag-text">范例</span>
                 </span>
@@ -889,6 +898,32 @@
             </div>
             
             <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Ctags">
+                    <span class="tag-text">Ctags</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/02/20/sublime_text_install_ctags/">
+                        <h2 class="post-title">
+                            Sublime Text 3 安装 Ctags
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                 ""
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="Android Wear">
                     <span class="tag-text">Android Wear</span>
                 </span>
@@ -1014,6 +1049,25 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
+                     <a href="/2010/01/01/0/OpenGL 绘制方式：用顶点数组绘制三角形/">
+                        <h2 class="post-title">
+                            OpenGL 绘制方式：用顶点数组绘制三角形
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                 "OpenGL 入门"
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
                      <a href="/2010/01/01/0/OpenGL 绘制方式：仅VAO绘制三角形/">
                         <h2 class="post-title">
                             OpenGL 绘制方式：仅VAO绘制三角形
@@ -1033,9 +1087,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2010/01/01/0/OpenGL 绘制方式：用顶点数组绘制三角形/">
+                     <a href="/2010/01/01/OpenGL/OpenGL 绘制方式：用显示列表绘制三角形/">
                         <h2 class="post-title">
-                            OpenGL 绘制方式：用顶点数组绘制三角形
+                            OpenGL 绘制方式：用显示列表绘制三角形
                         </h2>
                         
                             <h3 class="post-subtitle">
@@ -1059,25 +1113,6 @@
                         
                             <h3 class="post-subtitle">
                                  " "
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2010/01/01/OpenGL/OpenGL 绘制方式：用显示列表绘制三角形/">
-                        <h2 class="post-title">
-                            OpenGL 绘制方式：用显示列表绘制三角形
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                 "OpenGL 入门"
                             </h3>
                         
                     </a>
@@ -1396,6 +1431,255 @@
                             <h3 class="post-subtitle">
                                  "一个自主助手项目的记忆与工具检索"
                             </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="人脸识别">
+                    <span class="tag-text">人脸识别</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">
+                        <h2 class="post-title">
+                            「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                从常驻识别到全屏 Intent 闭环，一份被国产 ROM 打回三次的实现记录
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="锁屏">
+                    <span class="tag-text">锁屏</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">
+                        <h2 class="post-title">
+                            「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                从常驻识别到全屏 Intent 闭环，一份被国产 ROM 打回三次的实现记录
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="全屏 Intent">
+                    <span class="tag-text">全屏 Intent</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">
+                        <h2 class="post-title">
+                            「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                从常驻识别到全屏 Intent 闭环，一份被国产 ROM 打回三次的实现记录
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="KeyguardManager">
+                    <span class="tag-text">KeyguardManager</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">
+                        <h2 class="post-title">
+                            「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                从常驻识别到全屏 Intent 闭环，一份被国产 ROM 打回三次的实现记录
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="前台服务">
+                    <span class="tag-text">前台服务</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">
+                        <h2 class="post-title">
+                            「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                从常驻识别到全屏 Intent 闭环，一份被国产 ROM 打回三次的实现记录
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Camera2">
+                    <span class="tag-text">Camera2</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">
+                        <h2 class="post-title">
+                            「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                从常驻识别到全屏 Intent 闭环，一份被国产 ROM 打回三次的实现记录
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="后台启动限制">
+                    <span class="tag-text">后台启动限制</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">
+                        <h2 class="post-title">
+                            「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                从常驻识别到全屏 Intent 闭环，一份被国产 ROM 打回三次的实现记录
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="唤醒锁">
+                    <span class="tag-text">唤醒锁</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">
+                        <h2 class="post-title">
+                            「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                从常驻识别到全屏 Intent 闭环，一份被国产 ROM 打回三次的实现记录
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="端侧">
+                    <span class="tag-text">端侧</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">
+                        <h2 class="post-title">
+                            「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                从常驻识别到全屏 Intent 闭环，一份被国产 ROM 打回三次的实现记录
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2026/11/04/Voice/speech-barge-in-probe-turn/">
+                        <h2 class="post-title">
+                            端侧语音助手的「打断」为什么这么难：一次 probe-turn 晋升的完整设计
+                        </h2>
                         
                     </a>
                     <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
@@ -2038,28 +2322,6 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="端侧">
-                    <span class="tag-text">端侧</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2026/11/04/Voice/speech-barge-in-probe-turn/">
-                        <h2 class="post-title">
-                            端侧语音助手的「打断」为什么这么难：一次 probe-turn 晋升的完整设计
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="全栈">
                     <span class="tag-text">全栈</span>
                 </span>
@@ -2095,6 +2357,32 @@
                         
                             <h3 class="post-subtitle">
                                  "某亚马逊童袜商家定制开发仓管系统"
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Wear">
+                    <span class="tag-text">Wear</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2022/03/06/work/project_foucs/">
+                        <h2 class="post-title">
+                            Focus 番茄工作法
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                 "一个运用番茄工作法提高你的效率的软件"
                             </h3>
                         
                     </a>
@@ -2225,32 +2513,6 @@
                         
                             <h3 class="post-subtitle">
                                  "某亚马逊童袜商家定制开发仓管系统"
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Wear">
-                    <span class="tag-text">Wear</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2022/03/06/work/project_foucs/">
-                        <h2 class="post-title">
-                            Focus 番茄工作法
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                 "一个运用番茄工作法提高你的效率的软件"
                             </h3>
                         
                     </a>

@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁 - k2archer的博客 | k2archer&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://k2archer.github.io/2026/11/05/Android/android-lockscreen-face-unlock/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/home-bg-o.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                            
+                              <a class="tag" href="/tags/#人脸识别" title="人脸识别">人脸识别</a>
+                            
+                              <a class="tag" href="/tags/#锁屏" title="锁屏">锁屏</a>
+                            
+                              <a class="tag" href="/tags/#全屏 Intent" title="全屏 Intent">全屏 Intent</a>
+                            
+                              <a class="tag" href="/tags/#KeyguardManager" title="KeyguardManager">KeyguardManager</a>
+                            
+                              <a class="tag" href="/tags/#前台服务" title="前台服务">前台服务</a>
+                            
+                              <a class="tag" href="/tags/#Camera2" title="Camera2">Camera2</a>
+                            
+                              <a class="tag" href="/tags/#后台启动限制" title="后台启动限制">后台启动限制</a>
+                            
+                              <a class="tag" href="/tags/#唤醒锁" title="唤醒锁">唤醒锁</a>
+                            
+                              <a class="tag" href="/tags/#端侧" title="端侧">端侧</a>
+                            
+                        </div>
+                        <h1>「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁</h1>
+                        <h2 class="subheading">从常驻识别到全屏 Intent 闭环，一份被国产 ROM 打回三次的实现记录</h2>
+                        <span class="meta">
+                            Posted by k2archer on
+                            2026-11-05
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">k2archer&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <blockquote>
+<p><strong>状态</strong>：v1 独立版（2026-11-05）· 与具体项目解耦，包名与类名做了泛化<br><strong>目标读者</strong>：已经跑通人脸识别、想让「看一眼就进桌面」真正可用的 Android 工程师<br><strong>环境</strong>：Android 14（targetSdk 34）· Funtouch 14.1 · iQOO Neo7 SE；Camera2 + MLKit + TFLite<br><strong>数字来源</strong>：全部是真机日志（<code>wm_*</code> 事件流、appops、应用侧 JSON 日志），不是估算</p>
+</blockquote>
+<hr>
+<h2><span id="tldr">TL;DR</span></h2><p>给一个常驻 App 加上「锁屏时认出人 → 点亮屏幕 → 解锁」，难点<strong>不在识别</strong>，而在后面那几段：</p>
+<ol>
+<li><strong>识别人脸</strong>和<strong>在锁屏上出现</strong>是两套完全不同的权限模型。锁屏可见只有一条标准路径：全屏 Intent 拉起一个带 <code>showWhenLocked</code> + <code>turnScreenOn</code> 的 Activity——这就是来电和闹钟的做法。</li>
+<li><strong>点亮屏幕</strong>和<strong>解除锁屏</strong>是两件事，且都必须发生在「已经显示在锁屏之上」的那个 Activity 里。熄屏状态下直接投递，Activity 会被系统以 <code>sleep</code> 暂停，配合 <code>android:noHistory</code> 直接销毁，用户只看到卡片闪 40ms。</li>
+<li><strong><code>notify()</code> 不抛异常，不代表用户看见了。</strong> 第一次真机测试里，应用日志写着「已展示」，而 Activity 从头到尾没被创建过——系统在 appops 层把全屏 Intent 拒了。修复方向不是继续写解锁代码，而是<strong>给投递加闭环</strong>。</li>
+<li>最后，这台 ROM 会在 Activity 创建后 <strong>约 4ms</strong> 主动 <code>finish</code> 它（<code>reason=app-request</code>），独立任务栈也规避不了。成熟形态是：<strong>展示交给系统级浮层，Activity 只负责解锁</strong>。</li>
+</ol>
+<a id="more"></a>
+
+<hr>
+<h2><span id="1-全景五段链路五套系统服务">1. 全景：五段链路，五套系统服务</span></h2><p>「看一眼就进桌面」不是一次 API 调用，是五段串联，每段归不同的系统服务管：</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>阶段</th>
+<th>谁负责</th>
+<th>失败时的表现</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>常驻识别</td>
+<td>前台服务（<code>camera</code> 类型）+ Camera2</td>
+<td>锁屏后相机被停，事件流断流</td>
+</tr>
+<tr>
+<td>2</td>
+<td>在场判定</td>
+<td>应用自己（去抖）</td>
+<td>咳嗽一声就被问候，或永远不触发</td>
+</tr>
+<tr>
+<td>3</td>
+<td>锁屏可见</td>
+<td>NotificationManager（全屏 Intent）</td>
+<td>只有一条通知，屏幕上什么都没有</td>
+</tr>
+<tr>
+<td>4</td>
+<td>点亮屏幕</td>
+<td>PowerManager &#x2F; WindowManager</td>
+<td>卡片在黑屏里渲染，用户看不见</td>
+</tr>
+<tr>
+<td>5</td>
+<td>解除锁屏</td>
+<td>KeyguardManager</td>
+<td>卡片在，但还在锁屏后，进不了桌面</td>
+</tr>
+</tbody></table>
+<p>一次完整的时间线：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">相机(3Hz) ─► 在场判定 ─► 策略 ─► 先点亮屏幕(若灭) ─► 投递 ─► 可见回调 ─► 解锁</span><br><span class="line">                                      │</span><br><span class="line">                                      └─ 轮询 isInteractive + 稳定 250ms</span><br></pre></td></tr></table></figure>
+
+<h2><span id="2-第一段让相机在锁屏时也在跑">2. 第一段：让相机在锁屏时也在跑</span></h2><h3><span id="21-前台服务三件套">2.1 前台服务三件套</span></h3><p>锁屏后普通后台进程会被冻结、相机句柄会被回收，唯一稳定的做法是<strong>带 <code>camera</code> 类型的前台服务</strong>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.FOREGROUND_SERVICE"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.FOREGROUND_SERVICE_CAMERA"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span> <span class="attr">android:name</span>=<span class="string">".presence.FaceService"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:foregroundServiceType</span>=<span class="string">"camera"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:exported</span>=<span class="string">"false"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Android 14 对 <code>camera</code> 类型的 FGS 加了一条很多人踩的规则：**不能裸调 <code>startForeground</code>**，必须在「eligible state」里启动——通常是 App 在前台，或由可见操作触发。在 <code>Service.onCreate()</code> 里直接调，在系统拉起或后台场景会抛 <code>SecurityException</code> 当场崩溃。所以要把前台化抽成可重入的守卫，在 <code>onStartCommand</code> 与「注册人脸」这类必然来自可见界面的入口里调：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">ensureCameraForeground</span><span class="params">()</span></span>: <span class="built_in">Boolean</span> = <span class="keyword">try</span> &#123;</span><br><span class="line">    startForeground(FGS_ID, buildNotification(), FOREGROUND_SERVICE_TYPE_CAMERA)</span><br><span class="line">    <span class="literal">true</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (t: Throwable) &#123;</span><br><span class="line">    Log.e(TAG, <span class="string">"camera FGS start failed"</span>, t)   <span class="comment">// 不崩，交给上层提示</span></span><br><span class="line">    <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3><span id="22-识别栈检测-特征-最近邻">2.2 识别栈：检测、特征、最近邻</span></h3><p>相机不需要预览。<code>Camera2 + ImageReader(YUV_420_888)</code> 就能拿到原始帧，不创建 <code>TextureView</code>&#x2F;<code>SurfaceView</code>，界面上什么都不出现——这是「常驻但无感」的前提。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Camera2 ImageReader (YUV_420_888) → 节流 300ms/帧</span><br><span class="line">  → MLKit FaceDetector（只要 boundingBox）</span><br><span class="line">  → 裁剪缩放 112×112</span><br><span class="line">  → MobileFaceNet (TFLite) → 192 维 embedding</span><br><span class="line">  → 与已注册 embedding 求 L2 最近邻</span><br><span class="line">  → SharedFlow&lt;FaceResult&gt;(Hit / Miss / NoFace)</span><br></pre></td></tr></table></figure>
+
+<p>两个容易忽略的成本细节：</p>
+<ul>
+<li><strong>MLKit 的 landmark &#x2F; contour &#x2F; classification 全关掉。</strong> 业务只读 <code>boundingBox</code>，轮廓点云却会显著抬高单帧耗时和临时对象分配。</li>
+<li><strong><code>CameraCharacteristics</code> 只取一次并缓存。</strong> 传感器方向、镜头朝向、帧率档一辈子不变，但每帧 <code>getCameraCharacteristics()</code> 等于一次 binder 调用外加约 17.8KB 的 metadata 分配与拷贝。常开服务连续跑几小时，这类调用会把进程的映射条目堆到内核上限。</li>
+</ul>
+<h3><span id="23-成本3hz-是省出来的">2.3 成本：3Hz 是省出来的</span></h3><p>常开相机最贵的不是推理，是<strong>帧本身</strong>。Camera2 每出一帧都会为 result metadata 分配约 16KB 原生缓冲，由 GC 延迟回收；30fps 常开时这是进程「映射条目」持续增长的主要来源之一。</p>
+<p>所以采集压到设备支持的最低固定帧率档（目标 10fps），处理侧再按 <code>intervalMs = 300</code> 节流，实际约 <strong>3Hz</strong>。代价是：<strong>你没有「出现」和「离开」事件，只有连续观测</strong>。这正是下一段要解决的事。</p>
+<hr>
+<h2><span id="3-第二段3hz-的连续流没有出现这回事">3. 第二段：3Hz 的连续流，没有「出现」这回事</span></h2><p>事件流长这样：每 300ms 一帧，<code>Hit</code>（认出了某人）、<code>Miss</code>（有脸但没匹配上）、<code>NoFace</code>（这帧没脸）。没有出现、没有离开、没有多人。语义全得自己做。</p>
+<h3><span id="31-去抖规则">3.1 去抖规则</span></h3><p>朴素的「看到脸就问候」在真机上坏得很惨：转头的瞬间、路过镜头的一帧、甚至一次误识别，都会触发全屏打扰。我的做法是一张很薄的时序状态机：</p>
+<table>
+<thead>
+<tr>
+<th>规则</th>
+<th>默认值</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>到场确认</td>
+<td>同一 <code>faceKey</code> 连续 ≥3 帧，首末跨度 ≥900ms</td>
+<td>抗单帧误识别，≈「站定一秒」</td>
+</tr>
+<tr>
+<td>置信度门槛</td>
+<td><code>1 - distance</code> ≥ 阈值</td>
+<td>挡「陌生人被认成最近邻」</td>
+</tr>
+<tr>
+<td>离开确认</td>
+<td>连续无人脸&#x2F;他脸 ≥5s</td>
+<td>抗转头、遮挡、低头</td>
+</tr>
+<tr>
+<td>重新到场</td>
+<td>离开 ≥10 分钟才算「回来」</td>
+<td>短时走开不重复问候</td>
+</tr>
+<tr>
+<td>冷启动</td>
+<td>第一张确认的脸只建基线</td>
+<td>不然一开机就问候主人</td>
+</tr>
+<tr>
+<td>多人</td>
+<td>3s 内出现 ≥2 个不同 <code>faceKey</code></td>
+<td>中性文案或跳过</td>
+</tr>
+</tbody></table>
+<p>它是个纯 Kotlin 类，不碰 Android API，所以能在 JVM 上直接跑时间序列单测：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">onObservation</span><span class="params">(obs: <span class="type">FaceObservation</span>)</span></span>: List&lt;PresenceEvent&gt; &#123;</span><br><span class="line">    <span class="keyword">val</span> key = obs.faceKey ?: <span class="keyword">return</span> handleNoFace(obs.timestampMs)</span><br><span class="line">    <span class="keyword">if</span> (presentKey == <span class="literal">null</span>) <span class="keyword">return</span> handleCandidate(key, obs.confidence, obs.timestampMs)</span><br><span class="line">    <span class="keyword">if</span> (presentKey == key) &#123; lastSeenAtMs = obs.timestampMs; <span class="keyword">return</span> emptyList() &#125;</span><br><span class="line">    <span class="comment">// 出现了另一张脸，上一个还没到离开窗口 → 多人</span></span><br><span class="line">    <span class="keyword">return</span> handleCandidate(key, obs.confidence, obs.timestampMs, forceMulti = <span class="literal">true</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>喂一串带时间戳的观测，断言只在第 N 帧后产出 <code>Arrived</code>——比真机复现便宜两个数量级。</p>
+<h3><span id="32-置信度门槛只能现场标定">3.2 置信度门槛只能现场标定</span></h3><p>最初设计写的是「置信度 <code>1 - distance</code> ≥ 0.75」，翻译过来是 L2 距离 ≤ 0.25。但本机引擎实测同一个人的距离在 <strong>0.77–1.43</strong> 之间波动——按 0.75 的门槛，问候<strong>永远不会触发</strong>。</p>
+<p>问题在于这个引擎<strong>没有匹配阈值</strong>：库里只要有人，它就返回最近的那个，哪怕来的是陌生人。所以距离门槛是挡住陌生人的唯一信号，且强依赖模型与光照，只能现场标定。最终默认值定成 <code>minConfidence = -0.5</code>（距离 ≤1.5，比实测最大值 1.427 留一点余量），并且<strong>不做 0..1 截断</strong>——一旦把 1.4 和 2.0 都压成 0，门槛就失去意义。</p>
+<blockquote>
+<p>教训：阈值类参数，方案里写的是先验，真机能跑通的是后验。部署前必须用真实陌生人样本复核。</p>
+</blockquote>
+<h3><span id="33-该不该打扰策略短路表">3.3 该不该打扰：策略短路表</span></h3><p>去抖只回答「有人来了」。要不要现在亮屏是另一层，用固定顺序短路，顺序本身就是产品语义：</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>条件</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>功能关闭</td>
+<td><code>Drop(DISABLED)</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>静默时段（默认 22:30–07:30）</td>
+<td><code>Drop(QUIET_HOURS)</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>人脸没绑定任何用户</td>
+<td><code>Drop(NO_IDENTITY)</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>多人且未开启多人问候</td>
+<td><code>Drop(MULTI_PRESENCE)</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>距该用户上次问候 &lt; 冷却时间</td>
+<td><code>Drop(COOLDOWN_USER)</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td>最近 1 小时问候次数达上限</td>
+<td><code>Drop(RATE_LIMIT)</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td>去重键命中</td>
+<td><code>Drop(DUPLICATE)</code></td>
+</tr>
+<tr>
+<td>8</td>
+<td>当前环境没有可用通道</td>
+<td><code>Drop(NO_CHANNEL)</code></td>
+</tr>
+<tr>
+<td>—</td>
+<td>其余</td>
+<td><code>Show(route)</code></td>
+</tr>
+</tbody></table>
+<p>一个反直觉但重要的取舍：**<code>decide()</code> 返回 <code>Show</code> 的瞬间就记账**（冷却、频率、去重全落账），哪怕随后展示失败也不重试。</p>
+<p>因为 OEM 拦截往往不是偶发的：如果失败就回滚记账，人脸流每 300ms 一帧，会立刻形成「决策→失败→回滚→再决策」的重试风暴。宁可一次失败、等下一轮到场。</p>
+<hr>
+<h2><span id="4-第三段锁屏可见只有一条路是标准做法">4. 第三段：锁屏可见——只有一条路是标准做法</span></h2><h3><span id="41-五种手段对比">4.1 五种手段对比</span></h3><table>
+<thead>
+<tr>
+<th>手段</th>
+<th>点亮屏幕</th>
+<th>覆盖锁屏</th>
+<th>后台可用</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>直接 <code>startActivity</code></td>
+<td>靠 <code>turnScreenOn</code></td>
+<td>可以</td>
+<td><strong>不行</strong>：Android 10+ 后台启动限制</td>
+<td>仅前台场景补充</td>
+</tr>
+<tr>
+<td>唤醒锁 + 已有 Activity</td>
+<td>可以</td>
+<td>需临时 <code>showWhenLocked</code></td>
+<td>可以</td>
+<td>兜底</td>
+</tr>
+<tr>
+<td><strong>全屏 Intent → Activity</strong></td>
+<td>系统点亮</td>
+<td><code>showWhenLocked</code></td>
+<td>系统代发，不受 BAL 限制</td>
+<td><strong>主路径</strong></td>
+</tr>
+<tr>
+<td>高优先级通知（heads-up）</td>
+<td>通常不点屏</td>
+<td>只是通知条</td>
+<td>可以</td>
+<td>不采用</td>
+</tr>
+<tr>
+<td><code>SYSTEM_ALERT_WINDOW</code> 悬浮窗</td>
+<td>需配合唤醒锁</td>
+<td>因 ROM 而异</td>
+<td>可（豁免 BAL）</td>
+<td>兜底 &#x2F; 最终形态</td>
+</tr>
+</tbody></table>
+<p>一句话：<strong>全屏 Intent 是系统替你把 Activity 放到锁屏之上并点亮屏幕</strong>，这正是闹钟和来电的机制。其他做法都在跟后台启动限制（BAL）和 OEM 自启动管理搏斗。</p>
+<h3><span id="42-manifest">4.2 Manifest</span></h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.USE_FULL_SCREEN_INTENT"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">".presence.PresenceActivity"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:exported</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:excludeFromRecents</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:launchMode</span>=<span class="string">"singleTop"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:showWhenLocked</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:turnScreenOn</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:taskAffinity</span>=<span class="string">"com.example.presence.card"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:theme</span>=<span class="string">"@style/Theme.Presence.Card"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>两个属性是踩坑后加的：</p>
+<ul>
+<li><strong><code>taskAffinity</code> 独立</strong>：与主界面共用任务栈时，解锁转场（<code>keyguardGoingAway</code>）会把主界面顶回前台，问候页被 pause → destroy，表现是「卡片闪一下」。</li>
+<li>**不要加 <code>noHistory</code>**：熄屏拉起时 Activity 会被系统以 <code>sleep</code> 暂停，<code>noHistory</code> 立刻销毁它——同样的「闪一下」，但原因完全不同。这两个坑我是分开踩的，排查耗了一整晚。</li>
+</ul>
+<p>主题要透明且禁用预览窗口，否则锁屏上会先闪一个白底：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"Theme.Presence.Card"</span> <span class="attr">parent</span>=<span class="string">"Theme.MaterialComponents.DayNight.NoActionBar"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowIsTranslucent"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowBackground"</span>&gt;</span>@android:color/transparent<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowDisablePreview"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:backgroundDimEnabled"</span>&gt;</span>false<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3><span id="43-通知只是载体但载体有硬性要求">4.3 通知只是载体，但载体有硬性要求</span></h3><p>全屏 Intent 必须挂在一条 notification 上，而载体不合格，全屏也不会触发：</p>
+<ul>
+<li>channel 必须 <code>IMPORTANCE_HIGH</code>，低重要级不会触发全屏 Intent；</li>
+<li><code>setFullScreenIntent(pi, highPriority = true)</code> 的布尔参数是「高优先级」，<strong>不是</strong>「仅锁屏时全屏」。锁屏时系统直接拉起 Activity，亮屏时系统自行决定退化成 heads-up——这个行为由系统控制，应用管不了；</li>
+<li>PendingIntent 只加 <code>FLAG_ACTIVITY_NEW_TASK</code>。加 <code>CLEAR_TOP</code> 在独立任务栈下会制造「创建即结束&#x2F;重启」竞态，实测纯负收益。</li>
+</ul>
+<h3><span id="44-android-14-改了权限模型">4.4 Android 14 改了权限模型</span></h3><ul>
+<li><strong>Android 12&#x2F;13</strong>：<code>USE_FULL_SCREEN_INTENT</code> 安装即授予；</li>
+<li><strong>Android 14 起</strong>：只有以通话&#x2F;闹钟为核心功能的应用默认获得。其他应用 <code>canUseFullScreenIntent()</code> 返回 <code>false</code>，全屏 Intent 降级成 heads-up，<strong>不点亮屏幕</strong>；</li>
+<li>用户可手动开启：<code>Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT</code>（带 <code>package:</code> Uri）。部分 ROM 裁剪了该页，要回落到应用详情页。</li>
+</ul>
+<p>但<strong>这个 API 不可信</strong>——见 §7.1，真机上它返回 <code>true</code>，系统投递时照样拒绝。所以它只能当提示，不能当路由依据。</p>
+<hr>
+<h2><span id="5-第四段亮屏不是加个-flag">5. 第四段：亮屏——不是加个 flag</span></h2><h3><span id="51-两条点亮路径">5.1 两条点亮路径</span></h3><table>
+<thead>
+<tr>
+<th>路径</th>
+<th>实现</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Activity 自点亮</td>
+<td><code>setTurnScreenOn(true)</code></td>
+<td>由全屏 Intent &#x2F; SAW 直启拉起时，系统侧点亮</td>
+</tr>
+<tr>
+<td>主动点亮</td>
+<td><code>SCREEN_BRIGHT_WAKE_LOCK or ACQUIRE_CAUSES_WAKEUP</code></td>
+<td>需要自己控制时机（如先点亮再投递）</td>
+</tr>
+</tbody></table>
+<p>第二条是关键细节：<code>ACQUIRE_CAUSES_WAKEUP</code> 才是让屏幕亮起来的部分，<code>SCREEN_BRIGHT_WAKE_LOCK</code> 只保证「亮着的时候别暗」。务必 <code>setReferenceCounted(false)</code>——即使某条异常路径漏了 <code>release()</code>，超时后系统也会自动收回。</p>
+<h3><span id="52-那个卡片闪-40ms的坑">5.2 那个「卡片闪 40ms」的坑</span></h3><p>这是我在这件事上花时间最多的地方。现象：锁屏下识别到人，屏幕亮了，卡片出现，然后 <strong>几十毫秒内消失</strong>，设备停在锁屏上。</p>
+<p>第一版以为是 <code>onStop</code> 里的 <code>finish()</code>，删掉，没用。第二版以为是 <code>noHistory</code>，删掉，49ms → 68ms，还是没用。第三版以为是任务栈，加独立 <code>taskAffinity</code>，53ms，<strong>依然没用</strong>。</p>
+<p>真正的原因在事件日志里：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wm_create_activity        PresenceActivity</span><br><span class="line">+4ms  wm_finish_activity  reason=app-request</span><br><span class="line">      wm_focused_root_task ... finish-top</span><br><span class="line">      wm_task_removed</span><br></pre></td></tr></table></figure>
+
+<p>Activity 记录刚创建，ROM 就以 <code>app-request</code> 的理由主动结束了它，客户端稍后跑的 <code>onCreate/onResume</code> 是一个<strong>已经被判死刑的实例</strong>。</p>
+<p>但在这之前还有个更基础的问题被它掩盖了：<strong>熄屏状态下投递</strong>。系统会在 Activity 创建后立刻用 <code>sleep</code> 暂停它（<code>wm_pause_activity ... sleep</code>），此时任何「stop 即销毁」的配置都会让卡片秒没。</p>
+<p>所以修复的第一步不是改生命周期，而是<strong>先点亮屏幕，等系统真的进入交互状态，再投递</strong>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> suspend <span class="function"><span class="keyword">fun</span> <span class="title">ensureScreenOn</span><span class="params">(holdMs: <span class="type">Long</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (waker.isScreenInteractive()) <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> (!waker.wakeFor(holdMs)) logger.error(<span class="string">"screen wake failed"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> deadline = System.currentTimeMillis() + <span class="number">800</span>L</span><br><span class="line">    <span class="keyword">while</span> (!waker.isScreenInteractive() &amp;&amp; System.currentTimeMillis() &lt; deadline) &#123;</span><br><span class="line">        delay(<span class="number">50</span>L)</span><br><span class="line">    &#125;</span><br><span class="line">    delay(<span class="number">250</span>L)   <span class="comment">// 让窗口系统稳定，降低被 sleep 抢在创建之前的概率</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>三个数字都是真机调的：显示电源上电通常 &lt;500ms，所以 800ms 足够；再等 250ms 让窗口系统稳定。</p>
+<h3><span id="53-唤醒锁的释放交给定时器">5.3 唤醒锁的释放交给定时器</span></h3><p>如果唤醒锁跟着 Activity 的 <code>onDestroy</code> 释放，而 Activity 恰好被 ROM 提前杀掉，屏幕就会在卡片淡出过程中黑掉。所以「谁申请、谁定时释放」，与 Activity 生命周期解耦：申请时带 <code>卡片时长 + 1s</code> 的余量，用协程定时释放。</p>
+<h3><span id="54-亮屏是不可逆的">5.4 亮屏是不可逆的</span></h3><p>普通应用没有 <code>DEVICE_POWER</code> 权限，<strong>无法主动熄屏</strong>。能做的只有：只申请有限期唤醒锁；卡片结束时移除 <code>FLAG_KEEP_SCREEN_ON</code>；接受「屏幕会亮到系统息屏超时」这个现实。</p>
+<p>这点在需求评审时就该讲明白，否则产品会以为你能「亮 3.5 秒然后自己黑掉」。</p>
+<hr>
+<h2><span id="6-第五段解锁语义比-api-重要">6. 第五段：解锁——语义比 API 重要</span></h2><h3><span id="61-requestdismisskeyguard-的三个前置条件">6.1 <code>requestDismissKeyguard</code> 的三个前置条件</span></h3><p>它是唯一「正规」的解锁入口，但有三个容易漏的前提：</p>
+<ol>
+<li><strong>必须在 Activity 里调用</strong>，且该 Activity 已 <code>setShowWhenLocked(true)</code>；</li>
+<li>它<strong>不会</strong>绕过安全锁屏。设备有 PIN&#x2F;密码时，它会弹出系统凭据界面，盖住卡片；</li>
+<li>它是<strong>异步</strong>的，结果走 <code>KeyguardDismissCallback</code> 的三个回调。</li>
+</ol>
+<p>第三条意味着「调用了」不等于「解锁了」，必须等回调。</p>
+<h3><span id="62-按有没有屏幕锁分叉">6.2 按「有没有屏幕锁」分叉</span></h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">dismissKeyguardIfNeeded</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (keyguardDismissed || isFinishing || isDestroyed) <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">val</span> manager = keyguardManager ?: <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 有安全锁：只覆盖锁屏，绝不代用户验证</span></span><br><span class="line">    <span class="keyword">if</span> (manager.isDeviceSecure) &#123; log.keyguard(<span class="string">"skipped_secure"</span>); <span class="keyword">return</span> &#125;</span><br><span class="line">    <span class="keyword">if</span> (!manager.isKeyguardLocked || keyguardDismissRequested) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    keyguardDismissRequested = <span class="literal">true</span></span><br><span class="line">    manager.requestDismissKeyguard(<span class="keyword">this</span>, <span class="keyword">object</span> : KeyguardManager.KeyguardDismissCallback() &#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDismissSucceeded</span><span class="params">()</span></span> &#123; keyguardDismissed = <span class="literal">true</span>; log.keyguard(<span class="string">"dismissed"</span>) &#125;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDismissCancelled</span><span class="params">()</span></span> &#123; retryKeyguardOnce() &#125;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDismissError</span><span class="params">()</span></span>     &#123; retryKeyguardOnce() &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>设备形态</th>
+<th>行为</th>
+<th>用户看到</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>无屏幕锁（滑动锁）</td>
+<td>自动解除，直接进桌面</td>
+<td>卡片 → 桌面</td>
+</tr>
+<tr>
+<td>有屏幕锁</td>
+<td>不请求解除，只覆盖显示</td>
+<td>卡片盖在锁屏上，仍需自行验证</td>
+</tr>
+<tr>
+<td>请求失败&#x2F;取消</td>
+<td>补试 1 次，仍失败则记录</td>
+<td>卡片结束，回到锁屏</td>
+</tr>
+</tbody></table>
+<p>「补试 1 次」是刻意的：解锁转场期间系统会短暂切换前台，第一次请求有概率被取消；但无限重试会变成「每 300ms 弹一次凭据界面」。</p>
+<h3><span id="63-不要用的东西">6.3 不要用的东西</span></h3><p><code>disableKeyguard()</code>（API 13 起废弃、对安全锁无效）、<code>FLAG_DISMISS_KEYGUARD</code>（同上）、<code>DevicePolicyManager</code>（只有设备所有者&#x2F;管理员可用）、任何「模拟输入密码」的路子（商店政策与用户信任都不允许）。</p>
+<p><strong>边界要写进文档：普通应用能自动解开的，只有「本来就没锁」的设备。</strong> 这句说清楚，后面所有预期都对得齐。</p>
+<hr>
+<h2><span id="7-闭环把投递成功换成已经看见">7. 闭环：把「投递成功」换成「已经看见」</span></h2><h3><span id="71-一次假阳性">7.1 一次假阳性</span></h3><p>第一版真机测试：熄屏时认出人，<strong>只弹了一条通知，屏幕没亮，也没解锁</strong>。但应用日志写的是：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"event"</span>:<span class="string">"decision"</span>,<span class="attr">"route"</span>:<span class="string">"FULL_SCREEN"</span>,<span class="attr">"screenOn"</span>:<span class="literal">false</span>,<span class="attr">"keyguard"</span>:<span class="literal">true</span>,<span class="attr">"fsi"</span>:<span class="literal">true</span>&#125;</span><br><span class="line">&#123;"event":"shown","via":"activity"&#125;          ← 假阳性</span><br></pre></td></tr></table></figure>
+
+<p>翻系统侧证据，时间线是：</p>
+<table>
+<thead>
+<tr>
+<th>时刻</th>
+<th>事实</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>09:40:18.840</td>
+<td><code>decision route=FULL_SCREEN screenOn=false keyguard=true</code></td>
+<td>应用日志</td>
+</tr>
+<tr>
+<td>09:40:18.848</td>
+<td>appops <code>USE_FULL_SCREEN_INTENT</code> 记 **<code>Reject</code>**（mode&#x3D;<code>default</code>）</td>
+<td><code>dumpsys appops</code></td>
+</tr>
+<tr>
+<td>09:40:18.849</td>
+<td>应用记 <code>shown via activity</code></td>
+<td>应用日志</td>
+</tr>
+<tr>
+<td>09:40:19.119</td>
+<td>SystemUI 收到 <code>sysui_fullscreen_notification</code></td>
+<td><code>logcat -b events</code></td>
+</tr>
+<tr>
+<td>09:40:29.113</td>
+<td>通知因 <code>setTimeoutAfter(10s)</code> 消失</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>09:41:45.764</td>
+<td>屏幕才亮——用户手动点的</td>
+<td><code>power_screen_state</code></td>
+</tr>
+<tr>
+<td>全量</td>
+<td><code>finished</code> <strong>0 条</strong>；events 里<strong>没有任何</strong> <code>wm_create_activity</code></td>
+<td>同上</td>
+</tr>
+</tbody></table>
+<p><strong>API 说受支持，系统在 appops 层拒了</strong>，全屏 Intent 降级成普通通知。<code>notify()</code> 不抛异常，应用以为成功了。这还制造了一个死结：原来的路由只在 <code>fsi == false</code> 时才考虑兜底，而 API 恒返回 <code>true</code>，兜底永远走不到。</p>
+<h3><span id="72-读出系统真正的判定">7.2 读出系统真正的判定</span></h3><p>除了 <code>canUseFullScreenIntent()</code>，还要读自己这条 appop 的真实模式。op 字符串是 <code>android:use_full_screen_intent</code>（<code>AppOpsManager</code> 没公开常量）：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">fsiAppOpMode</span><span class="params">()</span></span>: <span class="built_in">Int</span>? = <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.Q) &#123;</span><br><span class="line">        appOps.unsafeCheckOpNoThrow(<span class="string">"android:use_full_screen_intent"</span>, Process.myUid(), packageName)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="meta">@Suppress(<span class="meta-string">"DEPRECATION"</span>)</span></span><br><span class="line">        appOps.checkOpNoThrow(<span class="string">"android:use_full_screen_intent"</span>, Process.myUid(), packageName)</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (t: Throwable) &#123; <span class="literal">null</span> &#125;   <span class="comment">// ROM 裁剪了这个 op，读不到不影响主流程</span></span><br></pre></td></tr></table></figure>
+
+<p>把两者一起写进日志，状态行就变成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">greet=on fsi=y/appop=default overlay=n screen=off keyguard=locked last=show:full_screen→failed</span><br></pre></td></tr></table></figure>
+
+<p><code>fsi=y/appop=default</code> 是最有用的诊断信号：<strong>API 说能用，系统说没批</strong>。</p>
+<h3><span id="73-等一个可见回调">7.3 等一个可见回调</span></h3><p>真正的修复是把「投递」和「可见」拆开。投递接口返回结果对象，而不是布尔；Activity 的 <code>onResume</code> 或浮层 <code>addView</code> 成功时完成一个 <code>CompletableDeferred</code>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Notifier</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">post</span><span class="params">(text: <span class="type">String</span>, durationMs: <span class="type">Long</span>, withFsi: <span class="type">Boolean</span>)</span></span>: PostOutcome</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">cancel</span><span class="params">()</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">PostOutcome</span></span>(<span class="keyword">val</span> posted: <span class="built_in">Boolean</span>, <span class="keyword">val</span> appOpMode: <span class="built_in">Int</span>?)</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> suspend <span class="function"><span class="keyword">fun</span> <span class="title">awaitVisible</span><span class="params">(waiter: <span class="type">CompletableDeferred</span>&lt;<span class="type">Unit</span>&gt;)</span></span>: <span class="built_in">Boolean</span> =</span><br><span class="line">    withTimeoutOrNull(ACK_TIMEOUT_MS) &#123; waiter.await() &#125; != <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+
+<p>超时值定 <strong>2000ms</strong>，也是真机调的：最初写 1200ms，结果全屏 Intent 冷启动实测要 1.3s，成功被误判成失败，白白触发降级。这类超时值一定要留出「冷启动 + 低端机」的余量。</p>
+<h3><span id="74-降级阶梯">7.4 降级阶梯</span></h3><p>有了可见性判定，降级才有意义。最终四级，<strong>每级只尝试一次，绝不回退</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">① 全屏 Intent ──posted──► awaitVisible(≤2000ms)</span><br><span class="line">     ├─ 可见 → 结束</span><br><span class="line">     └─ 超时 → 标记 fsiBroken（进程内）→ ②</span><br><span class="line">② SAW 豁免后台启动 → startActivity ── 可见 → 结束；否则 ③</span><br><span class="line">③ 唤醒锁 + 应用内浮层（宿主仍存活）</span><br><span class="line">④ 仅通知（显式标记 degraded）</span><br></pre></td></tr></table></figure>
+
+<p>几个要点：<code>fsiBroken</code> 只缓存在进程内，重启后重探一次（一次偶发失败不该永久废掉主通道）；第 ② 级依赖 <code>Settings.canDrawOverlays()</code>，这里只用来<strong>豁免后台启动限制</strong>，不渲染常驻悬浮窗；降级前先 <code>cancel()</code> 掉载体通知，否则「通知 + 卡片」双显。</p>
+<h3><span id="75-日志契约">7.5 日志契约</span></h3><p>可观测性不是「多打点日志」，而是<strong>事件契约</strong>。七类事件，单行 JSON：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"event"</span>:<span class="string">"arrived"</span>,<span class="attr">"face"</span>:<span class="string">"船***"</span>,<span class="attr">"userId"</span>:<span class="string">"u-123"</span>,<span class="attr">"awayMs"</span>:<span class="number">1260000</span>,<span class="attr">"conf"</span>:<span class="number">0.91</span>&#125;</span><br><span class="line">&#123;<span class="attr">"event"</span>:<span class="string">"decision"</span>,<span class="attr">"route"</span>:<span class="string">"FULL_SCREEN"</span>,<span class="attr">"screenOn"</span>:<span class="literal">false</span>,<span class="attr">"keyguard"</span>:<span class="literal">true</span>,<span class="attr">"fsiApi"</span>:<span class="literal">true</span>,<span class="attr">"fsiBroken"</span>:<span class="literal">false</span>,<span class="attr">"overlay"</span>:<span class="literal">false</span>,<span class="attr">"hostVisible"</span>:<span class="literal">false</span>&#125;</span><br><span class="line">&#123;<span class="attr">"event"</span>:<span class="string">"posted"</span>,<span class="attr">"via"</span>:<span class="string">"full_screen"</span>,<span class="attr">"appOp"</span>:<span class="number">0</span>,<span class="attr">"ms"</span>:<span class="number">367</span>&#125;</span><br><span class="line">&#123;<span class="attr">"event"</span>:<span class="string">"visible"</span>,<span class="attr">"via"</span>:<span class="string">"full_screen"</span>,<span class="attr">"text"</span>:<span class="string">"回来啦，船长"</span>,<span class="attr">"ms"</span>:<span class="number">746</span>&#125;</span><br><span class="line">&#123;<span class="attr">"event"</span>:<span class="string">"keyguard"</span>,<span class="attr">"action"</span>:<span class="string">"dismissed"</span>,<span class="attr">"secure"</span>:<span class="literal">false</span>&#125;</span><br><span class="line">&#123;<span class="attr">"event"</span>:<span class="string">"finished"</span>,<span class="attr">"userDismissed"</span>:<span class="literal">false</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>posted</code> 只表示「通知已入队」，<strong>不代表任何可见性</strong>；</li>
+<li><code>visible</code> 才是成功信号，带 <code>via</code> 与延迟；</li>
+<li><code>delivery_failed</code> 带 <code>stage</code> &#x2F; <code>reason</code> &#x2F; <code>elapsedMs</code>，能直接定位哪一级挂了；</li>
+<li>人脸标签脱敏（首字 + <code>***</code>），设备上不落图像。</li>
+</ul>
+<p>这套契约的价值是把「感觉不太灵」变成可查的数字：比如「卡片停留多久」，用 <code>finished - visible</code> 一减就知道，不必猜。</p>
+<hr>
+<h2><span id="8-没解决的那部分">8. 没解决的那部分</span></h2><p>写技术文章容易只写成功路径，但这件事真正值得记的是失败，以及为什么它还没解。</p>
+<p>现象：<code>visible</code> 之后 49–68ms 卡片消失，事件日志显示 <code>wm_create_activity</code> 后 <strong>4ms</strong> 就是 <code>wm_finish_activity reason=app-request</code>，紧接着 <code>wm_focused_root_task ... finish-top</code>、<code>wm_task_removed</code>。客户端的 <code>onCreate/onResume</code> 甚至在记录销毁<strong>之后</strong>才跑（<code>TransactionExecutor: Skip pre-destroyed transaction</code>）。所以「上报可见」是成功的，卡片也确实渲染了——只是几十毫秒后就被抹掉。</p>
+<p>已排除的假设：</p>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th>验证结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>noHistory</code> 导致 stop 即销毁</td>
+<td>已移除，无效</td>
+</tr>
+<tr>
+<td><code>onStop</code> 主动 <code>finish()</code></td>
+<td>已移除，无效</td>
+</tr>
+<tr>
+<td>与主界面共用任务栈</td>
+<td>改独立 <code>taskAffinity</code>，无效</td>
+</tr>
+<tr>
+<td><code>FLAG_ACTIVITY_CLEAR_TOP</code> 竞态</td>
+<td>去掉，无效</td>
+</tr>
+<tr>
+<td>熄屏 <code>sleep</code> 暂停</td>
+<td>先亮屏已生效（pause 消失），仍被 finish</td>
+</tr>
+</tbody></table>
+<p>也就是说，这不是应用侧的配置问题，而是 ROM 的「顶层任务不可聚焦就 finish-top」策略。vivo 系还有独立的「后台弹出界面 &#x2F; 应用启动管理」开关，很可能是同一拦截器的另一面。</p>
+<p>如果 Activity 通道就是救不回来，架构上要退一步：</p>
+<blockquote>
+<p><strong>展示交给 <code>SYSTEM_ALERT_WINDOW</code> 系统级浮层</strong>（不受 Activity 生命周期影响，权限已授予），<br><strong>Activity 只做透明解锁</strong>（它唯一不可替代的能力就是 <code>requestDismissKeyguard</code>）。</p>
+</blockquote>
+<p>代价是两部分要分别做可见性回报；收益是「卡片停留时长」终于可控。</p>
+<p>拆分之前我加了一个兜底：<strong>载体通知延迟 800ms 再取消，且 <code>onDestroy</code> 时移除该回调</strong>。卡片被提前销毁时，通知会留到 10s 超时，用户至少还能在通知栏看到那句问候。原则是：<strong>当一条通道不可靠时，别把体验全押在它身上。</strong></p>
+<hr>
+<h2><span id="9-结构性冲突系统人脸解锁-vs-常开相机">9. 结构性冲突：系统人脸解锁 vs 常开相机</span></h2><p>还有一件和代码无关、但一定会撞上的事：<strong>前置相机只有一颗。</strong></p>
+<ul>
+<li>系统的「人脸解锁」需要在前置相机上跑；</li>
+<li>你的常驻识别服务长期占用同一颗相机（<code>dumpsys media.camera</code> 里本进程一直是 active client）；</li>
+<li>结果是系统 facelock 拿不到相机，<code>lockscreen.options=enable_facelock</code> 开着也解不了锁。</li>
+</ul>
+<p>这不是 bug，是硬件资源冲突。可选的路只有三条：</p>
+<ol>
+<li><strong>自己做识别 + 自己做解锁</strong>：让出相机给系统，改用系统回调（但有锁设备仍需验证）；</li>
+<li><strong>把相机让给系统</strong>：放弃常驻识别，只在亮屏时识别；</li>
+<li><strong>分时复用</strong>：亮屏&#x2F;锁屏切换时主动释放相机（复杂，切换有几百毫秒延迟）。</li>
+</ol>
+<p>结论：<strong>别两边都要。</strong> 要么你是「识别的主人」，要么你是「系统解锁的旁观者」。硬要并存，用户看到的就是「它有时候认得出我，有时候认不出」。</p>
+<hr>
+<h2><span id="10-三种档位按投入选">10. 三种档位，按投入选</span></h2><table>
+<thead>
+<tr>
+<th>档位</th>
+<th>做法</th>
+<th>能做到</th>
+<th>做不到</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>最小</td>
+<td>通知 + 全屏 Intent + <code>showWhenLocked</code></td>
+<td>锁屏出现卡片、点亮屏幕</td>
+<td>自动解锁</td>
+</tr>
+<tr>
+<td>中等</td>
+<td>上面 + <code>requestDismissKeyguard</code>（仅 <code>secure=false</code>）</td>
+<td>无锁设备直接进桌面</td>
+<td>有锁设备仍需验证</td>
+</tr>
+<tr>
+<td>完整</td>
+<td>上面 + 可见回调闭环 + 降级阶梯 + 自定义识别</td>
+<td>各 ROM 尽量可用、可诊断</td>
+<td>仍受 ROM 的 Activity 策略影响</td>
+</tr>
+</tbody></table>
+<p>第一次做建议直接从「中等」开始，但<strong>一定要把闭环（§7.3）一起做</strong>。没有闭环，你在真机上根本分不清「没生效」和「生效了但你没看见」。</p>
+<hr>
+<h2><span id="11-验收清单">11. 验收清单</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1) 锁屏形态：secure=false 才可能自动解锁</span></span><br><span class="line">adb shell dumpsys window policy | grep -A12 KeyguardServiceDelegate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2) 全屏 Intent / 悬浮窗的真实授权状态</span></span><br><span class="line">adb shell appops get com.example.app USE_FULL_SCREEN_INTENT</span><br><span class="line">adb shell appops get com.example.app SYSTEM_ALERT_WINDOW</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3) 相机是否被本进程独占</span></span><br><span class="line">adb shell dumpsys media.camera | grep -A2 <span class="string">"Active Camera Clients"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4) 生命周期事件（关键证据都在这）</span></span><br><span class="line">adb logcat -b events -d | grep -E <span class="string">"wm_create_activity|wm_finish_activity|wm_pause_activity|sysui_fullscreen"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 5) 应用侧事件</span></span><br><span class="line">adb shell <span class="string">"tail -20 /sdcard/Android/data/com.example.app/files/logs/presence.log"</span></span><br></pre></td></tr></table></figure>
+
+<p>一次成功链路长这样（无锁设备）：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"event"</span>:<span class="string">"decision"</span>,<span class="attr">"route"</span>:<span class="string">"FULL_SCREEN"</span>,<span class="attr">"screenOn"</span>:<span class="literal">false</span>,<span class="attr">"keyguard"</span>:<span class="literal">true</span>,<span class="attr">"fsi"</span>:<span class="literal">true</span>&#125;</span><br><span class="line">&#123;<span class="attr">"event"</span>:<span class="string">"posted"</span>,<span class="attr">"via"</span>:<span class="string">"full_screen"</span>,<span class="attr">"appOp"</span>:<span class="number">0</span>,<span class="attr">"ms"</span>:<span class="number">367</span>&#125;</span><br><span class="line">&#123;<span class="attr">"event"</span>:<span class="string">"visible"</span>,<span class="attr">"via"</span>:<span class="string">"full_screen"</span>,<span class="attr">"ms"</span>:<span class="number">746</span>&#125;</span><br><span class="line">&#123;<span class="attr">"event"</span>:<span class="string">"keyguard"</span>,<span class="attr">"action"</span>:<span class="string">"dismissed"</span>,<span class="attr">"secure"</span>:<span class="literal">false</span>&#125;</span><br><span class="line">&#123;<span class="attr">"event"</span>:<span class="string">"finished"</span>,<span class="attr">"userDismissed"</span>:<span class="literal">false</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>判断标准不是「看到了卡片」，而是这五条<strong>同时</strong>成立：</p>
+<ol>
+<li><code>appops</code> 是 <code>allow</code>，不是 <code>default</code>；</li>
+<li><code>visible</code> 在 <code>posted</code> 之后 2000ms 内出现；</li>
+<li><code>keyguard=dismissed</code>，且设备真的进了桌面；</li>
+<li><code>finished - visible ≈ 3500ms</code>（卡片真的停留了）；</li>
+<li><code>wm_finish_activity</code> 的 <code>reason</code> 不是你自己的代码。</li>
+</ol>
+<p>第 5 条就是我卡住的地方——前四条全绿，第五条永远指向 <code>app-request</code>。</p>
+<hr>
+<h2><span id="12-一句话总结">12. 一句话总结</span></h2><p><strong>人脸识别解决的是「知道是谁」，而「看一眼就进桌面」真正难的是权限、时序和确认：</strong></p>
+<ul>
+<li>锁屏可见只能靠全屏 Intent，它由系统代发，绕过后台启动限制；</li>
+<li>点亮屏幕要先于投递，否则 Activity 会被 <code>sleep</code> 抢在创建之前；</li>
+<li>解锁只在「本来就没锁」的设备上成立，有锁就必须让用户自己验证；</li>
+<li>而所有这一切的前提，是你<strong>能证明它真的发生了</strong>——<code>notify()</code> 成功不算，Activity 创建不算，只有「用户看得见」的那一帧才算。</li>
+</ul>
+<hr>
+<h3><span id="附本文涉及的关键常量">附：本文涉及的关键常量</span></h3><table>
+<thead>
+<tr>
+<th>常量</th>
+<th>值</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>采集处理间隔</td>
+<td>300ms（≈3Hz）</td>
+<td>业务足够；帧 metadata 的隐性成本</td>
+</tr>
+<tr>
+<td>相机目标帧率</td>
+<td>10fps</td>
+<td>设备支持的最低固定档</td>
+</tr>
+<tr>
+<td>到场确认</td>
+<td>3 帧 &#x2F; 跨度 ≥900ms</td>
+<td>抗单帧误识别</td>
+</tr>
+<tr>
+<td>离开确认</td>
+<td>5s</td>
+<td>抗转头、遮挡</td>
+</tr>
+<tr>
+<td>重新到场</td>
+<td>10min</td>
+<td>短时走开不重复问候</td>
+</tr>
+<tr>
+<td>置信度门槛</td>
+<td><code>1 - distance ≥ -0.5</code></td>
+<td>本机同类 L2 距离 0.77–1.43 实测</td>
+</tr>
+<tr>
+<td>可见 ack 超时</td>
+<td>2000ms</td>
+<td>全屏 Intent 冷启动实测约 1.3s</td>
+</tr>
+<tr>
+<td>等待 <code>isInteractive</code></td>
+<td>≤800ms，轮询 50ms</td>
+<td>显示电源上电通常 &lt;500ms</td>
+</tr>
+<tr>
+<td>亮屏后稳定等待</td>
+<td>250ms</td>
+<td>避开 <code>sleep</code> pause 竞态</td>
+</tr>
+<tr>
+<td>卡片时长</td>
+<td>3500ms</td>
+<td>产品定义；可 2.5–5s</td>
+</tr>
+<tr>
+<td>载体通知超时</td>
+<td>10s（取消延迟 800ms）</td>
+<td>卡片被提前销毁时的兜底</td>
+</tr>
+<tr>
+<td>唤醒锁余量</td>
+<td>卡片时长 + 1s</td>
+<td>避免淡出时黑屏</td>
+</tr>
+</tbody></table>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2026/11/04/Voice/speech-barge-in-probe-turn/" data-toggle="tooltip" data-placement="top" title="端侧语音助手的「打断」为什么这么难：一次 probe-turn 晋升的完整设计">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                          <a class="tag" href="/tags/#人脸识别" title="人脸识别">人脸识别</a>
+                        
+                          <a class="tag" href="/tags/#锁屏" title="锁屏">锁屏</a>
+                        
+                          <a class="tag" href="/tags/#全屏 Intent" title="全屏 Intent">全屏 Intent</a>
+                        
+                          <a class="tag" href="/tags/#KeyguardManager" title="KeyguardManager">KeyguardManager</a>
+                        
+                          <a class="tag" href="/tags/#前台服务" title="前台服务">前台服务</a>
+                        
+                          <a class="tag" href="/tags/#Camera2" title="Camera2">Camera2</a>
+                        
+                          <a class="tag" href="/tags/#后台启动限制" title="后台启动限制">后台启动限制</a>
+                        
+                          <a class="tag" href="/tags/#唤醒锁" title="唤醒锁">唤醒锁</a>
+                        
+                          <a class="tag" href="/tags/#端侧" title="端侧">端侧</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://k2archer.github.io" target="_blank">k2archer&#39;s Blog</a></li>
+                    
+                        <li><a href="https://github.com/k2archer" target="_blank">k2archer&#39;s GitHub</a></li>
+                    
+                        <li><a href="https://leetcode.com/k2archer" target="_blank">k2archer&#39;s Leetcode</a></li>
+                    
+                        <li><a href="https://segmentfault.com/u/k2archer" target="_blank">SegmentFault</a></li>
+                    
+                        <li><a href="https://hexo.io/zh-cn" target="_blank">Hexo</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://k2archer.github.io/2026/11/05/Android/android-lockscreen-face-unlock/";
+    var disqus_url = "https://k2archer.github.io/2026/11/05/Android/android-lockscreen-face-unlock/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/k2archer">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; k2archer 2026 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://k2archer.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://k2archer.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

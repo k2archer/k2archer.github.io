@@ -4,7 +4,70 @@
 
     <url>
         <loc>https://k2archer.github.io/tags/端侧/</loc>
-        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
+        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/唤醒锁/</loc>
+        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/后台启动限制/</loc>
+        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/Camera2/</loc>
+        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/前台服务/</loc>
+        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/KeyguardManager/</loc>
+        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/全屏-Intent/</loc>
+        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/锁屏/</loc>
+        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/人脸识别/</loc>
+        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/Android/</loc>
+        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -60,13 +123,6 @@
 
     <url>
         <loc>https://k2archer.github.io/tags/Kotlin/</loc>
-        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/Android/</loc>
         <lastmod>2026-11-04T10:00:00.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
