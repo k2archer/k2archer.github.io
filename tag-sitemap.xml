@@ -3,6 +3,34 @@
 
 
     <url>
+        <loc>https://k2archer.github.io/tags/求职/</loc>
+        <lastmod>2026-11-05T05:34:46.608Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/Android-Wear/</loc>
+        <lastmod>2026-11-05T05:34:46.608Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/Android/</loc>
+        <lastmod>2026-11-05T05:34:46.608Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/me/</loc>
+        <lastmod>2026-11-05T05:34:39.638Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://k2archer.github.io/tags/RTF/</loc>
         <lastmod>2026-11-05T05:05:10.605Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -116,13 +144,6 @@
 
     <url>
         <loc>https://k2archer.github.io/tags/人脸识别/</loc>
-        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/Android/</loc>
         <lastmod>2026-11-05T02:30:00.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -297,64 +318,8 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/tags/求职/</loc>
-        <lastmod>2022-03-08T03:34:14.596Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/Android-Wear/</loc>
-        <lastmod>2022-03-08T03:34:14.596Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/me/</loc>
-        <lastmod>2022-03-08T03:31:41.561Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://k2archer.github.io/tags/范例/</loc>
         <lastmod>2022-01-14T04:38:38.389Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/Element-UI/</loc>
-        <lastmod>2021-10-23T11:06:39.400Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/Python/</loc>
-        <lastmod>2021-10-23T11:06:39.400Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/Vue/</loc>
-        <lastmod>2021-10-23T11:06:39.400Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/Web/</loc>
-        <lastmod>2021-10-23T11:06:39.400Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/仓库管理系统/</loc>
-        <lastmod>2021-10-23T11:06:39.400Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
