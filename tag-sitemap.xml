@@ -3,6 +3,55 @@
 
 
     <url>
+        <loc>https://k2archer.github.io/tags/面试/</loc>
+        <lastmod>2026-11-09T06:40:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/嵌入式/</loc>
+        <lastmod>2026-11-09T06:40:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/Modbus/</loc>
+        <lastmod>2026-11-09T06:40:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/RS485/</loc>
+        <lastmod>2026-11-09T06:40:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/UART/</loc>
+        <lastmod>2026-11-09T06:40:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/串口/</loc>
+        <lastmod>2026-11-09T06:40:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/Android/</loc>
+        <lastmod>2026-11-09T06:40:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://k2archer.github.io/tags/求职/</loc>
         <lastmod>2026-11-05T05:34:46.608Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -11,13 +60,6 @@
 
     <url>
         <loc>https://k2archer.github.io/tags/Android-Wear/</loc>
-        <lastmod>2026-11-05T05:34:46.608Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/Android/</loc>
         <lastmod>2026-11-05T05:34:46.608Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

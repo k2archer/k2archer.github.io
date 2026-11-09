@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          串口面试笔记：从电气标准到 Android 长稳 - k2archer的博客 | k2archer&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://k2archer.github.io/2026/11/09/Interview/串口-从电气标准到长稳/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/home-bg-o.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                            
+                              <a class="tag" href="/tags/#串口" title="串口">串口</a>
+                            
+                              <a class="tag" href="/tags/#UART" title="UART">UART</a>
+                            
+                              <a class="tag" href="/tags/#RS485" title="RS485">RS485</a>
+                            
+                              <a class="tag" href="/tags/#Modbus" title="Modbus">Modbus</a>
+                            
+                              <a class="tag" href="/tags/#嵌入式" title="嵌入式">嵌入式</a>
+                            
+                              <a class="tag" href="/tags/#面试" title="面试">面试</a>
+                            
+                        </div>
+                        <h1>串口面试笔记：从电气标准到 Android 长稳</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by k2archer on
+                            2026-11-09
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">k2archer&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>串口是面试里挺尴尬的一块。会的人觉得没什么可问，不会的人背几条定义也能撑几分钟。所以面试官通常不会停在“UART 和 RS485 有什么区别”，而是顺着一个点往下钻：差分为什么能跑一千二百米，DE 为什么要等，从站为什么不回话。钻到第三层，背的东西就不够用了。</p>
+<p>这篇来自一次串口专题的问答整理，原题是一份安卓原生、智能设备方向的面试题库。我没有按题号写，而是按“为什么会这样”重排了一遍：从电气层，到帧，到可靠性，最后是 Android 侧那些真正会让人加班的问题。</p>
+<h2><span id="uart-和-rs485-不是一回事">UART 和 RS485 不是一回事</span></h2><p>面试第一题常是四个名词并排：UART、TTL、RS232、RS485。常见的答案是“UART 是协议，其他三个是硬件”。方向没错，但“硬件”太笼统，面试官一般会接着问：它们到底在哪一层？</p>
+<p>准确说，UART 是协议层，管一帧怎么组织：起始位、数据位、校验位、停止位。TTL、RS232、RS485 是电气标准，管这些 bit 用什么电压、几根线、能跑多远。软件看到的永远是同一套参数：波特率、数据位、停止位、校验位，凑成字节流。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>电平</th>
+<th>单端&#x2F;差分</th>
+<th>双工</th>
+<th>距离</th>
+<th>节点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TTL</td>
+<td>3.3V &#x2F; 5V</td>
+<td>单端</td>
+<td>全双工</td>
+<td>板内几十厘米</td>
+<td>点对点</td>
+</tr>
+<tr>
+<td>RS232</td>
+<td>±3~15V</td>
+<td>单端</td>
+<td>全双工</td>
+<td>约 15 米</td>
+<td>点对点</td>
+</tr>
+<tr>
+<td>RS485</td>
+<td>差分，摆幅 1.5V 以上</td>
+<td>差分</td>
+<td>半双工</td>
+<td>1200 米</td>
+<td>32 台</td>
+</tr>
+<tr>
+<td>RS422</td>
+<td>差分</td>
+<td>差分</td>
+<td>全双工（四线）</td>
+<td>1200 米</td>
+<td>多点</td>
+</tr>
+</tbody></table>
+<p>看到 RS422 就明白了：它同样是差分，但收和发各用一对线，所以能全双工。RS485 的半双工不是差分带来的，是它只舍得用一对线。</p>
+<p>至于“32 台”，那是按单位负载算的。现在很多 1&#x2F;8 负载的收发器能挂到 256 台，但总线电容、终端和实际布线还是会限制数量，别把手册上限当现场上限。</p>
+<h2><span id="差分是怎么把干扰减掉的">差分是怎么把干扰减掉的</span></h2><p>单端的问题在于它相信地。TTL 和 RS232 都是一根信号线加一根地线，接收方测的是信号线相对地有多高，它默认地就是零。可两端的设备离得远了，地线有电阻，中间还可能有别的电流在跑，远端的地和近端的地电位其实不一样。用一个会飘的零点去量电压，读数当然跟着飘。</p>
+<p>差分换了个问法：不问 A 对地多少，只问 A 减 B 是多少。</p>
+<p>发送时让 A、B 反着走，一个高另一个就低。长线上的干扰通常是两根线一起被感应，A 和 B 同时抬高、同时压低。零点飘没关系，因为参照物从地换成了另一根线，两边一起飘，相减就抵消了，留下的那个差值才是信号。</p>
+<p>算一下就明白。正常时 A 比 B 高 4V，整段线被干扰抬高 3V，A 和 B 都加 3V，(A+3)-(B+3) 还是 4V。RS485 的接收门限只有 200mV 左右，4V 的差模信号有二十倍余量，所以它敢跑一千二百米，它压根不指望地线老实。</p>
+<p>不过差分不是万能的。RS485 接收器的共模输入范围一般是 -7V 到 +12V，地电位差超出这个范围，接收器就瞎了。总线空闲时 A、B 的差压接近零，还得靠偏置电阻把空闲态定成 1，否则接收端读到的是噪声。</p>
+<h2><span id="半双工-de和一个等字">半双工、DE，和一个“等”字</span></h2><p>一对线，收发共用。如果两边同时开口，线上的电压听谁的？</p>
+<p>谁都不听。两个驱动器朝相反方向拉，谁赢不看逻辑，看谁的驱动能力强，总线电平就成了一个说不清的值。更麻烦的是两个输出级对着灌电流，芯片会发烫，运气不好就烧了。所以 RS485 有条铁律：同一时刻只能有一个驱动器在说话。</p>
+<p>芯片靠 DE&#x2F;RE 这两个使能脚知道自己什么时候该闭嘴。发送前把 DE 拉高，写完数据，再把 DE 拉低，让出总线。听起来简单，坑就在“写完”这两个字上。</p>
+<p>写进发送寄存器，不等于已经发到线上。芯片内部有个移位寄存器，字节是一个 bit 一个 bit 往外送的。8 个字节、8N1、9600 波特率，实际要花 8×10÷9600 ≈ 8.3 毫秒。如果 <code>write()</code> 一返回就把 DE 拉低，被截断的是最后一个字节的后半截：驱动关了，那半个字节再也发不出去。</p>
+<p>接收方拿到一个残缺字节，CRC 不过。按照 Modbus 的规矩，它什么都不回。主站这边看到的现象就是超时，和设备掉线一模一样。</p>
+<p>DE 拉低这件事，很多人会讲反：它影响的是主站自己发出去的帧，不是从站的响应。响应是主站切回接收之后才收的，跟 DE 没关系。这两件事一混，排查方向就歪了。</p>
+<p>怎么等？常见两种做法。一种是估一个延时，比如 10 毫秒；这法子能用，但它是在猜。设短了照样截断，设长了白占总线，换个波特率还得重调。另一种是问驱动要一个确定的信号：Linux 上的 <code>tcdrain()</code> 会一直阻塞到移位寄存器真正空了才返回，顺序变成拉高 DE、<code>write</code>、<code>tcdrain</code>、拉低 DE。Android NDK 里也能调。延时法和 <code>tcdrain</code> 的区别，就是“猜还要多久”和“等一个确定的状态”的区别。</p>
+<h2><span id="120ω-与反射">120Ω 与反射</span></h2><p>信号在线上不是瞬间铺满全线的，它像波一样有速度。跑到线尾，发现没路走了，能量不会凭空消失，它会反弹回来。这就是反射。</p>
+<p>反射本身不可怕，可怕的是它和后面的信号叠加。发一个字节，前几位还在路上，后几位刚出去，前面弹回来的波已经把电平改了。接收方读到的就不是 0101，而是自己的波和反射波搅在一起的结果，线上越长、波特率越高越明显。这叫码间干扰。</p>
+<p>终端电阻的作用是把线尾变成吸收点。RS485 用双绞线，特征阻抗大约 120Ω，在总线两端各并一个 120Ω 电阻，信号到了线尾被吃掉，没有波弹回来。中间不用加，中间加只是白添负载。</p>
+<p>短线为什么不用加？电磁波在双绞线里大约 2×10⁸ m&#x2F;s，20 米的线来回 40 米只要 0.2 微秒，而 115200 下一个 bit 是 8.68 微秒，反射在采样点之前早就稳定了。线长到几百米，来回要几微秒，才开始和位宽可比。</p>
+<h2><span id="8n1-的一个字节有多长">8N1 的一个字节有多长</span></h2><p>8N1 是 8 个数据位、无校验、1 个停止位。但线上一帧不止 8 个 bit：起始位 1 个，数据位 8 个，停止位 1 个，一共 10 个。</p>
+<p>115200 是每秒 115200 个 bit，一个 bit 8.68 微秒，一个字节 86.8 微秒，四舍五入 87 微秒。吞吐量是 115200÷10，大约 11.5KB&#x2F;s。注意这里浪费的不是一成，是两成：十位里只有八位是数据，起始位和停止位各吃掉一位。</p>
+<p>8E1 是 11 位，95.5 微秒。多一位校验，多 8.68 微秒。</p>
+<p>还有个容易被忽略的细节：接收方一般用 16 倍频采样，在每个 bit 的中间取值。一帧 10 位，累计误差不能超过半个位宽，所以双方波特率误差理论上限大约 5%，工程上控制在 2% 以内。用内部 RC 振荡器做串口的 MCU，温漂一大就偶发误码，这种问题换线是换不好的。</p>
+<h2><span id="不共地会怎样">不共地会怎样</span></h2><p>TX 和 RX 要交叉，这没什么好讲的，你的发送接对方的接收，同名相接就是自己发给自己。真正值得讲的是共地。</p>
+<p>数据位靠电平高低分 0 和 1。以常见 TTL 判据为例，高于 2.0V 算 1，低于 0.8V 算 0。可电平是相对地量出来的。</p>
+<p>两台设备各用各的电源，地线没连，两边地电位差 1V。A 发一个 3.3V 的高电平过来，B 量到的是 2.3V，离 0.8V 的门槛还有 1.5V 余量，还撑得住。</p>
+<p>把地差推到 2.8V：3.3-2.8&#x3D;0.5V，低于 0.8V，B 判成 0。发的是 1，收的是 0，这就是“不共地出乱码”的由来。地差再飘一飘，就成了偶发丢字节，时好时坏，现场最难查。</p>
+<p>共地只能把零点对齐，解决不了地环路。两端地之间有大的地电流时，光共地不够，得用隔离收发器把地断开。长距离、强电环境里的 RS485，隔离基本是标配。</p>
+<h2><span id="粘包不是异常">粘包不是异常</span></h2><p>串口是字节流，没有帧的概念。一次 <code>read</code> 可能拿到半帧，也可能拿到两帧半。很多人把这事叫“粘包”，当成故障，其实它是必然：底层只保证字节的顺序和到达，边界是上层的事。</p>
+<p>这和 TCP 一模一样。你在 TCP 上怎么处理粘包，在串口上就怎么处理。</p>
+<p>分帧的方案就那么几种。固定长度，写死每帧多少字节，简单但浪费，长度一变就得改协议。分隔符，用特殊字节切，业务数据里出现这个字节就要转义。长度字段，帧里带一个长度，刚连上或者线上有垃圾时，不知道从哪个字节开始数。帧头帧尾，用固定标记包住，帧头可能出现在数据里。</p>
+<p>工业上常用的是后两种拼起来：帧头做同步，长度做切分，CRC 做校验。</p>
+<p>拿一帧 Modbus RTU 的读寄存器指令看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">01 03 00 00 00 02 C4 0B</span><br></pre></td></tr></table></figure>
+
+<p>01 是从站地址，03 是功能码“读保持寄存器”，中间四个字节是起始地址和数量，最后 C4 0B 是 CRC，低字节在前。这一帧没有显式的长度字段，长度是功能码隐含的；自己设计协议时，加一个长度字节会省很多事。</p>
+<p>顺带一提，Modbus RTU 规范本身是用 3.5 个字符的静默时间切帧的，9600 下大约 4 毫秒。但 USB 转串口有缓冲、有延迟，靠静默间隔分帧并不可靠，最后还是得靠帧结构和 CRC。</p>
+<h2><span id="帧头对不上的时候">帧头对不上的时候</span></h2><p>假设帧头是 5A A9，线上来的是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5A 01 5A A9 01 03</span><br></pre></td></tr></table></figure>
+
+<p>接收方读到第一个 5A，以为中了，接着等第二个字节，来的是 01，不对。这时候很多实现会把整个缓冲清空，这就是丢帧的开始。因为第三个字节又是一个 5A，它后面跟着 A9，再往后 01 03 才是一条真帧的开头。清一次，丢一整条指令。</p>
+<p>正确的做法是只把猜错的那一个字节划掉，往后挪一格再比。5A 01 没配上，丢掉 5A；01 也没配上，丢掉 01；轮到第三个字节的 5A，配上 A9，真帧就露出来了。像滑窗一样，一次挪一个字节。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (avail &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (buf[<span class="number">0</span>] == <span class="number">0x5A</span> &amp;&amp; buf[<span class="number">1</span>] == <span class="number">0xA9</span>) <span class="keyword">break</span>;</span><br><span class="line">    advance(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个滑窗往下走，就是一个状态机：等帧头、等长度、等载荷、校验。四个状态各管一段。帧头失配就 <code>skip(1)</code>，长度不合法就回等帧头，收满了去算 CRC。</p>
+<p>超时是另一回事。状态机停在等长度，半天等不到下一个字节，说明这半帧已经废了，继续等只会让垃圾越积越多，应该丢掉、回到等帧头重新同步。但注意，收不满的时候不能立刻扔：它可能不是垃圾，是半帧，剩下的字节还在路上。</p>
+<p>所以超时时间不能拍脑袋，至少要大于一帧最长传输时间。8N1、9600 下，100 字节的帧要 104 毫秒，超时设 50 毫秒就必然误杀。</p>
+<h2><span id="环形缓冲的麻烦在空和满">环形缓冲的麻烦在空和满</span></h2><p>普通 <code>ByteArray</code> 有两个躲不掉的拷贝。数组满了要扩容，重新分配、整体复制；就算不扩容，每次取走前面的字节，剩下的数据也得整体往前挪。串口一忙，每秒几千个字节，这两个拷贝就不停地发生。</p>
+<p>环形缓冲把数组看成一个圈。固定一块内存，写指针往前走，走到末尾绕回开头；读指针也一样。数据留在原地，动的只有两个数字。</p>
+<p>绕回本身不难，难的是判断空和满。读写指针相等的时候，到底是空还是满？读追上写是空，写追上读是满，两个状态长得一模一样。常见的修法有两种：额外维护一个 <code>count</code>，<code>count</code> 等于 0 是空，等于容量是满；或者故意留一格不用，写指针追上下一个位置就算满。</p>
+<p>还有一个必须提前定的事：满了怎么办。丢最旧的，还是拒绝新数据？两条都行，但要在设计时定死。丢最旧的适合只要最新数据的场景，拒绝新数据适合一帧都不能少的场景，代价是发送方得知道背压。</p>
+<p>最麻烦的故障是满空判错。如果代码先判空，而缓冲其实已经满了却被当成空，读者以为没数据，再也不来取；写者那边照旧认为满，一直拒写。两边各说各话，整条接收链路停摆。缓冲内容一直没变，所以永远卡在这，只有重启才能活。</p>
+<p>这类故障特别符合“跑一阵才坏、重启就好”的描述，后面还会遇到。</p>
+<h2><span id="crc-错了从站为什么不说话">CRC 错了，从站为什么不说话</span></h2><p>Modbus 的 CRC16 有两个固定参数：反射多项式 0xA001，初值 0xFFFF。实现有逐位法和查表法。逐位法是每来一个字节循环八次异或、移位；查表法是提前把 256 种结果算好，运行时每个字节查一次。</p>
+<p>本质是空间换时间。低主频的 CPU 上，一张几百字节的表换掉每字节八次循环，很划算；Android 设备几十到几百 MB 的 RAM 里，一张表是毛毛雨；可换到 RAM 只有几 KB 的 MCU，这笔交易就不划算了。</p>
+<p>CRC 的位置在帧尾，两个字节，低字节在前。CRC 这里有个坑：如果你手滑把 CRC 写反了，地址、功能码、数据全对，从站会怎么反应？</p>
+<p>什么都不回。</p>
+<p>CRC 是拿收到的全部字节重新算的，顺序不对就过不了。Modbus 规定，校验失败的帧直接丢弃，不响应。为什么不回一句“你发错了”？因为从站没有主动说话的权利，它要回一条错误帧，这条帧本身也可能在坏线路上出错，越描越黑。所以干脆沉默，重发的责任全给主站。</p>
+<p>沉默的代价是难查。字节序写反了，现象不是报错，是总线上死一样安静，看起来和掉线、没插好、地址写错一模一样。</p>
+<p>不过不是所有错误都沉默。CRC 对、但功能码不支持或者地址越界，从站会回异常响应，功能码最高位置 1，比如 83 加一个异常码。广播地址 0 的请求也永远不回。所以“沉默”只对应帧结构或者校验错误这一类。</p>
+<p>反过来说，这个沉默就是排查的入口。同样是发指令没反应，先分两类：帧没到，还是帧到了但坏了。帧没到，查线、查 A&#x2F;B 有没有接反、查地址、查波特率；帧到了但坏了，查 CRC 字节序、查尾字节有没有被截断、查终端电阻、查干扰。有示波器或者协议分析仪，抓一眼总线上的字节流就知道是谁的锅。</p>
+<h2><span id="重传之前先想清楚两件事">重传之前先想清楚两件事</span></h2><p>超时重传的流程没什么好说的：发请求，起定时器，超时重发，重试 N 次，最后抛超时。坑在两个地方。</p>
+<p>第一个是指令必须幂等。你发“开灯”，从站收到了也执行了，灯亮了，只是响应在路上丢了。你超时重发一次，从站又收到“开灯”，灯还是亮着，用户看不出来。换成“计数器加 1”就不一样了，从站执行两遍，数就错了。</p>
+<p>幂等的意思是：同一条指令执行一次和执行 N 次，最终效果一样。“设状态”的指令天然幂等，开灯、关灯、设温度到 25 度；“做动作”的指令不幂等，加一、发报警、扣款。不幂等又必须做的事，就得靠序号去重。</p>
+<p>第二个坑是迟到响应。你发指令 A，超时了，重发 A。就在重发刚出去的瞬间，A 第一次的响应慢悠悠到了。这个响应到底对应哪一次？分不清，时序就乱了。</p>
+<p>解法是帧里带一个 SEQ，发送方维护一张 Map，收到响应按 SEQ 认领。重发的时候，SEQ 沿用旧号，不换新号。从站收到同一个号，知道这是重传，跳过执行，直接返回缓存的响应。前提是从站得记住最近处理过哪些号，否则它分不清重传和乱序的旧请求。</p>
+<p>从站要维护一张“最近处理过的请求号”列表，占内存，要清理，要定过期时间。这是代价，但换来的是主站侧能把迟到响应认出来丢掉。</p>
+<p>换新号行不行？也行，迟到的响应一样会被丢弃。但新号从哪来？主站的计数器一直递增，连续超时三次就跳三个号，从站的去重列表要跟着快跑。所以工程上更推荐沿用旧号。另外 SEQ 要能回绕，回绕窗口得大于最大在途请求数，否则旧号会被误认成新号。</p>
+<h2><span id="android-上打开串口的几条路">Android 上打开串口的几条路</span></h2><p>Android 访问串口有三条路。直接开 <code>/dev/ttyS*</code>，需要 root 或者系统签名；USB Host 加 <code>usb-serial-for-android</code>，免 root，最通用；USB Host API 自己写 <code>bulkTransfer</code>，最灵活，工作量也最大。</p>
+<p>走第一条路的团队通常有系统定制权限。但面试官会往下问一句：系统签名了，为什么还要改权限？</p>
+<p>因为签名和文件权限是两层。系统签名给的是 APK 的身份，让系统认你是自己人，能申请 <code>WRITE_SECURE_SETTINGS</code> 这类签名级权限。可 <code>/dev/ttyS*</code> 是设备节点文件，它的读写权限在文件系统层面，由 <code>ueventd</code> 在开机时按配置设置，通常是 <code>root:root</code>、<code>0660</code>。你的 App 跑起来是 <code>system</code> 或者 <code>u0_aXX</code> 用户，对节点没有读写权，<code>open()</code> 直接 EACCES。</p>
+<p>所以中间还差一环：把节点权限改到你的进程能碰。常见做法有三种，运行时 <code>chmod</code>、root 后 <code>chmod 666</code>，或者改 <code>ueventd.rc</code> 持久化。量产一般用最后一种。</p>
+<p>权限对了还有 SELinux。系统签名应用跑在 <code>system_app</code> 域，访问 tty 设备还要有对应的 allow 规则，否则 <code>open()</code> 还是被拒。这一层说出来，基本能证明你真做过系统级串口。</p>
+<p>至于 USB 转串口芯片，CH340&#x2F;CH341、CP2102、FT232、PL2303 在 Android 上的驱动支持并不齐，有的型号得自己写控制传输。选型前先查 <code>usb-serial-for-android</code> 的支持列表，别等板子打回来才发现没驱动。</p>
+<h2><span id="usb-拔了再插不只是重新打开">USB 拔了再插，不只是重新打开</span></h2><p>USB 热插拔，静态注册广播监听 ATTACHED 和 DETACHED，用 <code>device_filter.xml</code> 按 vid&#x2F;pid 过滤，Android 12 以后 <code>PendingIntent</code> 要加 <code>FLAG_MUTABLE</code>。CH340 的 vid 是 <code>0x1A86</code>，用这个过滤，插个 U 盘不会触发你的串口逻辑。</p>
+<p>有人会问，Android 8.0 以后隐式广播不能静态注册，USB 插拔怎么还能用？因为 USB 插拔广播不是靠隐式广播碰运气，系统会按 <code>device_filter</code> 匹配到的包定向投递，所以静态注册依然有效。</p>
+<p>真正容易漏的是 DETACHED 那半边。设备一拔，你手里的旧句柄、开着的读线程、环形缓冲全都悬在半空。读线程会阻塞在一个永远读不到数据的 <code>read</code> 上，或者读出一堆垃圾报错。不清干净，插回来重开的时候可能同时跑着两条读线程抢同一个缓冲。</p>
+<p>完整的流程是：拔掉就停读线程、关旧句柄、清缓冲、状态置成断开；插上再走一遍拿句柄、申请权限、打开、重建读线程。USB 重新枚举之后是一个新节点，inode 变了，旧句柄彻底失效，别拿旧的硬撑。USB 权限也是按设备授予的，拔掉就失效，插回来要重新申请。</p>
+<h2><span id="读线程怎么停写线程怎么排队">读线程怎么停，写线程怎么排队</span></h2><p>读串口要独立线程阻塞读，读到就丢进环形缓冲，业务层从缓冲里取，不能在主线程读。阻塞读的好处是没数据的时候 <code>read</code> 挂在那儿，不占 CPU。</p>
+<p>坏处是退出。主线程设一个 <code>volatile boolean running = false</code>，读线程不会立刻停，因为它卡在 <code>read</code> 里面，根本没机会去看这个 flag。标志位只能通知线程，不能叫醒线程。</p>
+<p>几种办法。给读设超时，<code>VMIN=0</code>、<code>VTIME=1</code>，最多等 100 毫秒，没数据也返回；或者用 <code>poll</code>&#x2F;<code>select</code> 带超时。从外面 <code>close(fd)</code> 也能让 <code>read</code> 返回，但 POSIX 对“一个线程阻塞在 read、另一个线程 close 同一个 fd”的行为没有定义，有竞态，能不用就不用。<code>Thread.interrupt()</code> 在这里也没用，普通设备节点的阻塞读不是可中断点。</p>
+<p>超时设多长是个权衡。设 1 毫秒，一天几千万次系统调用，CPU 空转，设备端电池和发热都受罪；设 5 秒，退出时线程最多愣 5 秒，拔插重连也慢半拍。工程上多在 100 毫秒到 1 秒之间。顺便提一句，<code>VTIME</code> 的单位是十分之一秒，1 已经是最小值，想要毫秒级得换 <code>poll()</code>。</p>
+<p>写这边的问题是另一个。多线程同时发指令，<code>write()</code> 不是原子的，A 写到一半可能被切给 B：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">线程 A：AA 01 02 03 C4 0B</span><br><span class="line">线程 B：AA 05 06 07 D1 22</span><br><span class="line">线上：  AA 01 02 AA 05 06 03 C4 0B 07 D1 22</span><br></pre></td></tr></table></figure>
+
+<p>从站见到帧头 AA，接着读长度，读到 01，以为后面只有一个字节，于是把 02 当 body、把下一个 AA 当校验……整条流从此错位，后面全废。数据没丢，边界丢了。串口没有自愈能力，除非靠帧头重新同步。</p>
+<p>所以锁的边界是整帧，不是单次 <code>write</code>。拼装整帧、加锁、一次写完、释放。如果一帧分两次 <code>write</code>，只锁单次，A 写完帧头放了锁，B 插进来把它的整帧塞在中间，边界照样碎。更省事的做法是单线程写队列，所有写请求排队，一个线程顺序往外发，连锁都不用。</p>
+<h2><span id="现场排查先问为什么重启就好">现场排查：先问“为什么重启就好”</span></h2><p>现场没有示波器怎么办。常用的顺序是：回环测试，TX 短接 RX，验证收发通道本身通不通；打印收发的 hex 字节流，和协议对账；换线换口，排除物理问题；用 PC 端串口助手抓同一根线，把设备端和线的问题分开；最后才是逻辑分析仪看时序。</p>
+<p>但真实现场，线索往往比流程值钱。客户说“偶发丢帧，重启 App 就好”，你第一步做什么？</p>
+<p>换线当然可以做，成本最低。但这句话本身就是线索：如果是线材、接头接触不良，重启软件为什么会好？线还是那根线，插头也没动。重启能好，说明问题在进程内部，有东西一路累积，重启等于清零。</p>
+<p>那就找会累积的东西。环形缓冲写满，生产者比消费者快，水位一路爬；半帧一直等，占着位置，后续字节永远凑不齐；状态机被垃圾数据带偏，边界算错，错位一直传；异常计数不清理，重连判断失灵。这几个的共同点是：单看每个字节都没问题，但状态没有回到干净起点。</p>
+<p>有些错误不累积，不能背这个锅。比如 DE 拉得太早，那是每一帧都犯的错，第一帧就该丢尾字节，不用等跑一阵；而且它是代码逻辑问题，重启之后还是同一份代码，照样拉早。用“会不会累积”这个判据，能排掉一大半候选。</p>
+<h2><span id="长稳靠的不是一个看门狗">长稳靠的不是一个看门狗</span></h2><p>串口要长期稳定，大概五件事：异常计数、超时重连、缓冲清理、心跳和看门狗、日志落盘。前三个前面都碰过了，说说后两个。</p>
+<p>心跳是发给下位机的，验两件事：链路还通不通，对方还活着没有。看门狗盯的是自己。设备端一般有一个独立定时器，由系统层或者外部 MCU 管，你的程序得定期把“我还活着”报上去，报晚了就复位整机。它是无人值守设备的最后一张底牌。</p>
+<p>那喂狗交给谁？交给阻塞在 <code>read</code> 里的读线程，行不行？</p>
+<p>不行。读线程满身都是阻塞点，<code>read</code> 一挂、<code>poll</code> 一超时，它没法按时喂狗，结果正常运行时被反复复位。注意，这里否掉的是“无限期阻塞的读线程”，不是读线程本身；把读改成带超时的读，它就重新有资格了。</p>
+<p>也有人说找个定时线程专门喂。更隐蔽的坑在定时线程上：看门狗只看有没有人喂，不看谁在喂。定时线程活得很好、按时喂狗，可真正干活的业务线程早就死了，狗照样被哄着不响。</p>
+<p>所以喂狗的条件最好自带活力证明。比如读线程每次 <code>read</code> 设超时，超时返回就喂一次，读超时能返回本身就说明线程还在转。但读线程活着不代表整条链路活着，业务线程卡在锁上、解帧之后没人消费，读线程那边照样超时、照样喂狗。更稳的做法是把几个信号一起看：读线程在转、缓冲水位没爆、最近一次业务处理没超时，任何一条失效就不喂。</p>
+<p>最后提醒，纯 App 一般没有直接喂硬件看门狗的权限，硬件狗通常由系统层或者外部 MCU 管理。面试时别说“我在 App 里喂硬件看门狗”，除非项目真有 HAL 或系统权限。应用层能做的是软件看门狗和健康检查，把“我不健康”报给能复位整机的那个角色。</p>
+<h2><span id="串口的难点不在-api">串口的难点不在 API</span></h2><p><code>open</code>、<code>read</code>、<code>write</code> 谁都会写，真正让人熬夜的是那些看起来都正常的时刻：线上有波形但字节不对，帧头明明在却解不出来，设备跑了一晚上早上开始丢包。把电气层、帧层、线程层分开看，大部分问题都能归到某一层，剩下的就是拿波形和日志去验证。</p>
+<p>面试也一样。面试官顺着一个点往下钻，你能跟着钻到第三层，基本就稳了。碰到没做过的，坦白说没做过，再讲一个原理同构的经历，比硬编强。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2026/11/05/TTS/V100流式TTS性能优化实践/" data-toggle="tooltip" data-placement="top" title="在 V100 上把流式 TTS 做到实时：从 RTF 1.30 到 0.62 的优化实践">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                          <a class="tag" href="/tags/#串口" title="串口">串口</a>
+                        
+                          <a class="tag" href="/tags/#UART" title="UART">UART</a>
+                        
+                          <a class="tag" href="/tags/#RS485" title="RS485">RS485</a>
+                        
+                          <a class="tag" href="/tags/#Modbus" title="Modbus">Modbus</a>
+                        
+                          <a class="tag" href="/tags/#嵌入式" title="嵌入式">嵌入式</a>
+                        
+                          <a class="tag" href="/tags/#面试" title="面试">面试</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://k2archer.github.io" target="_blank">k2archer&#39;s Blog</a></li>
+                    
+                        <li><a href="https://github.com/k2archer" target="_blank">k2archer&#39;s GitHub</a></li>
+                    
+                        <li><a href="https://leetcode.com/k2archer" target="_blank">k2archer&#39;s Leetcode</a></li>
+                    
+                        <li><a href="https://segmentfault.com/u/k2archer" target="_blank">SegmentFault</a></li>
+                    
+                        <li><a href="https://hexo.io/zh-cn" target="_blank">Hexo</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://k2archer.github.io/2026/11/09/Interview/串口-从电气标准到长稳/";
+    var disqus_url = "https://k2archer.github.io/2026/11/09/Interview/串口-从电气标准到长稳/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/k2archer">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; k2archer 2026 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://k2archer.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://k2archer.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
