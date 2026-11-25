@@ -9,6 +9,70 @@
 
 
     <url>
+        <loc>https://k2archer.github.io/2021/10/20/%E6%88%91%E7%9A%84%E6%96%87%E7%AB%A0/</loc>
+        <lastmod>2026-11-25T11:29:03.067Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2026/11/05/TTS/V100%E6%B5%81%E5%BC%8FTTS%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%AE%9E%E8%B7%B5/</loc>
+        <lastmod>2026-11-25T09:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2026/09/10/TTS/Breeze-TTS-2-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E5%AE%9E%E6%88%98/</loc>
+        <lastmod>2026-11-25T09:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2026/11/05/Android/android-lockscreen-face-unlock/</loc>
+        <lastmod>2026-11-25T08:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2026/05/01/Agent/sqlite-fts5-vec-technical-decision/</loc>
+        <lastmod>2026-11-25T08:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2026/10/28/Agent/mnn-cancellable-streaming-generation/</loc>
+        <lastmod>2026-11-25T07:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2026/11/04/Voice/speech-barge-in-probe-turn/</loc>
+        <lastmod>2026-11-25T07:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2010/01/01/AiAssistant/how_to_build_ai_assistant/</loc>
+        <lastmod>2026-11-25T05:20:57.555Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://k2archer.github.io/2026/11/09/Interview/%E4%B8%B2%E5%8F%A3-%E4%BB%8E%E7%94%B5%E6%B0%94%E6%A0%87%E5%87%86%E5%88%B0%E9%95%BF%E7%A8%B3/</loc>
         <lastmod>2026-11-09T06:40:00.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -17,64 +81,8 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2021/10/20/%E6%88%91%E7%9A%84%E6%96%87%E7%AB%A0/</loc>
-        <lastmod>2026-11-05T05:34:46.608Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>https://k2archer.github.io/2021/10/23/Life/About_me/</loc>
         <lastmod>2026-11-05T05:34:39.638Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/2026/11/05/TTS/V100%E6%B5%81%E5%BC%8FTTS%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%AE%9E%E8%B7%B5/</loc>
-        <lastmod>2026-11-05T05:05:10.605Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/2026/11/05/Android/android-lockscreen-face-unlock/</loc>
-        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/2026/11/04/Voice/speech-barge-in-probe-turn/</loc>
-        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/2026/10/28/Agent/mnn-cancellable-streaming-generation/</loc>
-        <lastmod>2026-10-29T04:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/2026/09/10/TTS/Breeze-TTS-2-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E5%AE%9E%E6%88%98/</loc>
-        <lastmod>2026-09-10T06:42:20.965Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/2026/05/01/Agent/sqlite-fts5-vec-technical-decision/</loc>
-        <lastmod>2026-09-02T02:30:18.380Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -273,14 +281,6 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2010/01/01/0/OpenCV%20%E6%89%8B%E8%AE%B0/</loc>
-        <lastmod>2018-06-02T15:17:28.846Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>https://k2archer.github.io/2010/01/01/0/OpenCv%20%E6%96%B0%E6%89%8B%E7%AB%A0/</loc>
         <lastmod>2018-06-02T15:17:28.846Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -289,8 +289,8 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2017/05/05/invert_binary_tree/</loc>
-        <lastmod>2018-06-02T15:17:09.729Z</lastmod>
+        <loc>https://k2archer.github.io/2010/01/01/0/OpenCV%20%E6%89%8B%E8%AE%B0/</loc>
+        <lastmod>2018-06-02T15:17:28.846Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -306,6 +306,14 @@
 
     <url>
         <loc>https://k2archer.github.io/2018/02/20/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%BC%98%E7%BC%BA%E7%82%B9%E5%8F%8A%E5%8E%9F%E7%90%86/</loc>
+        <lastmod>2018-06-02T15:17:09.729Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2017/05/05/invert_binary_tree/</loc>
         <lastmod>2018-06-02T15:17:09.729Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -361,14 +369,6 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2017/07/20/Cplusplus/a_question_about_Cplusplus_pointer/</loc>
-        <lastmod>2018-06-02T15:17:09.364Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>https://k2archer.github.io/2017/07/28/Cplusplus/about_cplusplus_new/</loc>
         <lastmod>2018-06-02T15:17:09.364Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -377,23 +377,15 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2018/03/22/Android_design_pattern/</loc>
-        <lastmod>2018-06-02T15:17:09.348Z</lastmod>
+        <loc>https://k2archer.github.io/2017/07/20/Cplusplus/a_question_about_Cplusplus_pointer/</loc>
+        <lastmod>2018-06-02T15:17:09.364Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2017/08/22/Android/Android_service/</loc>
-        <lastmod>2018-06-02T15:17:09.348Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/2018/02/20/Android/AsyncTask_%E4%BC%98%E7%BC%BA%E7%82%B9%E5%92%8C%E5%BA%94%E7%94%A8/</loc>
+        <loc>https://k2archer.github.io/2018/05/10/Android/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91_Android_Sqlite3_%E5%91%BD%E4%BB%A4/</loc>
         <lastmod>2018-06-02T15:17:09.348Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -409,7 +401,23 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/2018/05/10/Android/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91_Android_Sqlite3_%E5%91%BD%E4%BB%A4/</loc>
+        <loc>https://k2archer.github.io/2018/03/22/Android_design_pattern/</loc>
+        <lastmod>2018-06-02T15:17:09.348Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2018/02/20/Android/AsyncTask_%E4%BC%98%E7%BC%BA%E7%82%B9%E5%92%8C%E5%BA%94%E7%94%A8/</loc>
+        <lastmod>2018-06-02T15:17:09.348Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/2017/08/22/Android/Android_service/</loc>
         <lastmod>2018-06-02T15:17:09.348Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>

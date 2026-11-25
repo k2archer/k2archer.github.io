@@ -3,6 +3,328 @@
 
 
     <url>
+        <loc>https://k2archer.github.io/tags/求职/</loc>
+        <lastmod>2026-11-25T11:29:03.067Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/Android-Wear/</loc>
+        <lastmod>2026-11-25T11:29:03.067Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/Android/</loc>
+        <lastmod>2026-11-25T11:29:03.067Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/RTF/</loc>
+        <lastmod>2026-11-25T09:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/性能优化/</loc>
+        <lastmod>2026-11-25T09:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/fp16/</loc>
+        <lastmod>2026-11-25T09:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/CUDA-Graph/</loc>
+        <lastmod>2026-11-25T09:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/流式语音/</loc>
+        <lastmod>2026-11-25T09:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/V100/</loc>
+        <lastmod>2026-11-25T09:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/PyTorch/</loc>
+        <lastmod>2026-11-25T09:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/TTS/</loc>
+        <lastmod>2026-11-25T09:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/部署实战/</loc>
+        <lastmod>2026-11-25T09:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/conda/</loc>
+        <lastmod>2026-11-25T09:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/ModelScope/</loc>
+        <lastmod>2026-11-25T09:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/CUDA/</loc>
+        <lastmod>2026-11-25T09:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/语音合成/</loc>
+        <lastmod>2026-11-25T09:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/端侧/</loc>
+        <lastmod>2026-11-25T08:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/唤醒锁/</loc>
+        <lastmod>2026-11-25T08:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/后台启动限制/</loc>
+        <lastmod>2026-11-25T08:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/Camera2/</loc>
+        <lastmod>2026-11-25T08:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/前台服务/</loc>
+        <lastmod>2026-11-25T08:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/KeyguardManager/</loc>
+        <lastmod>2026-11-25T08:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/全屏-Intent/</loc>
+        <lastmod>2026-11-25T08:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/锁屏/</loc>
+        <lastmod>2026-11-25T08:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/人脸识别/</loc>
+        <lastmod>2026-11-25T08:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/RAG/</loc>
+        <lastmod>2026-11-25T08:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/FTS5/</loc>
+        <lastmod>2026-11-25T08:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/向量检索/</loc>
+        <lastmod>2026-11-25T08:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/SQLite/</loc>
+        <lastmod>2026-11-25T08:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/Agent/</loc>
+        <lastmod>2026-11-25T08:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/可取消/</loc>
+        <lastmod>2026-11-25T07:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/UTF-8/</loc>
+        <lastmod>2026-11-25T07:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/协程/</loc>
+        <lastmod>2026-11-25T07:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/Kotlin/</loc>
+        <lastmod>2026-11-25T07:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/JNI/</loc>
+        <lastmod>2026-11-25T07:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/流式输出/</loc>
+        <lastmod>2026-11-25T07:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/端侧推理/</loc>
+        <lastmod>2026-11-25T07:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/本地-LLM/</loc>
+        <lastmod>2026-11-25T07:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/MNN/</loc>
+        <lastmod>2026-11-25T07:30:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/状态机/</loc>
+        <lastmod>2026-11-25T07:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/ASR/</loc>
+        <lastmod>2026-11-25T07:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/VAD/</loc>
+        <lastmod>2026-11-25T07:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/barge-in/</loc>
+        <lastmod>2026-11-25T07:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/打断/</loc>
+        <lastmod>2026-11-25T07:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/语音交互/</loc>
+        <lastmod>2026-11-25T07:00:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://k2archer.github.io/tags/范例/</loc>
+        <lastmod>2026-11-25T05:20:57.555Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://k2archer.github.io/tags/面试/</loc>
         <lastmod>2026-11-09T06:40:00.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -45,295 +367,8 @@
     </url>
 
     <url>
-        <loc>https://k2archer.github.io/tags/Android/</loc>
-        <lastmod>2026-11-09T06:40:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/求职/</loc>
-        <lastmod>2026-11-05T05:34:46.608Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/Android-Wear/</loc>
-        <lastmod>2026-11-05T05:34:46.608Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://k2archer.github.io/tags/me/</loc>
         <lastmod>2026-11-05T05:34:39.638Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/RTF/</loc>
-        <lastmod>2026-11-05T05:05:10.605Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/性能优化/</loc>
-        <lastmod>2026-11-05T05:05:10.605Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/fp16/</loc>
-        <lastmod>2026-11-05T05:05:10.605Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/CUDA-Graph/</loc>
-        <lastmod>2026-11-05T05:05:10.605Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/流式语音/</loc>
-        <lastmod>2026-11-05T05:05:10.605Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/V100/</loc>
-        <lastmod>2026-11-05T05:05:10.605Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/PyTorch/</loc>
-        <lastmod>2026-11-05T05:05:10.605Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/TTS/</loc>
-        <lastmod>2026-11-05T05:05:10.605Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/端侧/</loc>
-        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/唤醒锁/</loc>
-        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/后台启动限制/</loc>
-        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/Camera2/</loc>
-        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/前台服务/</loc>
-        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/KeyguardManager/</loc>
-        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/全屏-Intent/</loc>
-        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/锁屏/</loc>
-        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/人脸识别/</loc>
-        <lastmod>2026-11-05T02:30:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/状态机/</loc>
-        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/ASR/</loc>
-        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/VAD/</loc>
-        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/barge-in/</loc>
-        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/打断/</loc>
-        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/语音交互/</loc>
-        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/Kotlin/</loc>
-        <lastmod>2026-11-04T10:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/可取消/</loc>
-        <lastmod>2026-10-29T04:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/UTF-8/</loc>
-        <lastmod>2026-10-29T04:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/协程/</loc>
-        <lastmod>2026-10-29T04:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/JNI/</loc>
-        <lastmod>2026-10-29T04:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/流式输出/</loc>
-        <lastmod>2026-10-29T04:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/端侧推理/</loc>
-        <lastmod>2026-10-29T04:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/本地-LLM/</loc>
-        <lastmod>2026-10-29T04:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/MNN/</loc>
-        <lastmod>2026-10-29T04:00:00.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/部署实战/</loc>
-        <lastmod>2026-09-10T06:42:20.965Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/conda/</loc>
-        <lastmod>2026-09-10T06:42:20.965Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/ModelScope/</loc>
-        <lastmod>2026-09-10T06:42:20.965Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/CUDA/</loc>
-        <lastmod>2026-09-10T06:42:20.965Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/语音合成/</loc>
-        <lastmod>2026-09-10T06:42:20.965Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/Agent/</loc>
-        <lastmod>2026-09-02T02:30:18.380Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -355,13 +390,6 @@
     <url>
         <loc>https://k2archer.github.io/tags/Java/</loc>
         <lastmod>2022-03-11T12:25:01.837Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://k2archer.github.io/tags/范例/</loc>
-        <lastmod>2022-01-14T04:38:38.389Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

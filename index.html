@@ -223,11 +223,17 @@
         <div class="post-content-preview">
             我的文章
 
-“文章目录” · 共 46 篇，按主题归档，组内按时间倒序；也可浏览 归档 和 标签
+“文章目录” · 共 47 篇，按主题归档，组内按时间倒序；也可浏览 归档 和 标签
 
 
-置顶我的作品Focus 番茄工作法
-端侧 AI · 语音在 V100 上把流式 TTS 做到实时：从 RTF 1.30 到 0.62 的优化实践端侧语音助手的「打断」为什么这么难：一次 probe-turn 晋升的完整设计移动端本地 LLM 流式生成：如何做到「可取消」，且中文不截断半个字B......
+置顶
+我的作品
+Focus 番茄工作法
+端侧 AI · 语音
+在 V100 上把流式 TTS 做到实时：从 RTF 1.30 到 0.62 的优化实践
+端侧语音助手的打断为什么这么难：一次 probe-turn 晋升的设计
+移动端本地 LLM 流式生成：可取消，中文还不被切成半个字
+Bree......
         </div>
     </a>
     
@@ -300,10 +306,8 @@
             
         </h3>
         <div class="post-content-preview">
-            
-本文以 Breeze-TTS-2（Qwen3 backbone + depth decoder + Mimi codec 的流式 TTS 模型）在 3× Tesla V100-SXM2-16GB 上的部署为例，拆解流式 TTS 在 Volta 显卡上的性能瓶颈、优化顺序和数值安全陷阱。文中的数字均来自实测，测量思路在正文中完整给出，读者可以用同样的方法评估自己的服务。
-
-0. 结论先行流式......
+            流式 TTS 的卡顿几乎总是同一个问题：服务端生成一块音频的耗时，超过了这块音频的播放时长。盯住这个比值就行，也就是 RTF。
+我在三张 Tesla V100-SXM2-16GB 上部署 Breeze-TTS-2（Qwen3 backbone 加 depth decoder 加 Mimi codec），把 RTF 从 1.30 压到 0.62。下面这三板斧按收益排序，数字都是实测，测量方法也......
         </div>
     </a>
     
@@ -339,14 +343,15 @@
 
     <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">
         <h2 class="post-title">
-            「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁
+            看一眼就进桌面：Android 锁屏下的人脸识别、亮屏与解锁
         </h2>
         <h3 class="post-subtitle">
-            从常驻识别到全屏 Intent 闭环，一份被国产 ROM 打回三次的实现记录
+            
         </h3>
         <div class="post-content-preview">
-            
-状态：v1 独立版（2026-11-05）· 与具体项目解耦，包名与类名做了泛化目标读者：已经跑通人脸识别、想让「看一眼就进桌面」真正可用的 Android 工程师环境：Android 14（targetSdk 34）· Funtouch 14.1 · iQOO Neo7 SE；Camera2 + MLKit + TFLite数字来源：全部是真机日志（wm_* 事件流、appops、应用侧......
+            手机在桌上黑着屏。人走过来，前置相机认出他，屏幕亮，锁屏上出现一句问候，然后进桌面。
+听起来像一次人脸识别。难的是后面四段：怎么让相机在锁屏后继续跑，怎么让卡片出现在锁屏之上，怎么把屏幕点亮，怎么解除锁屏。每一段归不同的系统服务管，每一段都能单独失败。
+我在一台 Android 14 机器上把这条链路走通了，也被国产 ROM 打回三次。下面的日志、时间戳和常量都来自真机。设备是 iQOO N......
         </div>
     </a>
     
@@ -386,14 +391,16 @@
 
     <a href="/2026/11/04/Voice/speech-barge-in-probe-turn/">
         <h2 class="post-title">
-            端侧语音助手的「打断」为什么这么难：一次 probe-turn 晋升的完整设计
+            端侧语音助手的打断为什么这么难：一次 probe-turn 晋升的设计
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            
-状态：v1 独立版（2026-11-04）· 与具体项目解耦，类名与工程结构做了泛化目标读者：做端侧语音助手 &#x2F; 实时语音交互的人；尤其是被「打断不太灵」「它总少听我半句话」折磨过的人环境：Android + Kotlin 协程；流式 ASR（会持续吐 partial）；输入侧有 USB 麦克风阵列（硬件 AEC）与手机麦克风两种路径代码：正文片段是删节后的骨架，保留能说明设计的......
+            播报进行到第三秒，用户说“等一下”。
+你要在 100ms 左右停掉播报，然后听清他接下来那句话。要快，还不能误判，这两个要求经常只能二选一。真做起来，会依次撞上三件事。
+免提时，TTS 自己的声音进麦克风，VAD 判“有人说话”，助手把自己打断。40ms 的关门声、一声咳嗽也能骗过 VAD，正常播报被莫名掐断。等你确认了再重开 ASR，用户第一个字已经过去了。
+第三件最难发现。用户体验上它只......
         </div>
     </a>
     
@@ -433,17 +440,16 @@
 
     <a href="/2026/10/28/Agent/mnn-cancellable-streaming-generation/">
         <h2 class="post-title">
-            移动端本地 LLM 流式生成：如何做到「可取消」，且中文不截断半个字
+            移动端本地 LLM 流式生成：可取消，中文还不被切成半个字
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            
-状态：v2 独立版（2026-10-28）· 与具体项目解耦目标读者：在 Android &#x2F; iOS 上通过 JNI 接本地 LLM 的人；尤其是同时被「用户说停停不下来」和「中文乱码」折磨过的人代码：正文为最小骨架，可独立复现；文末附完整骨架代码环境：MNN LLM（C++ &#x2F; JNI）、NDK、Kotlin 协程；示例模型为 0.5B 级小参数 LLM
-
-
-TL;D......
+            本地 LLM 在手机上流式输出，有两个坑，根因是同一个：你跨过了一次语言边界。
+第一个是取消不生效。llm-&gt;response() 在 C++ 里阻塞跑完，Kotlin 侧协程 cancel() 碰不到那个循环。用户说“停”，得等整段说完。
+第二个是中文乱码。ostream 回调的 chunk 边界是缓冲区边界，不是字符边界。一个汉字 3 字节，很容易被切在两个 chunk 之间。
+我......
         </div>
     </a>
     
@@ -489,10 +495,9 @@ TL;D......
             
         </h3>
         <div class="post-content-preview">
-            
-本文记录在一台老卡服务器（3× Tesla V100-SXM2-16GB，驱动 525.125.06）上，用 conda 环境部署并运行 BreezeBlue&#x2F;Breeze-TTS-2 的全过程。
-覆盖两种运行方式：命令行推理（infer.py）与流式 HTTP API（python -m breeze_infer.api）。
-官方默认配置面向 H100&#x2F;A100 + ......
+            这台机器是三张 Tesla V100-SXM2-16GB，驱动 525.125.06。官方默认配置面向 H100/A100 加 CUDA 12.8 加 flash-attn，直接照抄会卡在三处。下面是我在这台机器上跑通的步骤，命令都可以直接抄。
+1. Breeze TTS 2 是什么
+Breeze TTS 2 是 BreezeBlue 开源的实时中英双语 TTS 模型，在开源 TTS 榜单上......
         </div>
     </a>
     
@@ -531,15 +536,14 @@ TL;D......
             为什么我用 SQLite 替代向量数据库
         </h2>
         <h3 class="post-subtitle">
-             "一个自主助手项目的记忆与工具检索"
+            一个自主助手项目的记忆与工具检索
         </h3>
         <div class="post-content-preview">
-            一、引言：一个真实的选型困境我参与的一个项目，是一个基于 LangGraph 的多代理自主助手。它有两个绕不开的检索需求：
-
-长期记忆——把和用户聊过的事实、偏好、决策存下来，之后按语义召回；
-工具&#x2F;技能检索——几百个工具和技能挂在系统里，用户一句话过来，得在几十毫秒内找到最相关的那几个。
-
-一开始，记忆模块用的是 ChromaDB。这几乎是当时的”标准答案”：你有个向量，你把它存......
+            这个项目是一个基于 LangGraph 的多代理自主助手，跑在 Windows 单机上，技术栈是 Python 加 asyncio 加 SQLite，主数据全在一个 .sqlite 文件里。
+它有两个绕不开的检索需求。
+长期记忆。把和用户聊过的事实、偏好、决策存下来，之后按语义召回。
+工具和技能检索。几百个工具挂在系统里，用户一句话过来，要在几十毫秒内找到最相关的那几个。
+一开始记忆模块用的......
         </div>
     </a>
     
@@ -550,6 +554,14 @@ TL;D......
         <div class="tags">
             
               <a href="/tags/#Agent" title="Agent">Agent</a>
+            
+              <a href="/tags/#SQLite" title="SQLite">SQLite</a>
+            
+              <a href="/tags/#向量检索" title="向量检索">向量检索</a>
+            
+              <a href="/tags/#FTS5" title="FTS5">FTS5</a>
+            
+              <a href="/tags/#RAG" title="RAG">RAG</a>
             
         </div>
     
@@ -567,8 +579,14 @@ TL;D......
              "一个运用番茄工作法提高你的效率的软件"
         </h3>
         <div class="post-content-preview">
-            简介专注于运用番茄工作法提高你的生产力，养成好习惯的软件番茄工作法的原理：专注(工作或学习) 25 分钟（为一个番茄时间），休息 5 分钟。每 4 个番茄时间后休息时间增加为 15 分钟，以此循环合适的工作周期。通过运用智能终端便捷进行计时、提醒，养成好习惯、提高专注度、提高生产力。支持智能手表、手机、PC 多种使用方式。
-系统结构智能手表 WearOS by Google，移动端 Andr......
+            简介
+专注于运用番茄工作法提高你的生产力，养成好习惯的软件
+番茄工作法的原理：
+专注(工作或学习) 25 分钟（为一个番茄时间），休息 5 分钟。每 4 个番茄时间后休息时间增加为 15 分钟，以此循环合适的工作周期。
+通过运用智能终端便捷进行计时、提醒，养成好习惯、提高专注度、提高生产力。
+支持智能手表、手机、PC 多种使用方式。
+系统结构
+智能手表 WearOS by Google，移动......
         </div>
     </a>
     
@@ -605,10 +623,12 @@ TL;D......
             
 “”
 
-在 instrument test 使用 Jacoco在新的 Android Studio 版本中，新创建的项目 androidTest 默认配置 Jacoco 支持。
+在 instrument test 使用 Jacoco
+在新的 Android Studio 版本中，新创建的项目 androidTest 默认配置 Jacoco 支持。
+
 
 在 build.gralde (Module:xxx)
-  1234567android &#123;   buildTypes &#123;       debug &#123;           testC......
+  1234567android &#123;   buildTypes &#123;       debug &#123;           tes......
         </div>
     </a>
     
@@ -670,8 +690,6 @@ TL;D......
             
         
             
-        
-            
             <a href="/tags/#Java" title="Java" rel="2">Java</a>
             
         
@@ -680,19 +698,21 @@ TL;D......
             
         
             
-            <a href="/tags/#范例" title="范例" rel="7">范例</a>
+        
+            
+            <a href="/tags/#范例" title="范例" rel="8">范例</a>
             
         
             
         
-            
-        
-            
-            <a href="/tags/#OpenCV" title="OpenCV" rel="2">OpenCV</a>
             
         
             
             <a href="/tags/#OpenGL" title="OpenGL" rel="5">OpenGL</a>
+            
+        
+            
+            <a href="/tags/#OpenCV" title="OpenCV" rel="2">OpenCV</a>
             
         
             
@@ -740,6 +760,14 @@ TL;D......
             
         
             
+        
+            
+        
+            
+        
+            
+        
+            
             <a href="/tags/#端侧" title="端侧" rel="2">端侧</a>
             
         
@@ -756,19 +784,19 @@ TL;D......
             
         
             
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
             <a href="/tags/#me" title="me" rel="3">me</a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
             
         
             
@@ -885,15 +913,15 @@ TL;D......
         </li>
       
         <li>
-          <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">「看一眼就进桌面」：Android 锁屏下的人脸识别、亮屏与解锁</a>
+          <a href="/2026/11/05/Android/android-lockscreen-face-unlock/">看一眼就进桌面：Android 锁屏下的人脸识别、亮屏与解锁</a>
         </li>
       
         <li>
-          <a href="/2026/11/04/Voice/speech-barge-in-probe-turn/">端侧语音助手的「打断」为什么这么难：一次 probe-turn 晋升的完整设计</a>
+          <a href="/2026/11/04/Voice/speech-barge-in-probe-turn/">端侧语音助手的打断为什么这么难：一次 probe-turn 晋升的设计</a>
         </li>
       
         <li>
-          <a href="/2026/10/28/Agent/mnn-cancellable-streaming-generation/">移动端本地 LLM 流式生成：如何做到「可取消」，且中文不截断半个字</a>
+          <a href="/2026/10/28/Agent/mnn-cancellable-streaming-generation/">移动端本地 LLM 流式生成：可取消，中文还不被切成半个字</a>
         </li>
       
     </ul>
